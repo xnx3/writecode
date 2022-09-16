@@ -111,5 +111,14 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </distributionManagement>
         </profile>
     </profiles>
-
+	
+	
+	<dependencies>  
+		<dependency> 
+		<groupId>com.xnx3.util</groupId>
+		<artifactId>xnx3-util</artifactId>
+		<version>1.9</version>
+		</dependency>
+	</dependencies>
+	
 </project>

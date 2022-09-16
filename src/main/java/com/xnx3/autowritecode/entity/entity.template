@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity()
 @Table(name = "{database.table.name}")
-public class {java.database.table.name.hump} implements java.io.Serializable{
+public class {database.table.name.hump.upper} implements java.io.Serializable{
 	
 	//field-start
 	private {java.field.datatype} {database.table.field.name.hump.lower};		//{database.table.field.comment}
@@ -23,7 +23,7 @@ public class {java.database.table.name.hump} implements java.io.Serializable{
 	//get-set-method-start
 	{if.java.annotation.id}
 	{if.java.annotation.generatedvalue}
-	@Column(name = "{database.table.field.name}", columnDefinition="{database.table.field.datatype}(20) {database.table.field.collate} COMMENT '{database.table.field.comment}' default '{database.table.field.default}'")
+	@Column(name = "{database.table.field.name}", columnDefinition="{database.table.field.datatype}({database.table.field.length}) {database.table.field.collate} COMMENT '{database.table.field.comment}' default '{database.table.field.default}'")
 	public {java.field.datatype} get{database.table.field.name.hump.upper}() {
 		return {database.table.field.name.hump.lower};
 	}
@@ -34,6 +34,6 @@ public class {java.database.table.name.hump} implements java.io.Serializable{
 	
 	@Override
 	public String toString() {
-		return "{java.tostring.json}";
+		return "{java.tostring}";
 	}
 }
