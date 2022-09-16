@@ -1,37 +1,39 @@
 # AutoWriteCode
 
-#### 介绍
-根据数据库表来自动生成实体类、增删查改代码
+## 模板
+{java.xxxx} java. 开头的，则是跟java本身相关的
+{database.xxxx} database. 开头的，则是跟数据库相关的
+{if.xxxx} if. 开头的，则是如果有，就输出，如果没有，就不输出  
 
-#### 软件架构
-软件架构说明
+#### entity.template  
+{java.package} 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity  
+{java.database.table.name.hump} 数据表名字的驼峰式，会自动将数据表名字转为驼峰式命名。如 User
+{java.datatype} 数据类型。会自动根据当前数据表中字段的类型来赋予。如 String、Integer、Boolean、Float等
+{java.tostring.json} json 格式的 toString 字符串
 
+{database.table.comment} 数据表的备注，这个表是干什么的，如 用户表  
+{database.table.name} 数据表的名字，如 user  
+{database.table.field.comment} 数据表中，字段的注释
+{database.table.field.name} 数据表中，字段名。如 role_id
+{database.table.field.name.hump.lower} 数据表中，字段名的小驼峰式命名。如本来是role_id，会输出为 roleId
+{database.table.field.name.hump.upper} 数据表中，字段名的大驼峰式命名。如本来是role_id，会输出为 RoleId
+{database.table.field.default} 数据表中，字段的默认值
+{database.table.field.datatype} 数据表中，字段的数据类型，如 int、char、varchar 等
+{database.table.field.collate} 数据表中，字段的编码格式，针对字符串类型，防止乱码。如果数据表中本身是int型，并没有设置编码格式，那这个则没有任何输出。如果数据字段是char，设置了字符编码，那会输出如 COLLATE utf8mb4_unicode_ci
 
-#### 安装教程
+{if.java.annotation.id} 如果当前字段是主键，则输出Java注解 @Id
+{if.java.annotation.generatedvalue} 如果当前字段比如是自增属性，则输出Java注解 @GeneratedValue(strategy = IDENTITY)
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+##### 代码块 : field-start、field-start
 
-#### 使用说明
+````//field-start```` 跟 ````//field-end```` 中间的为循环输出数据表的所有字段属性。如： 
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+````
+//field-start
+private Integer id; 
+//field-end
+````
 
-#### 参与贡献
+##### 代码块 : get-set-method-start 、get-set-method-end
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+````//get-set-method-start```` 跟 ````//get-set-method-start```` 中间的为循环输出数据表的所有字段的get、set方法

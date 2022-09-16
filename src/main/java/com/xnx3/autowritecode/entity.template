@@ -1,0 +1,39 @@
+package {java.package};
+
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
+
+/**
+ * {database.table.comment}
+ * @author <a href="https://gitee.com/leimingyun/autowritecode">AutoWriteCode自动生成</a>
+ */
+@Entity()
+@Table(name = "{database.table.name}")
+public class {java.database.table.name.hump} implements java.io.Serializable{
+	
+	//field-start
+	private {java.field.datatype} {database.table.field.name.hump.lower};		//{database.table.field.comment}
+	//field-end
+	
+	//get-set-method-start
+	{if.java.annotation.id}
+	{if.java.annotation.generatedvalue}
+	@Column(name = "{database.table.field.name}", columnDefinition="{database.table.field.datatype}(20) {database.table.field.collate} COMMENT '{database.table.field.comment}' default '{database.table.field.default}'")
+	public {java.field.datatype} get{database.table.field.name.hump.upper}() {
+		return {database.table.field.name.hump.lower};
+	}
+	public void setId({java.field.datatype} set{database.table.field.name.hump.upper}) {
+		this.{database.table.field.name.hump.lower} = {database.table.field.name.hump.lower};
+	}
+	//get-set-method-end
+	
+	@Override
+	public String toString() {
+		return "{java.tostring.json}";
+	}
+}
