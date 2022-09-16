@@ -1,14 +1,14 @@
 # AutoWriteCode
 
 ## 模板
-**{java.xxxx}** java. 开头的，则是跟java本身相关的
-**{database.xxxx}** database. 开头的，则是跟数据库相关的
-**{if.xxxx}** if. 开头的，则是如果有，就输出，如果没有，就不输出  
+* **{java.xxxx}** java. 开头的，则是跟java本身相关的
+* **{database.xxxx}** database. 开头的，则是跟数据库相关的
+* **{if.xxxx}** if. 开头的，则是如果有，就输出，如果没有，就不输出  
 
 #### entity.template  
-**{java.package}** 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity  
-{java.datatype} 数据类型。会自动根据当前数据表中字段的类型来赋予。如 String、Integer、Boolean、Float等
-{java.tostring} toString 的字符串，如 User{id:1,username:管雷鸣,roleId:1}
+* **{java.package}** 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity  
+* {java.datatype} 数据类型。会自动根据当前数据表中字段的类型来赋予。如 String、Integer、Boolean、Float等
+* {java.tostring} toString 的字符串，如 User{id:1,username:管雷鸣,roleId:1}
 
 {database.table.comment} 数据表的备注，这个表是干什么的，如 用户表  
 {database.table.name} 数据表的名字，如 user  
