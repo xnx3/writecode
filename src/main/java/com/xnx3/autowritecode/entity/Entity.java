@@ -1,6 +1,5 @@
 package com.xnx3.autowritecode.entity;
 
-import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +25,9 @@ public class Entity {
 		
 		/*** 取数据表信息 ***/
 		TableBean tableBean = DataBaseUtil.table(tableName);
+		System.out.println(DataBaseUtil.table("user"));
+		System.out.println(DataBaseUtil.table("role"));
+		System.out.println(DataBaseUtil.table("system"));
 		
 		
 		/*** 模板中的变量替换 ***/
@@ -36,25 +38,34 @@ public class Entity {
 		template = StringUtil.replaceAll(template, "{database.table.name}", tableBean.getName());
 		template = StringUtil.replaceAll(template, "{database.table.name.hump.upper}", HumpUtil.upper(tableBean.getName()));
 		
-		//field-start、field-end
-		String fieldTemplate = StringUtil.subString(template, "//field-start", "//field-end", 2);  //模板
+		
+		String fieldTemplate = StringUtil.subString(template, "{codeblock.field}", "{/codeblock.field}", 2);  //模板
+		
+		//如果第一个字符是换行符，那就删掉
+		if(fieldTemplate.indexOf("\n") == 0) {
+			fieldTemplate = fieldTemplate.substring(1, fieldTemplate.length());
+		}
+		//如果最后一个字符是tab缩进，那也删掉
+		if(fieldTemplate.lastIndexOf("\t") == fieldTemplate.length()-1) {
+			fieldTemplate = fieldTemplate.substring(0, fieldTemplate.length()-1);
+		}
 		StringBuffer fieldStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
 		for (int i = 0; tableBean.getFieldList() != null && i < tableBean.getFieldList().size(); i++) {
 			FieldBean field = tableBean.getFieldList().get(i);	//具体的表中的某个字段
 			
 			String fieldString = StringUtil.replaceAll(fieldTemplate, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
-			fieldString = StringUtil.replaceAll(fieldTemplate, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
-			fieldString = StringUtil.replaceAll(fieldTemplate, "{database.table.field.comment}", field.getComment());
+			fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
+			fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.comment}", field.getComment());
 			fieldStringBuffer.append(fieldString);
 		}
 		//替换
 		template = StringUtil.replaceAll(template, fieldTemplate, fieldStringBuffer.toString());
 		//去掉 field-start、field-end
-		template = StringUtil.replaceAll(template, "//field-start\\s*", "");
-		template = StringUtil.replaceAll(template, "//field-end\\s*", "");
+		template = StringUtil.replaceAll(template, "[\\t]+{codeblock.field}[\\n]+", "");
+		template = StringUtil.replaceAll(template, "{/codeblock.field}[\\n]+", "");
 		
-		//get-set-method-start、get-set-method-end
-		String methodTemplate = StringUtil.subString(template, "//get-set-method-start", "//get-set-method-end", 2); //模板
+		// codeblock.method
+		String methodTemplate = StringUtil.subString(template, "{codeblock.method}", "{/codeblock.method}", 2); //模板
 		StringBuffer methodStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
 		for (int i = 0; tableBean.getFieldList() != null && i < tableBean.getFieldList().size(); i++) {
 			FieldBean field = tableBean.getFieldList().get(i);	//具体的表中的某个字段
@@ -67,15 +78,30 @@ public class Entity {
 			methodString = StringUtil.replaceAll(methodString, "{database.table.field.length}", field.getLength());
 			methodString = StringUtil.replaceAll(methodString, "{database.table.field.collate}", field.getCollate());
 			methodString = StringUtil.replaceAll(methodString, "{database.table.field.comment}", field.getComment());
-			methodString = StringUtil.replaceAll(methodString, "{if.java.annotation.id}", field.getIfAnnotationId());
-			methodString = StringUtil.replaceAll(methodString, "{if.java.annotation.generatedvalue}", field.getIfAnnotationGeneratedValue());
+			methodString = StringUtil.replaceAll(methodString, "{database.table.field.default}", field.getDefaultvalue());
+			if(field.getIfAnnotationId().length() == 0) {
+				methodString = StringUtil.replaceAll(methodString, "[\\t]+{if.java.annotation.id}[\\n]+", "");	//没有则移除这一行
+			}else {
+				methodString = StringUtil.replaceAll(methodString, "{if.java.annotation.id}", field.getIfAnnotationId());				
+			}
+			if(field.getIfAnnotationGeneratedValue().length() == 0) {
+				methodString = StringUtil.replaceAll(methodString, "[\\t]+{if.java.annotation.generatedvalue}[\\n]+", "");	//没有则移除这一行
+			}else {
+				methodString = StringUtil.replaceAll(methodString, "{if.java.annotation.generatedvalue}", field.getIfAnnotationGeneratedValue());
+			}
+			if(field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) {
+				methodString = StringUtil.replaceAll(methodString, "{if.database.table.field.default}", "");
+			}else {
+				methodString = StringUtil.replaceAll(methodString, "{if.database.table.field.default}", (field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) ? "":"default '"+field.getDefaultvalue()+"'");
+			}
+			
 			methodStringBuffer.append(methodString);
 		}
 		//替换
-		template = StringUtil.replaceAll(template, methodTemplate, methodStringBuffer.toString());
+		template = replaceAll(template, methodTemplate, methodStringBuffer.toString());
 		//去掉 field-start、field-end
-		template = StringUtil.replaceAll(template, "//get-set-method-start\\s*", "");
-		template = StringUtil.replaceAll(template, "//get-set-method-end\\s*", "");
+		template = StringUtil.replaceAll(template, "[\\t]+{codeblock.method}[\\n]+", "");
+		template = StringUtil.replaceAll(template, "[\\t]+{/codeblock.method}[\\n]+", "");
 		
 		/**** tostring ****/
 		StringBuffer tostring = new StringBuffer();
@@ -83,9 +109,9 @@ public class Entity {
 		for (int i = 0; tableBean.getFieldList() != null && i < tableBean.getFieldList().size(); i++) {
 			FieldBean field = tableBean.getFieldList().get(i);	//具体的表中的某个字段
 			if(tostring.length() > 2) {
-				tostring.append(",");
+				tostring.append(", ");
 			}
-			tostring.append("\""+HumpUtil.lower(field.getName())+" : this."+HumpUtil.lower(field.getName())+"\"");
+			tostring.append(HumpUtil.lower(field.getName())+" : \"+this."+HumpUtil.lower(field.getName())+"+\"");
 		}
 		tostring.append("}");
 		template = StringUtil.replaceAll(template, "{java.tostring}", tostring.toString());
@@ -96,7 +122,32 @@ public class Entity {
 	public static void main(String[] args) {
 		Entity entity = new Entity();
 		entity.packageName = "com.xnx3";
-		entity.writeCode("user");
+		entity.writeCode("system");
+		System.exit(0);
+	}
+	
+	/**
+	 * 正则替换
+	 * @param text 操作的内容源，主体
+	 * @param regex 替换掉的
+	 * @param replacement 替换成新的，取而代之的。如果传入null，则会变为 "" 空字符串的形式进行替换
+	 * @return 替换好的内容。 如果传入的regex为null，则不会进行替换，直接将text原样返回。
+	 */
+	public static String replaceAll(String text, String regex, String replacement){
+		if(text == null || regex == null) {
+			return text;
+		}
+		if(replacement == null) {
+			replacement = "";
+		}
+		
+		String s[] = {"?","(",")","{","}","*"}; 
+		for (int i = 0; i < s.length; i++) {
+			regex = regex.replaceAll("\\"+s[i], "\\\\"+s[i]);
+		}
+		text = text.replaceAll(regex, replacement);
+		
+		return text;
 	}
 	
 }

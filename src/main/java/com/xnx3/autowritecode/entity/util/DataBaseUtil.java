@@ -59,7 +59,7 @@ public class DataBaseUtil {
 			fieldBean.setName(field.get("COLUMN_NAME") + "");
 			fieldBean.setComment(field.get("COLUMN_COMMENT") + "");
 			fieldBean.setDefaultvalue(field.get("COLUMN_DEFAULT") + "");
-			fieldBean.setDatatype(field.get("DATA_TYPE") + "");
+			fieldBean.setDatatype((String) field.get("DATA_TYPE"));
 			// 根据不同的类型记录字段长度
 			if (field.get("CHARACTER_MAXIMUM_LENGTH") != null) {
 				// 如果通过 CHARACTER_MAXIMUM_LENGTH 能拿到长度，直接记录
