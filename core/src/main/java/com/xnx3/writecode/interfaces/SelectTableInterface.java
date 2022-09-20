@@ -1,4 +1,4 @@
-package com.xnx3.autowritecode.interfaces;
+package com.xnx3.writecode.interfaces;
 
 import java.util.List;
 

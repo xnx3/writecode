@@ -1,4 +1,4 @@
-package com.xnx3.autowritecode.ui;
+package com.xnx3.writecode.ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.xnx3.autowritecode.bean.TableBean;
-import com.xnx3.autowritecode.interfaces.SelectTableInterface;
+import com.xnx3.writecode.bean.TableBean;
+import com.xnx3.writecode.interfaces.SelectTableInterface;
 
 import javax.swing.JCheckBox;
 import java.awt.FlowLayout;

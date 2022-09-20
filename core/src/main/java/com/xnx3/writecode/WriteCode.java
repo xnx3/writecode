@@ -1,4 +1,4 @@
-package com.xnx3.autowritecode;
+package com.xnx3.writecode;
 
 import java.io.File;
 import java.util.List;
@@ -8,12 +8,12 @@ import javax.swing.table.DefaultTableModel;
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
 import com.xnx3.SystemUtil;
-import com.xnx3.autowritecode.entity.Entity;
-import com.xnx3.autowritecode.bean.TableBean;
+import com.xnx3.writecode.entity.Entity;
+import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.HumpUtil;
-import com.xnx3.autowritecode.interfaces.DataSourceInterface;
-import com.xnx3.autowritecode.interfaces.SelectTableInterface;
-import com.xnx3.autowritecode.ui.SelectTableJframe;
+import com.xnx3.writecode.interfaces.DataSourceInterface;
+import com.xnx3.writecode.interfaces.SelectTableInterface;
+import com.xnx3.writecode.ui.SelectTableJframe;
 import com.xnx3.ClassUtil;
 import com.xnx3.swing.DialogUtil;
 

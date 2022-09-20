@@ -1,7 +1,7 @@
 package com.xnx3.demo;
 
-import com.xnx3.autowritecode.WriteCode;
-import com.xnx3.autowritecode.interfaces.impl.Mysql;
+import com.xnx3.writecode.WriteCode;
+import com.xnx3.writecode.interfaces.impl.Mysql;
 
 /**
  * 最简单的入门使用

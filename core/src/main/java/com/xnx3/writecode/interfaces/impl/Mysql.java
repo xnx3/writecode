@@ -1,4 +1,4 @@
-package com.xnx3.autowritecode.interfaces.impl;
+package com.xnx3.writecode.interfaces.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,9 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import com.xnx3.MysqlUtil;
-import com.xnx3.autowritecode.bean.FieldBean;
-import com.xnx3.autowritecode.bean.TableBean;
-import com.xnx3.autowritecode.interfaces.DataSourceInterface;
+import com.xnx3.writecode.bean.FieldBean;
+import com.xnx3.writecode.bean.TableBean;
+import com.xnx3.writecode.interfaces.DataSourceInterface;
 
 /**
  * mysql数据源的实现

@@ -1,4 +1,4 @@
-package com.xnx3.autowritecode.util;
+package com.xnx3.writecode.util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +46,7 @@ public class DataTypeUtil {
 	public static String databaseToJava(String dataType) {
 		String value = map.get(dataType.toLowerCase());
 		if(value == null) {
-			System.err.println("数据类型 "+ dataType +" 未发现！您可以手动加入 com.xnx3.autowritecode.util.DataTypeUtil.map.put(\""+dataType+"\", \"对应的Java数据类型，是Integer、String、还是？\");");
+			System.err.println("数据类型 "+ dataType +" 未发现！您可以手动加入 com.xnx3.writecode.util.DataTypeUtil.map.put(\""+dataType+"\", \"对应的Java数据类型，是Integer、String、还是？\");");
 			return dataType;
 		}
 		return value;

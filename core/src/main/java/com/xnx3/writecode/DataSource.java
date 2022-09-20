@@ -1,7 +1,7 @@
-package com.xnx3.autowritecode;
+package com.xnx3.writecode;
 
-import com.xnx3.autowritecode.bean.TableBean;
-import com.xnx3.autowritecode.interfaces.DataSourceInterface;
+import com.xnx3.writecode.bean.TableBean;
+import com.xnx3.writecode.interfaces.DataSourceInterface;
 
 /**
  * 数据源相关操作

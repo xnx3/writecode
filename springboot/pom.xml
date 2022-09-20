@@ -5,20 +5,19 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.xnx3</groupId>
-	<artifactId>writecode</artifactId>
+	<artifactId>writecode-springboot</artifactId>
 	<version>1.0</version>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
-	<name>writecode</name>
+	<name>writecode-springboot</name>
 	<description>自动写代码，自动生成实体类、增删查改等代码</description>
 	<url>https://github.com/xnx3/writecode</url>
 
-	<modules>
-		<!-- 核心实现 -->
-		<module>core</module>
-		<!-- 针对springboot -->
-        <module>springboot</module>
-    </modules>
+	<parent>
+	  <groupId>com.xnx3</groupId>
+	  <artifactId>writecode</artifactId>
+	  <version>1.0</version>
+	</parent>
 
 	<licenses>
 		<license>
@@ -119,5 +118,15 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         </profile>
     </profiles>
 	
+	
+	<dependencies>  
+		<dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-dependencies</artifactId>
+           <version>2.6.1</version>
+           <type>pom</type>
+           <scope>import</scope>
+       </dependency>
+	</dependencies>
 	
 </project>

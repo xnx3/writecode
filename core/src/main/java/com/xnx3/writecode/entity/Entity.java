@@ -1,10 +1,10 @@
-package com.xnx3.autowritecode.entity;
+package com.xnx3.writecode.entity;
 
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
-import com.xnx3.autowritecode.bean.FieldBean;
-import com.xnx3.autowritecode.bean.TableBean;
-import com.xnx3.autowritecode.util.DataTypeUtil;
+import com.xnx3.writecode.bean.FieldBean;
+import com.xnx3.writecode.bean.TableBean;
+import com.xnx3.writecode.util.DataTypeUtil;
 import com.xnx3.net.HttpResponse;
 import com.xnx3.net.HttpUtil;
 import com.xnx3.HumpUtil;

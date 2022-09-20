@@ -1,7 +1,7 @@
-package com.xnx3.autowritecode.interfaces;
+package com.xnx3.writecode.interfaces;
 
 import java.util.List;
-import com.xnx3.autowritecode.bean.TableBean;
+import com.xnx3.writecode.bean.TableBean;
 
 /**
  * 数据源。定义当前操作的是Mysql、Sqlite、Oracle等
