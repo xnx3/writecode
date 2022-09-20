@@ -11,8 +11,8 @@ public class HumpUtil {
 	
 	/**
 	 * 对字符串进行小驼峰命名转换
-	 * @param value 要进行转换的字符串
-	 * @return 转换结果
+	 * @param value 要进行转换的字符串，传入如 role_id
+	 * @return 转换结果，返回如 roleId
 	 */
 	public static String lower(String value) {
 		
@@ -64,6 +64,8 @@ public class HumpUtil {
 			return "";
 		}
 		
+		value = lower(value);
+		
 		// 首字母转大写
 		if(Character.isUpperCase(value.charAt(0))){
 			return value;
@@ -73,6 +75,6 @@ public class HumpUtil {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(upper("user"));
+		System.out.println(lower("role_id"));
 	}
 }

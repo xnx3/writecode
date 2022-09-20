@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.xnx3.MysqlUtil;
-import com.xnx3.autowritecode.entity.bean.FieldBean;
-import com.xnx3.autowritecode.entity.bean.TableBean;
+import com.xnx3.autowritecode.bean.FieldBean;
+import com.xnx3.autowritecode.bean.TableBean;
 
 /**
  * 数据库方面的工具类

@@ -1,8 +1,7 @@
 package com.xnx3.autowritecode.interfaces;
 
 import java.util.List;
-
-import com.xnx3.autowritecode.entity.bean.TableBean;
+import com.xnx3.autowritecode.bean.TableBean;
 
 /**
  * 数据源。定义当前操作的是Mysql、Sqlite、Oracle等
@@ -24,9 +23,9 @@ public interface DataSourceInterface {
 	
 	/**
 	 * 获取当前数据库的表名字
-	 * @return 数据表名字的集合
+	 * @return 数据表名字的集合。TableBean只需要返回 name、comment 两项数据即可
 	 */
-	public List<String> getTableList();
+	public List<TableBean> getTableList();
 	
 	/**
 	 * 获取指定数据表的信息

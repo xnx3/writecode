@@ -1,4 +1,4 @@
-package com.xnx3.autowritecode.entity.bean;
+package com.xnx3.autowritecode.bean;
 
 /**
  * 数据表中某个字段的Bean

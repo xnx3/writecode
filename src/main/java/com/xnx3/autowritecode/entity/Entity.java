@@ -2,9 +2,8 @@ package com.xnx3.autowritecode.entity;
 
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
-import com.xnx3.autowritecode.entity.bean.FieldBean;
-import com.xnx3.autowritecode.entity.bean.TableBean;
-import com.xnx3.autowritecode.entity.util.DataBaseUtil;
+import com.xnx3.autowritecode.bean.FieldBean;
+import com.xnx3.autowritecode.bean.TableBean;
 import com.xnx3.autowritecode.entity.util.DataTypeUtil;
 import com.xnx3.autowritecode.entity.util.HumpUtil;
 

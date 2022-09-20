@@ -1,12 +1,14 @@
 package com.xnx3.autowritecode.interfaces.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import com.xnx3.MysqlUtil;
-import com.xnx3.autowritecode.entity.bean.FieldBean;
-import com.xnx3.autowritecode.entity.bean.TableBean;
+import com.xnx3.autowritecode.bean.FieldBean;
+import com.xnx3.autowritecode.bean.TableBean;
 import com.xnx3.autowritecode.interfaces.DataSourceInterface;
 
 /**
@@ -132,9 +134,20 @@ public class Mysql implements DataSourceInterface{
 
 
 	@Override
-	public List<String> getTableList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<TableBean> getTableList() {
+		List<TableBean> list = new ArrayList<TableBean>();
+		
+		System.out.println(mysql.select("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '"+this.databaseName+"'"));
+		List<Map<String, Object>> dataList = mysql.select("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '"+this.databaseName+"'");
+		for (int i = 0; i < dataList.size(); i++) {
+			TableBean table = new TableBean();
+			Map<String, Object> map = dataList.get(i);
+			table.setName((String) map.get("TABLE_NAME"));
+			table.setComment((String) map.get("TABLE_COMMENT"));
+			list.add(table);
+		}
+		
+		return list;
 	}
 
 }

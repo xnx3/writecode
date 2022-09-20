@@ -1,6 +1,6 @@
 package com.xnx3.autowritecode;
 
-import com.xnx3.autowritecode.entity.bean.TableBean;
+import com.xnx3.autowritecode.bean.TableBean;
 import com.xnx3.autowritecode.interfaces.DataSourceInterface;
 
 /**

@@ -1,4 +1,4 @@
-package com.xnx3.autowritecode.entity.bean;
+package com.xnx3.autowritecode.bean;
 
 import java.util.List;
 
