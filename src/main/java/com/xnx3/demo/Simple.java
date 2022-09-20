@@ -6,7 +6,6 @@ import com.xnx3.autowritecode.interfaces.impl.Mysql;
 /**
  * 最简单的入门使用
  * @author 管雷鸣
- *
  */
 public class Simple {
 	public static void main(String[] args) {
