@@ -11,7 +11,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
 	<name>AutoWriteCode</name>
 	<description>自动写代码，自动生成实体类、增删查改等代码</description>
-	<url>https://gitee.com/leimingyun/autowritecode</url>
+	<url>https://github.com/xnx3/writecode</url>
 
 	<licenses>
 		<license>
@@ -40,9 +40,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	</developers>
 
 	<scm>
-		<connection>scm:git:git://gitee.com/leimingyun/autowritecode.git</connection>
-		<developerConnection>scm:git:ssh://gitee.com/leimingyun/autowritecode.git</developerConnection>
-		<url>gitee.com/leimingyun/autowritecode</url>
+		<connection>scm:git:git://github.com/xnx3/writecode.git</connection>
+		<developerConnection>scm:git:ssh://github.com/xnx3/writecode.git</developerConnection>
+		<url>github.com/xnx3/writecode</url>
 	</scm>
 
 	<profiles>

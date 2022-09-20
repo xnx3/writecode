@@ -9,6 +9,7 @@
 	<groupId>com.xnx3</groupId>
 	<artifactId>autowritecode</artifactId>
 	<version>1.0</version>
+	<scope>provided</scope>
 <dependency>
 ````
 
