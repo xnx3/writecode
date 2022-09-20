@@ -39,7 +39,6 @@ public class SelectTableJframe extends JFrame {
 
 	private JPanel contentPane;
 	public JTable table;
-	private JTextField packageTextField;
 	public SelectTableInterface selectTable;
 
 
@@ -47,6 +46,7 @@ public class SelectTableJframe extends JFrame {
 	 * Create the frame.
 	 */
 	public SelectTableJframe() {
+		setTitle("writecode 自动写代码");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 579, 448);
 		contentPane = new JPanel();
@@ -70,34 +70,21 @@ public class SelectTableJframe extends JFrame {
 				selectTable.selectFinish(list);
 			}
 		});
-		
-		JLabel lblNewLabel = new JLabel("包名：");
-		
-		packageTextField = new JTextField();
-		packageTextField.setColumns(10);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(115)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE)
-					.addGap(159))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(packageTextField, GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addGap(141)
+					.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+					.addGap(125))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 198, GroupLayout.PREFERRED_SIZE)
-					.addGap(48)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(packageTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+					.addGap(28)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		
@@ -106,27 +93,26 @@ public class SelectTableJframe extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 		
 		table.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null},
-				},
-				new String[] {
-					"选择", "数据表名字", "数据表备注"
-				}
-			) {
-				Class[] columnTypes = new Class[] {
-					Boolean.class, String.class, String.class
-				};
-				public Class getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
-				}
-			});
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"\u9009\u62E9", "\u6570\u636E\u8868\u540D\u5B57", "\u6570\u636E\u8868\u5907\u6CE8"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Boolean.class, String.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table.getColumnModel().getColumn(0).setPreferredWidth(40);
+		table.getColumnModel().getColumn(0).setMaxWidth(40);
+		table.getColumnModel().getColumn(1).setPreferredWidth(200);
+		table.getColumnModel().getColumn(1).setMaxWidth(400);
+		table.getColumnModel().getColumn(2).setPreferredWidth(300);
+		table.getColumnModel().getColumn(2).setMaxWidth(500);
 		
-		table.getColumnModel().getColumn(0).setPreferredWidth(8);
-		table.getColumnModel().getColumn(1).setPreferredWidth(50);
-		table.getColumnModel().getColumn(2).setPreferredWidth(120);
-		
-	}
-	public JTextField getPackageTextField() {
-		return packageTextField;
 	}
 }

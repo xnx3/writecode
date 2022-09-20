@@ -5,6 +5,8 @@ import com.xnx3.StringUtil;
 import com.xnx3.autowritecode.bean.FieldBean;
 import com.xnx3.autowritecode.bean.TableBean;
 import com.xnx3.autowritecode.util.DataTypeUtil;
+import com.xnx3.net.HttpResponse;
+import com.xnx3.net.HttpUtil;
 import com.xnx3.HumpUtil;
 
 /**
@@ -32,7 +34,12 @@ public class Entity {
 		/*** 模板中的变量替换 ***/
 		if(template == null) {
 			//为空，则拉取cdn节点的
-			template = FileUtil.read("/Users/apple/git/autowritecode/src/main/java/com/xnx3/autowritecode/entity/entity.template");
+			HttpResponse hr = new HttpUtil().get("http://res.zvo.cn/writecode/template/entity.template");
+			if(hr.getCode() != 200) {
+				System.err.println("获取云端 entity.template 失败，http code:"+hr.getCode());
+				return "获取云端 entity.template 失败，http code:"+hr.getCode();
+			}
+			template = hr.getContent();
 		}
 		
 		//全局方面
