@@ -3,16 +3,14 @@ package com.xnx3.autowritecode;
 import java.io.File;
 import java.util.List;
 import java.util.Vector;
-
 import javax.swing.JCheckBox;
 import javax.swing.table.DefaultTableModel;
-
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
 import com.xnx3.SystemUtil;
 import com.xnx3.autowritecode.entity.Entity;
 import com.xnx3.autowritecode.bean.TableBean;
-import com.xnx3.autowritecode.entity.util.HumpUtil;
+import com.xnx3.util.HumpUtil;
 import com.xnx3.autowritecode.interfaces.DataSourceInterface;
 import com.xnx3.autowritecode.interfaces.SelectTableInterface;
 import com.xnx3.autowritecode.ui.SelectTableJframe;
