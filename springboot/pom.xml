@@ -121,12 +121,27 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	
 	<dependencies>  
 		<dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-dependencies</artifactId>
-           <version>2.6.1</version>
-           <type>pom</type>
-           <scope>import</scope>
-       </dependency>
+			<groupId>com.xnx3.wangmarket.wm</groupId>
+			<artifactId>wm</artifactId>
+			<version>2.10</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xnx3</groupId>
+			<artifactId>writecode-core</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>com.xnx3</groupId>
+		  <artifactId>xnx3</artifactId>
+		  <version>2.6</version>
+		  <exclusions>
+	          <exclusion>
+	              <groupId>*</groupId>
+	              <artifactId>*</artifactId>
+	          </exclusion>
+	      </exclusions>
+		</dependency>
 	</dependencies>
 	
 </project>
