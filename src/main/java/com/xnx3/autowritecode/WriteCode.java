@@ -10,11 +10,11 @@ import com.xnx3.StringUtil;
 import com.xnx3.SystemUtil;
 import com.xnx3.autowritecode.entity.Entity;
 import com.xnx3.autowritecode.bean.TableBean;
-import com.xnx3.util.HumpUtil;
+import com.xnx3.HumpUtil;
 import com.xnx3.autowritecode.interfaces.DataSourceInterface;
 import com.xnx3.autowritecode.interfaces.SelectTableInterface;
 import com.xnx3.autowritecode.ui.SelectTableJframe;
-import com.xnx3.autowritecode.util.ClassUtil;
+import com.xnx3.ClassUtil;
 import com.xnx3.swing.DialogUtil;
 
 /**

@@ -1,4 +1,4 @@
-package com.xnx3.util;
+package com.xnx3;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

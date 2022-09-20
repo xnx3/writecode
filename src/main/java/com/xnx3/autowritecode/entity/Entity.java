@@ -5,7 +5,7 @@ import com.xnx3.StringUtil;
 import com.xnx3.autowritecode.bean.FieldBean;
 import com.xnx3.autowritecode.bean.TableBean;
 import com.xnx3.autowritecode.util.DataTypeUtil;
-import com.xnx3.util.HumpUtil;
+import com.xnx3.HumpUtil;
 
 /**
  * 自动生成实体类代码
