@@ -1,8 +1,5 @@
 package com.xnx3.autowritecode.entity;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
 import com.xnx3.autowritecode.entity.bean.FieldBean;
@@ -18,16 +15,14 @@ import com.xnx3.autowritecode.entity.util.HumpUtil;
 public class Entity {
 	public String packageName; //{java.package} 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity
 	
-	public void writeCode(String tableName){
-		
+	/**
+	 * 传入数据表的名字，输出这个数据表的实体类内容
+	 * @param TableBean 数据表的结构信息
+	 * @return 这个数据表的实体类内容
+	 */
+	public String template(TableBean tableBean){
 		/**** 加载 entity.template 模板 ****/
 		String template = FileUtil.read("/Users/apple/git/autowritecode/src/main/java/com/xnx3/autowritecode/entity/entity.template");
-		
-		/*** 取数据表信息 ***/
-		TableBean tableBean = DataBaseUtil.table(tableName);
-		System.out.println(DataBaseUtil.table("user"));
-		System.out.println(DataBaseUtil.table("role"));
-		System.out.println(DataBaseUtil.table("system"));
 		
 		
 		/*** 模板中的变量替换 ***/
@@ -38,9 +33,8 @@ public class Entity {
 		template = StringUtil.replaceAll(template, "{database.table.name}", tableBean.getName());
 		template = StringUtil.replaceAll(template, "{database.table.name.hump.upper}", HumpUtil.upper(tableBean.getName()));
 		
-		
+		//{codeblock.field}
 		String fieldTemplate = StringUtil.subString(template, "{codeblock.field}", "{/codeblock.field}", 2);  //模板
-		
 		//如果第一个字符是换行符，那就删掉
 		if(fieldTemplate.indexOf("\n") == 0) {
 			fieldTemplate = fieldTemplate.substring(1, fieldTemplate.length());
@@ -64,7 +58,7 @@ public class Entity {
 		template = StringUtil.replaceAll(template, "[\\t]+{codeblock.field}[\\n]+", "");
 		template = StringUtil.replaceAll(template, "{/codeblock.field}[\\n]+", "");
 		
-		// codeblock.method
+		// {codeblock.method}
 		String methodTemplate = StringUtil.subString(template, "{codeblock.method}", "{/codeblock.method}", 2); //模板
 		StringBuffer methodStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
 		for (int i = 0; tableBean.getFieldList() != null && i < tableBean.getFieldList().size(); i++) {
@@ -116,14 +110,14 @@ public class Entity {
 		tostring.append("}");
 		template = StringUtil.replaceAll(template, "{java.tostring}", tostring.toString());
 		
-		System.out.println(template);
+		return template;
 	}
 	
 	public static void main(String[] args) {
 		Entity entity = new Entity();
 		entity.packageName = "com.xnx3";
-		entity.writeCode("system");
-		System.exit(0);
+//		entity.writeCode("system");
+//		System.exit(0);
 	}
 	
 	/**

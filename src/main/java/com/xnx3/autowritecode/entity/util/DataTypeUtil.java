@@ -19,11 +19,14 @@ public class DataTypeUtil {
 		
 		// mysql 的一些类型
 		map.put("int", "Integer");
+		map.put("tinyint", "Short");
 		map.put("float", "Float");
 		map.put("double", "Double");
+		
 		map.put("char", "String");
 		map.put("varchar", "String");
 		map.put("text", "String");
+		
 		
 		// sqlserver 中的的一些类型 
 		// ...
