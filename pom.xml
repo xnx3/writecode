@@ -126,6 +126,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.30</version>
 		</dependency>
+		<dependency>
+			<groupId>com.xnx3.swing</groupId>
+			<artifactId>xnx3-swing</artifactId>
+			<version>1.1</version>
+		</dependency>
 	</dependencies>
 	
 </project>

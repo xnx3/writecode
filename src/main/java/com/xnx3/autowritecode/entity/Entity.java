@@ -12,19 +12,28 @@ import com.xnx3.autowritecode.entity.util.HumpUtil;
  * @author 管雷鸣
  */
 public class Entity {
-	public String packageName; //{java.package} 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity
+	public String packageName; 	//{java.package} 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity
+	public String template;		//entity.template 模板内容
 	
+	/**
+	 * 设置 entity.template 模板内容
+	 * @param template entity.template 模板的内容文本
+	 */
+	public void setTemplate(String template) {
+		this.template = template;
+	}
+
 	/**
 	 * 传入数据表的名字，输出这个数据表的实体类内容
 	 * @param TableBean 数据表的结构信息
 	 * @return 这个数据表的实体类内容
 	 */
 	public String template(TableBean tableBean){
-		/**** 加载 entity.template 模板 ****/
-		String template = FileUtil.read("/Users/apple/git/autowritecode/src/main/java/com/xnx3/autowritecode/entity/entity.template");
-		
-		
 		/*** 模板中的变量替换 ***/
+		if(template == null) {
+			//为空，则拉取cdn节点的
+			template = FileUtil.read("/Users/apple/git/autowritecode/src/main/java/com/xnx3/autowritecode/entity/entity.template");
+		}
 		
 		//全局方面
 		template = StringUtil.replaceAll(template, "{java.package}", this.packageName);

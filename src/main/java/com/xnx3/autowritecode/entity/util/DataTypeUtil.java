@@ -22,10 +22,13 @@ public class DataTypeUtil {
 		map.put("tinyint", "Short");
 		map.put("float", "Float");
 		map.put("double", "Double");
+		map.put("smallint", "Integer");
 		
 		map.put("char", "String");
 		map.put("varchar", "String");
 		map.put("text", "String");
+		map.put("mediumtext", "String");
+		
 		
 		
 		// sqlserver 中的的一些类型 

@@ -17,6 +17,7 @@ import com.xnx3.autowritecode.interfaces.DataSourceInterface;
 import com.xnx3.autowritecode.interfaces.SelectTableInterface;
 import com.xnx3.autowritecode.ui.SelectTableJframe;
 import com.xnx3.autowritecode.util.ClassUtil;
+import com.xnx3.swing.DialogUtil;
 
 /**
  * 自动写代码。如写实体类、增删查改了
@@ -60,10 +61,21 @@ public class WriteCode {
 	 * @return 实体类的java代码
 	 */
 	public String getEntityCode(String tableName) {
-		TableBean tableBean = this.dataSource.table("user");
+		TableBean tableBean = this.dataSource.table(tableName);
 		
 		Entity entity = new Entity();
 		entity.packageName = this.javaPackage;
+		/*
+		 * 设置模板，加载顺序为：
+		 * 	1. 优先加载跟当前生成的java同路径下的 entity.template 模板文件
+		 *  2. 从网络中拉取 entity.template 模板文件
+		 * 
+		 */
+		File file = new File(ClassUtil.packageToFilePath(this.javaPackage)+"entity.template");
+		if(file.exists()) {
+			entity.setTemplate(FileUtil.read(file.getPath()));
+		}
+		
 		String code = entity.template(tableBean);
 		
 		return code;
@@ -74,10 +86,14 @@ public class WriteCode {
 	 * @param tableName 数据表的名字
 	 */
 	public void writeEntityCode(String tableName) {
-		System.out.println(ClassUtil.packageToFilePath(this.javaPackage)+HumpUtil.upper(tableName)+".java");
+		System.out.println("生成: "+ClassUtil.packageToFilePath(this.javaPackage)+HumpUtil.upper(tableName)+".java");
 		FileUtil.write(ClassUtil.packageToFilePath(this.javaPackage)+HumpUtil.upper(tableName)+".java", getEntityCode(tableName));
 	}
 	
+	/**
+	 * 出现一个UI界面，通过界面选择数据表，然后进行生成
+	 * @param selectTable 选择数据表后，点击生成按钮，所执行的操作实现
+	 */
 	public void selectTable(SelectTableInterface selectTable) {
 		SelectTableJframe selectTableJframe = new SelectTableJframe();
 		selectTableJframe.selectTable = selectTable;
@@ -91,7 +107,6 @@ public class WriteCode {
 		for (int i = 0; i < list.size(); i++) {
 			TableBean tableBean = list.get(i);
 			JCheckBox chckbxNewCheckBox = new JCheckBox(tableBean.getName()+" - "+tableBean.getComment());
-			System.out.println(tableBean);
 			selectTableJframe.add(chckbxNewCheckBox);
 			selectTableJframe.getContentPane().add(chckbxNewCheckBox);
 			
@@ -105,9 +120,21 @@ public class WriteCode {
 		selectTableJframe.setVisible(true);
 	}
 	
-	public static void main(String[] args) {
-		
-		
+	/**
+	 * 写出实体类的代码，通过选择数据表的UI界面
+	 */
+	public void writeEntityCodeBySelectTableUI() {
+		selectTable(new SelectTableInterface() {
+			@Override
+			public void selectFinish(List<String> list) {
+				for (int i = 0; i < list.size(); i++) {
+					writeEntityCode(list.get(i));
+				}
+				DialogUtil.showMessageDialog("写出java文件完毕！");
+				SystemUtil.openLocalFolder(ClassUtil.packageToFilePath(javaPackage));
+			}
+		});
 	}
+
 	
 }
