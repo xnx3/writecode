@@ -15,13 +15,6 @@ import com.xnx3.writecode.interfaces.impl.Mysql;
 public class WriteCode {
 	
 	public static void main(String[] args) {
-		Properties properties = new Properties();
-		try {
-            Resource resource = new ClassPathResource("/application.properties");//
-            properties = PropertiesLoaderUtils.loadProperties(resource);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 		
 		String host = properties.getProperty("database.ip");	//主机，可以填写域名或ip
 		int port = 3306;			//端口号
