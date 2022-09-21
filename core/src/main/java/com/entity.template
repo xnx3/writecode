@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 /**
  * {database.table.comment}
- * @author <a href="https://gitee.com/leimingyun/autowritecode">AutoWriteCode自动生成</a>
+ * @author <a href="https://github.com/xnx3/writecode">WriteCode自动生成</a>
  */
 @Entity()
 @Table(name = "{database.table.name}")

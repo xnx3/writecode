@@ -10,6 +10,7 @@ import com.xnx3.StringUtil;
 import com.xnx3.SystemUtil;
 import com.xnx3.writecode.entity.Entity;
 import com.xnx3.writecode.bean.TableBean;
+import com.xnx3.writecode.controller.Controller;
 import com.xnx3.HumpUtil;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
 import com.xnx3.writecode.interfaces.SelectTableInterface;
@@ -134,5 +135,31 @@ public class WriteCode {
 		});
 	}
 
+	/**
+	 * 获取某个表的controller类的java代码
+	 * @param tableName 数据表的名字
+	 * @return controller类的java代码
+	 */
+	public String getControllerCode(String tableName) {
+		TableBean tableBean = this.dataSource.table(tableName);
+		
+		Controller controller = new Controller();
+		controller.packageName = this.javaPackage;
+		/*
+		 * 设置模板，加载顺序为：
+		 * 	1. 优先加载跟当前生成的java同路径下的 entity.template 模板文件
+		 *  2. 从网络中拉取 entity.template 模板文件
+		 * 
+		 */
+		System.out.println(ClassUtil.packageToFilePath(this.javaPackage));
+		File file = new File(ClassUtil.packageToFilePath(this.javaPackage)+"controller.template");
+		if(file.exists()) {
+			controller.setTemplate(FileUtil.read(file.getPath()));
+		}
+		//System.out.println(controller.template);
+		String code = controller.template(tableBean);
+		
+		return code;
+	}
 	
 }
