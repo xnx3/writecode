@@ -1,4 +1,4 @@
-package com.xnx3.demo;
+package com.xnx3.writecode.demo;
 
 import com.xnx3.writecode.WriteCode;
 import com.xnx3.writecode.interfaces.impl.Mysql;
