@@ -171,4 +171,6 @@ public class WriteCode {
 		System.out.println("生成: "+ClassUtil.packageToFilePath(this.javaPackage)+HumpUtil.upper(tableName)+"Controller.java");
 		FileUtil.write(ClassUtil.packageToFilePath(this.javaPackage)+HumpUtil.upper(tableName)+"Controller.java", getControllerCode(tableName));
 	}
+	
+	
 }

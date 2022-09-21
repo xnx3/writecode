@@ -31,7 +31,6 @@ public class {database.table.name.hump.upper} implements java.io.Serializable{
 	}
 	{/codeblock.method}
 	
-	@Override
 	public String toString() {
 		return "{java.tostring}";
 	}
