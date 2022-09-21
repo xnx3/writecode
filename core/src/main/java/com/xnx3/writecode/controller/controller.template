@@ -1,5 +1,6 @@
 package {java.package};
 
+import com.xnx3.j2ee.controller.BaseController;
 import com.xnx3.j2ee.service.SqlService;
 import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
@@ -81,8 +82,8 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 	 * 
 	 */
 	@ResponseBody
-	@RequestMapping(value="/get{database.table.name.hump.upper}.json" ,method = {RequestMethod.POST})
-	public {database.table.name.hump.upper}VO get{database.table.name.hump.upper}(HttpServletRequest request,
+	@RequestMapping(value="/get.json" ,method = {RequestMethod.POST})
+	public {database.table.name.hump.upper}VO get(HttpServletRequest request,
 									 @RequestParam(value = "id", required = false, defaultValue = "0") int id) {
 		{database.table.name.hump.upper}VO vo = new {database.table.name.hump.upper}VO();
 
@@ -107,7 +108,7 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 	 * 添加或修改一条记录
 	 * @param token 当前操作用户的登录标识 <required>
      *           <a href="xxxxx.html">/xxxx/login.json</a> 取得 </p>
-     * @return 若请求成功，则可添加修改轮播图          
+     * @return 保存结果   
 	 * @author <a href="https://github.com/xnx3/writecode">WriteCode自动生成</a>
 	 */
 	@ResponseBody
@@ -143,9 +144,9 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 		
 		//日志记录
 		if(id == null) {
-			ActionLogUtil.insertUpdateDatabase(request, "向{database.table.name.hump.upper}新增一条记录", fCarouselImage.toString());
+			ActionLogUtil.insertUpdateDatabase(request, "向 {database.table.name.hump.upper}新增一条记录", fCarouselImage.toString());
 		}else{
-			ActionLogUtil.insertUpdateDatabase(request, "修改"+{database.table.name.hump.upper}.id为"+id+"的记录",fCarouselImage.toString());
+			ActionLogUtil.insertUpdateDatabase(request, "修改 {database.table.name.hump.upper}.id为"+id+"的记录",fCarouselImage.toString());
 		}
 		
 		return success(fCarouselImage.getId()+"");
@@ -177,7 +178,7 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 		
 		sqlService.delete(carouselImage);
 		//日志记录
-		ActionLogUtil.insertUpdateDatabase(request, id, "删除"+{database.table.name.hump.upper}.id为"+id+"的记录",carouselImage.toString());
+		ActionLogUtil.insertUpdateDatabase(request, id, "删除 {database.table.name.hump.upper}.id为"+id+"的记录",carouselImage.toString());
 		return success();
 	}
 }

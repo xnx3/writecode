@@ -162,4 +162,13 @@ public class WriteCode {
 		return code;
 	}
 	
+	
+	/**
+	 * 写出某个表的Controller类的java文件
+	 * @param tableName 数据表的名字
+	 */
+	public void writeControllerCode(String tableName) {
+		System.out.println("生成: "+ClassUtil.packageToFilePath(this.javaPackage)+HumpUtil.upper(tableName)+"Controller.java");
+		FileUtil.write(ClassUtil.packageToFilePath(this.javaPackage)+HumpUtil.upper(tableName)+"Controller.java", getControllerCode(tableName));
+	}
 }

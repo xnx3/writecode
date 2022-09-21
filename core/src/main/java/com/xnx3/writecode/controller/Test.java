@@ -12,7 +12,6 @@ public class Test {
 		String password = "111111";	//数据库登录密码
 		
 		WriteCode code = new WriteCode(new Mysql(host, port, databaseName, username, password));
-		String str = code.getControllerCode("system");
-		System.out.println(str);
+		code.writeControllerCode("system");
 	}
 }
