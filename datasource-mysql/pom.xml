@@ -5,14 +5,14 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.xnx3.writecode</groupId>
-	<artifactId>core</artifactId>
+	<artifactId>datasource.mysql</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>writecode-core</name>
+	<name>writecode-datasource-mysql</name>
 	<description>自动写代码，自动生成实体类、增删查改等代码</description>
 	<url>https://github.com/xnx3/writecode</url>
-	
+
 	<parent>
 		<groupId>com.xnx3.writecode</groupId>
 		<artifactId>parent</artifactId>
@@ -119,17 +119,19 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     </profiles>
 	
 	
-	<dependencies>  
-		<dependency> 
-			<groupId>com.xnx3.util</groupId>
-			<artifactId>xnx3-util</artifactId>
-			<version>1.10</version>
+	<dependencies>
+		
+		<dependency>
+			<groupId>com.xnx3.writecode</groupId>
+			<artifactId>core</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.xnx3.swing</groupId>
-			<artifactId>xnx3-swing</artifactId>
-			<version>1.1</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.30</version>
 		</dependency>
+		
 	</dependencies>
 	
 </project>

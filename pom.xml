@@ -21,7 +21,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <!-- 使用的Demo示例 -->
         <module>demo</module>
         
-        <!-- wm相关模板 ( http://wm.zvo.cn ) -->
+        <!-- 数据源-mysql -->
+        <module>datasource-mysql</module>
+        
+        <!-- 模板-wm ( http://wm.zvo.cn ) -->
         <module>template-wm</module>
     </modules>
 
