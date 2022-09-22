@@ -136,7 +136,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<artifactId>core</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>com.xnx3.writecode</groupId>
 			<artifactId>template.wm</artifactId>
