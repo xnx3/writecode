@@ -14,9 +14,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<url>https://github.com/xnx3/writecode</url>
 
 	<parent>
-		<groupId>com.xnx3.writecode</groupId>
+		<groupId>com.xnx3.wangmarket.wm</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.0</version>
+		<version>2.11.2</version>
 	</parent>
 
 	<licenses>
@@ -56,6 +56,18 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <id>release</id>
             <build>
                 <plugins>
+                	<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<configuration>
+							<archive>
+								<manifest>
+									<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+									<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+								</manifest>
+							</archive>
+						</configuration>
+					</plugin>
                     <!-- Source -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -104,6 +116,15 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                         </executions>
                     </plugin>
                 </plugins>
+                <resources>
+					<!-- 打包 src/main/java 下指定类型的文件 -->
+					<resource>
+						<directory>src/main/java</directory>
+						<includes>
+							<include>*</include>
+						</includes>
+					</resource>
+				</resources>
             </build>
             <distributionManagement>
                 <snapshotRepository>
@@ -120,33 +141,32 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	
 	
 	<dependencies>
-		<dependency> 
-			<groupId>com.xnx3.util</groupId>
-			<artifactId>xnx3-util</artifactId>
-			<version>1.10</version>
-		</dependency>  
-		<dependency>
-			<groupId>com.xnx3.wangmarket.wm</groupId>
-			<artifactId>wm</artifactId>
-			<version>2.10</version>
-		</dependency>
+		<!-- 加入 mysql数据源的writecode  -->
 		<dependency>
 			<groupId>com.xnx3.writecode</groupId>
-			<artifactId>core</artifactId>
+			<artifactId>datasource.mysql</artifactId>
 			<version>1.0</version>
 		</dependency>
 		
+		<!-- 加入wm，关于wm具体可参考 http://wm.zvo.cn -->
+		<!-- <dependency>
+			<groupId>com.xnx3.wangmarket.wm</groupId>
+			<artifactId>wm</artifactId>
+			<version>2.23</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 		  <groupId>com.xnx3</groupId>
 		  <artifactId>xnx3</artifactId>
 		  <version>2.6</version>
+		  <scope>provided</scope>
 		  <exclusions>
 	          <exclusion>
 	              <groupId>*</groupId>
 	              <artifactId>*</artifactId>
 	          </exclusion>
 	      </exclusions>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 	
 </project>

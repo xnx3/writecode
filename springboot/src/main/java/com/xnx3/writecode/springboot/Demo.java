@@ -10,7 +10,6 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Component;
 import com.xnx3.j2ee.util.ApplicationPropertiesUtil;
 import com.xnx3.writecode.WriteCode;
-import com.xnx3.writecode.interfaces.impl.Mysql;
 
 public class Demo {
 	

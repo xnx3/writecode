@@ -36,7 +36,7 @@ public class WriteCode {
 			this.template.javaPackage = StringUtil.subString(st.getClassName(), null, ".", 1); //得到如 com.xnx3.j2ee
 		}
 		if(this.template.writeFileAbsolutePath == null) {
-			this.template.setWriteFileAbsolutePath(ClassUtil.packageToFilePath(this.template.javaPackage));
+			this.template.setWriteFileAbsolutePath(packageToFilePath(this.template.javaPackage));
 		}
 		
 		//判断文件夹是否存在，不存在，则创建
@@ -58,6 +58,19 @@ public class WriteCode {
 		
 		TemplateUtil templateUtil = new TemplateUtil();
 		templateUtil.setTemplate(this.template);
+		
+		//替换当前this.template中的一些参数的标签
+		if(this.template.getWriteFileAbsolutePath().indexOf("{") > -1) {
+			String absPath = new TemplateUtil(this.template.getWriteFileAbsolutePath(), this.template).template(tableBean);
+			System.out.println("set abs : "+absPath);
+			this.template.setWriteFileAbsolutePath(absPath);
+		}
+		templateUtil.setTemplateText(this.template.getWriteFileAbsolutePath());
+		this.template.setWriteFileAbsolutePath(templateUtil.template(tableBean));
+		
+		templateUtil.setTemplateText(this.template.getWriteFileName());
+		this.template.setWriteFileName(templateUtil.template(tableBean));
+		
 		/*
 		 * 设置模板，加载顺序为：
 		 * 	1. 优先加载跟当前生成的java同路径下的 entity.template 模板文件
@@ -65,7 +78,7 @@ public class WriteCode {
 		 * 
 		 */
 		//加载跟当前生成的java同路径下的 entity.template 模板文件
-		File file = new File(ClassUtil.packageToFilePath(this.template.javaPackage)+this.template.templateFileName);
+		File file = new File(this.template.writeFileAbsolutePath+this.template.templateFileName);
 		if(file.exists()) {
 			templateUtil.setTemplateText(FileUtil.read(file.getPath()));
 		}
@@ -73,7 +86,7 @@ public class WriteCode {
 		//加载包内的模板文件
 		if(templateUtil.getTemplateText() == null) {
 			try {
-				System.out.println(this.template.getClass().getClassLoader().getResource("/").getPath());
+//				System.out.println(this.template.getClass().getClassLoader().getResource("/").getPath());
 				String jarTemplateText = StringUtil.inputStreamToString(this.template.getClass().getClassLoader().getResourceAsStream(this.template.getClass().getCanonicalName().replaceAll("\\.", "/")+"/template"), FileUtil.UTF8);
 				templateUtil.setTemplateText(jarTemplateText);
 			} catch (IOException e) {
@@ -83,7 +96,7 @@ public class WriteCode {
 		
 		
 		if(templateUtil.getTemplateText() == null || templateUtil.getTemplateText().length() == 0) {
-			System.err.println("模板内容为空！路径："+ClassUtil.packageToFilePath(this.template.javaPackage)+this.template.templateFileName);
+			System.err.println("模板内容为空！路径："+this.template.writeFileAbsolutePath+this.template.templateFileName);
 			return "";
 		}
 		
@@ -99,11 +112,11 @@ public class WriteCode {
 	public void writeCode(String tableName) {
 		String fileName = this.template.getWriteFileName();
 		
-		//对其进行替换
-		if(fileName.indexOf("{") > -1) {
-			TableBean tableBean = this.dataSource.table(tableName);
-			fileName = new TemplateUtil(fileName, this.template).template(tableBean);
-		}
+//		//对其进行替换
+//		if(fileName.indexOf("{") > -1) {
+//			TableBean tableBean = this.dataSource.table(tableName);
+//			fileName = new TemplateUtil(fileName, this.template).template(tableBean);
+//		}
 		
 		System.out.println("生成: "+this.template.getWriteFileAbsolutePath()+fileName);
 		FileUtil.write(this.template.getWriteFileAbsolutePath()+fileName, getCode(tableName));
@@ -154,5 +167,24 @@ public class WriteCode {
 			}
 		});
 	}
+	
+
+	/**
+	 * 传入当前项目的一个包名，返回这个包所在的项目的路径
+	 * @param packageName 传入如 com.xnx3.j2ee.entity
+	 * @return 返回这个包所在的绝对路径，如 /Users/apple/git/autowritecode/src/main/java/com/xnx3/j2ee/entity/
+	 */
+	public static String packageToFilePath(String packageName) {
+		String fileSeparator = File.separator;
+		// 如果时windows系统，这个是\，所以要再加个\\，避免转义字符
+		if(fileSeparator.equals("\\")) {
+			fileSeparator = "\\" + fileSeparator;
+		}
+		
+		String projectPath = ".src.main.java."+packageName+".";	//得到如 src.main.java.com.xnx3.j2ee.entity.
+		projectPath = projectPath.replaceAll("\\.", fileSeparator);	//换为文件路径形式，如 /Users/apple/git/wm/main/java/com/xnx3/j2ee/entity/
+		projectPath = SystemUtil.getCurrentDir()+projectPath; 
+		return projectPath;
+	} 
 	
 }

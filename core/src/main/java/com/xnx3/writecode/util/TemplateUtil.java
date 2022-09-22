@@ -55,24 +55,18 @@ public class TemplateUtil {
 	 * @return 这个数据表的实体类内容
 	 */
 	public String template(TableBean tableBean){
-		/*** 模板中的变量替换 ***/
-		if(this.templateText == null) {
-			//为空，则拉取cdn节点的
-			HttpResponse hr = new HttpUtil().get("http://res.zvo.cn/writecode/template/entity.template");
-			if(hr.getCode() != 200) {
-				System.err.println("获取云端 entity.template 失败，http code:"+hr.getCode());
-				return "获取云端 entity.template 失败，http code:"+hr.getCode();
-			}
-			templateText = hr.getContent();
+		//全局方面
+		if(templateText.indexOf("{") < 0) {
+			//没有，那就不替换了
+			return templateText;
 		}
 		
-		//全局方面
-		templateText = StringUtil.replaceAll(templateText, "{java.package}", this.template.javaPackage);
-		templateText = StringUtil.replaceAll(templateText, "{database.table.comment}", tableBean.getComment());
-		templateText = StringUtil.replaceAll(templateText, "{database.table.name}", tableBean.getName());
-		templateText = StringUtil.replaceAll(templateText, "{database.table.name.hump.upper}", HumpUtil.upper(tableBean.getName()));
-		templateText = StringUtil.replaceAll(templateText, "{database.table.name.hump.lower}", HumpUtil.lower(tableBean.getName()));
-		templateText = StringUtil.replaceAll(templateText, "{project.path.absolute}", SystemUtil.getCurrentDir());
+		templateText = replaceAll(templateText, "{java.package}", this.template.javaPackage);
+		templateText = replaceAll(templateText, "{database.table.comment}", tableBean.getComment());
+		templateText = replaceAll(templateText, "{database.table.name}", tableBean.getName());
+		templateText = replaceAll(templateText, "{database.table.name.hump.upper}", HumpUtil.upper(tableBean.getName()));
+		templateText = replaceAll(templateText, "{database.table.name.hump.lower}", HumpUtil.lower(tableBean.getName()));
+		templateText = replaceAll(templateText, "{project.path.absolute}", SystemUtil.getCurrentDir());
 		
 		//{codeblock.field}
 		//如果 {codeblock.field} 存在，则需要替换
@@ -97,29 +91,29 @@ public class TemplateUtil {
 				for (int i = 0; tableBean.getFieldList() != null && i < tableBean.getFieldList().size(); i++) {
 					FieldBean field = tableBean.getFieldList().get(i);	//具体的表中的某个字段
 					
-					String fieldString = StringUtil.replaceAll(fieldTemplate, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
-					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
-					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.name.hump.upper}", HumpUtil.upper(field.getName()));
-					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.comment}", field.getComment());
-					fieldString = StringUtil.replaceAll(fieldString, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
-					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.name}", field.getName());
-					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.length}", field.getLength());
-					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.collate}", field.getCollate());
-					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.default}", field.getDefaultvalue());
+					String fieldString = replaceAll(fieldTemplate, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
+					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
+					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.upper}", HumpUtil.upper(field.getName()));
+					fieldString = replaceAll(fieldString, "{database.table.field.comment}", field.getComment());
+					fieldString = replaceAll(fieldString, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
+					fieldString = replaceAll(fieldString, "{database.table.field.name}", field.getName());
+					fieldString = replaceAll(fieldString, "{database.table.field.length}", field.getLength());
+					fieldString = replaceAll(fieldString, "{database.table.field.collate}", field.getCollate());
+					fieldString = replaceAll(fieldString, "{database.table.field.default}", field.getDefaultvalue());
 					if(field.getIfAnnotationId().length() == 0) {
-						fieldString = StringUtil.replaceAll(fieldString, "[\\t]+{if.java.annotation.id}[\\n]+", "");	//没有则移除这一行
+						fieldString = replaceAll(fieldString, "[\\t]+{if.java.annotation.id}[\\n]+", "");	//没有则移除这一行
 					}else {
-						fieldString = StringUtil.replaceAll(fieldString, "{if.java.annotation.id}", field.getIfAnnotationId());				
+						fieldString = replaceAll(fieldString, "{if.java.annotation.id}", field.getIfAnnotationId());				
 					}
 					if(field.getIfAnnotationGeneratedValue().length() == 0) {
-						fieldString = StringUtil.replaceAll(fieldString, "[\\t]+{if.java.annotation.generatedvalue}[\\n]+", "");	//没有则移除这一行
+						fieldString = replaceAll(fieldString, "[\\t]+{if.java.annotation.generatedvalue}[\\n]+", "");	//没有则移除这一行
 					}else {
-						fieldString = StringUtil.replaceAll(fieldString, "{if.java.annotation.generatedvalue}", field.getIfAnnotationGeneratedValue());
+						fieldString = replaceAll(fieldString, "{if.java.annotation.generatedvalue}", field.getIfAnnotationGeneratedValue());
 					}
 					if(field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) {
-						fieldString = StringUtil.replaceAll(fieldString, "{if.database.table.field.default}", "");
+						fieldString = replaceAll(fieldString, "{if.database.table.field.default}", "");
 					}else {
-						fieldString = StringUtil.replaceAll(fieldString, "{if.database.table.field.default}", (field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) ? "":"default '"+field.getDefaultvalue()+"'");
+						fieldString = replaceAll(fieldString, "{if.database.table.field.default}", (field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) ? "":"default '"+field.getDefaultvalue()+"'");
 					}
 					
 					fieldStringBuffer.append(fieldString);
@@ -141,7 +135,7 @@ public class TemplateUtil {
 				tostring.append(HumpUtil.lower(field.getName())+" : \"+this."+HumpUtil.lower(field.getName())+"+\"");
 			}
 			tostring.append("}");
-			templateText = StringUtil.replaceAll(templateText, "{java.tostring}", tostring.toString());
+			templateText = replaceAll(templateText, "{java.tostring}", tostring.toString());
 		}
 		
 		return templateText;
@@ -162,9 +156,13 @@ public class TemplateUtil {
 			replacement = "";
 		}
 		
-		String s[] = {"?","(",")","{","}","*"}; 
+		String s[] = {"?","(",")","{","}","*","."}; 
 		for (int i = 0; i < s.length; i++) {
 			regex = regex.replaceAll("\\"+s[i], "\\\\"+s[i]);
+		}
+		if(replacement.indexOf("\\") > -1) {
+			//避免 \ 字符消失
+			replacement = replacement.replaceAll("\\", "\\\\");
 		}
 		text = text.replaceAll(regex, replacement);
 		

@@ -2,8 +2,8 @@ package com.xnx3.writecode.demo;
 
 import com.xnx3.writecode.WriteCode;
 import com.xnx3.writecode.bean.Template;
+import com.xnx3.writecode.datasource.Mysql;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
-import com.xnx3.writecode.interfaces.impl.Mysql;
 import com.xnx3.writecode.template.wm.entity.EntityTemplate;
 
 /**
