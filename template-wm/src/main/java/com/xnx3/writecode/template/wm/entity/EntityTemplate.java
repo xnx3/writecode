@@ -1,4 +1,4 @@
-package com.xnx3.writecode.entity;
+package com.xnx3.writecode.template.wm.entity;
 
 import com.xnx3.writecode.bean.Template;
 

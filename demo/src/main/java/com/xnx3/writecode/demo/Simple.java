@@ -4,6 +4,7 @@ import com.xnx3.writecode.WriteCode;
 import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
 import com.xnx3.writecode.interfaces.impl.Mysql;
+import com.xnx3.writecode.template.wm.entity.EntityTemplate;
 
 /**
  * 最简单的入门使用
@@ -25,7 +26,7 @@ public class Simple {
 //		template.setWriteFileAbsolutePath(null);
 //		template.setWriteFileName("{database.table.name.hump.upper}.java");
 //		
-		Template entityTemplate = new com.xnx3.writecode.entity.EntityTemplate();
+		Template entityTemplate = new EntityTemplate();
 		
 		WriteCode code = new WriteCode(dataSource, entityTemplate);
 		//手动设置当前生成的包名。如果不手动设置，那生成的entity实体类就会在当前包下
