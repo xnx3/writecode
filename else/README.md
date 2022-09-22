@@ -1,18 +1,24 @@
 # AutoWriteCode
 
 ## 模板
+
+* **{project.xxxx}** project. 开头的，是跟当前项目相关的
 * **{java.xxxx}** java. 开头的，则是跟java本身相关的
 * **{database.xxxx}** database. 开头的，则是跟数据库相关的
 * **{if.xxxx}** if. 开头的，则是如果有，就输出，如果没有，就不输出  
 
 #### entity.template  
+
+* **{project.path.absolute}** 当前项目的路径，绝对路径。格式如 E:\MyEclipseWork\xnx3
+
 * **{java.package}** 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity  
 * **{java.datatype}** 数据类型。会自动根据当前数据表中字段的类型来赋予。如 String、Integer、Boolean、Float等
 * **{java.tostring}** toString 的字符串，如 User{id:1,username:管雷鸣,roleId:1}
 
 * **{database.table.comment}** 数据表的备注，这个表是干什么的，如 用户表  
-* **{database.table.name}** 数据表的名字，如 user  
-* **{database.table.name.hump.upper}** 数据表的名字的大驼峰式命名，如 User  
+* **{database.table.name}** 数据表的名字，如 user_role
+* **{database.table.name.hump.upper}** 数据表的名字的大驼峰式命名，如 UserRole 
+* **{database.table.name.hump.lower}** 数据表的名字的小驼峰式命名，如 userRole
 * **{database.table.field.comment}** 数据表中，字段的注释
 * **{database.table.field.name}** 数据表中，字段名。如 role_id
 * **{database.table.field.name.hump.lower}** 数据表中，字段名的小驼峰式命名。如本来是role_id，会输出为 roleId

@@ -22,12 +22,13 @@ public class Demo {
 		//指定数据源为 Mysql
 		DataSourceInterface dataSource = new Mysql(host, port, databaseName, username, password);
 		//指定生成模板为wm框架的实体类
-		Template entityTemplate = new EntityTemplate();
+		Template template = new EntityTemplate();
+//		Template template = new VoTemplate();
 		
 		//进行生成代码
-		WriteCode code = new WriteCode(dataSource, entityTemplate);
+		WriteCode code = new WriteCode(dataSource, template);
 //		code.writeEntityCodeBySelectTableUI();
 		System.out.println(code.getCode("system"));
-		
+		System.exit(0);
 	}
 }

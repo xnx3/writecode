@@ -8,7 +8,7 @@ import java.util.List;
  * @author 管雷鸣
  */
 public class Template {
-	//要生成的Java文件的包名字。如果要写出的文件是Java文件，此项是要设置的，不然生成的Java文件的 package 就是空着的。
+	//要生成的Java文件的包名字。如果要写出的文件是Java文件，此项可以设置，不设置默认就是执行类所在的包名
 	//返回格式如 com.xnx3.j2ee.entity
 	public String javaPackage;
 	
@@ -25,7 +25,7 @@ public class Template {
 	public String writeFileName;
 	
 	/**
-	 * 要生成的Java文件的包名字。如果要写出的文件是Java文件，此项是要设置的，不然生成的Java文件的 package 就是空着的。
+	 * 要生成的Java文件的包名字。如果要写出的文件是Java文件，此项可以设置，不设置默认就是执行类所在的包名
 	 * @return 返回格式如 com.xnx3.j2ee.entity
 	 */
 	public String getJavaPackage() {
@@ -33,7 +33,7 @@ public class Template {
 	}
 	
 	/**
-	 * 要生成的Java文件的包名字。如果要写出的文件是Java文件，此项是要设置的，不然生成的Java文件的 package 就是空着的。
+	 * 要生成的Java文件的包名字。如果要写出的文件是Java文件，此项可以设置，不设置默认就是执行类所在的包名
 	 * @param javaPackage 格式如 com.xnx3.j2ee.entity
 	 */
 	public void setJavaPackage(String javaPackage) {

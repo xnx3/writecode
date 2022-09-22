@@ -71,7 +71,8 @@ public class WriteCode {
 		}
 		//加载包内的模板文件
 		try {
-			String jarTemplateText = StringUtil.inputStreamToString(this.template.getClass().getResourceAsStream("template"), FileUtil.UTF8);
+			System.out.println(this.template.getClass().getClassLoader().getResource("/").getPath());
+			String jarTemplateText = StringUtil.inputStreamToString(this.template.getClass().getClassLoader().getResourceAsStream(this.template.getClass().getCanonicalName().replaceAll("\\.", "/")+"/template"), FileUtil.UTF8);
 			templateUtil.setTemplateText(jarTemplateText);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -145,7 +146,7 @@ public class WriteCode {
 					writeCode(list.get(i));
 				}
 				DialogUtil.showMessageDialog("写出java文件完毕！");
-				SystemUtil.openLocalFolder(ClassUtil.packageToFilePath(template.javaPackage));
+				SystemUtil.openLocalFolder(template.getWriteFileAbsolutePath());
 			}
 		});
 	}

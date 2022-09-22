@@ -1,6 +1,7 @@
 package com.xnx3.writecode.util;
 
 import com.xnx3.StringUtil;
+import com.xnx3.SystemUtil;
 import com.xnx3.writecode.bean.FieldBean;
 import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.writecode.bean.Template;
@@ -67,6 +68,7 @@ public class TemplateUtil {
 		templateText = StringUtil.replaceAll(templateText, "{database.table.name}", tableBean.getName());
 		templateText = StringUtil.replaceAll(templateText, "{database.table.name.hump.upper}", HumpUtil.upper(tableBean.getName()));
 		templateText = StringUtil.replaceAll(templateText, "{database.table.name.hump.lower}", HumpUtil.lower(tableBean.getName()));
+		templateText = StringUtil.replaceAll(templateText, "{project.path.absolute}", SystemUtil.getCurrentDir());
 		
 		//{codeblock.field}
 		if(templateText.indexOf("{codeblock.field}") > -1) {
