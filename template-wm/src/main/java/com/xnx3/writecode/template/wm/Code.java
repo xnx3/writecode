@@ -17,7 +17,7 @@ import com.xnx3.writecode.template.wm.listJsp.ListJspTemplate;
  * 运行测试
  * @author 管雷鸣
  */
-public class WriteWMCode {
+public class Code {
 	static String host = "local.mysql.leimingyun.com";	//主机，可以填写域名或ip
 	static int port = 3306;			//端口号
 	static String databaseName = "wangmarket"; //数据表的名字
@@ -34,12 +34,12 @@ public class WriteWMCode {
 		 dataSource = new Mysql(host, port, databaseName, username, password);
 	}
 	
-	public WriteWMCode(String packageName) {
+	public Code(String packageName) {
 		this.packageName = packageName;
 	}
 	
 	public static void main(String[] args) {
-		WriteWMCode code = new WriteWMCode("com.xnx3.test");
+		Code code = new Code("com.xnx3.test");
 		code.write();
 //		System.out.println(ClassUtil.packageToFilePath("com.xnx3.test"));
 		
