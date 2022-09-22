@@ -1,6 +1,7 @@
 package com.xnx3.writecode;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JCheckBox;
@@ -26,17 +27,26 @@ import com.xnx3.swing.DialogUtil;
  * @author 管雷鸣
  *
  */
-public class WriteCode2 {
+public class WriteCode {
 	public DataSource dataSource;	//数据源
 	public Template template;	//生成的是啥
 	
-	public WriteCode2(DataSourceInterface dataSource, Template template) {
+	public WriteCode(DataSourceInterface dataSource, Template template) {
 		this.template = template;
 		
 		//判断包名是否有设置
 		if(this.template.javaPackage == null) {
 			StackTraceElement st = Thread.currentThread().getStackTrace()[2];
 			this.template.javaPackage = StringUtil.subString(st.getClassName(), null, ".", 1); //得到如 com.xnx3.j2ee
+		}
+		if(this.template.writeFileAbsolutePath == null) {
+			this.template.setWriteFileAbsolutePath(ClassUtil.packageToFilePath(this.template.javaPackage));
+		}
+		
+		//判断文件夹是否存在，不存在，则创建
+		File file = new File(this.template.getWriteFileAbsolutePath());
+		if(!file.exists()) {
+			file.mkdirs();
 		}
 		
 		this.dataSource = new DataSource(dataSource);
@@ -51,18 +61,28 @@ public class WriteCode2 {
 		TableBean tableBean = this.dataSource.table(tableName);
 		
 		TemplateUtil templateUtil = new TemplateUtil();
-		templateUtil.packageName = this.template.javaPackage;
+		templateUtil.setTemplate(this.template);
 		/*
 		 * 设置模板，加载顺序为：
 		 * 	1. 优先加载跟当前生成的java同路径下的 entity.template 模板文件
 		 *  2. 从网络中拉取 entity.template 模板文件
 		 * 
 		 */
+		//加载跟当前生成的java同路径下的 entity.template 模板文件
 		File file = new File(ClassUtil.packageToFilePath(this.template.javaPackage)+this.template.templateFileName);
 		if(file.exists()) {
-			templateUtil.setTemplate(FileUtil.read(file.getPath()));
+			templateUtil.setTemplateText(FileUtil.read(file.getPath()));
 		}
-		if(templateUtil.getTemplate() == null || templateUtil.getTemplate().length() == 0) {
+		//加载包内的模板文件
+		try {
+			String jarTemplateText = StringUtil.inputStreamToString(this.template.getClass().getResourceAsStream("template"), FileUtil.UTF8);
+			templateUtil.setTemplateText(jarTemplateText);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(templateUtil.getTemplateText() == null || templateUtil.getTemplateText().length() == 0) {
 			System.err.println("模板内容为空！路径："+ClassUtil.packageToFilePath(this.template.javaPackage)+this.template.templateFileName);
 			return "";
 		}
@@ -82,11 +102,11 @@ public class WriteCode2 {
 		//对其进行替换
 		if(fileName.indexOf("{") > -1) {
 			TableBean tableBean = this.dataSource.table(tableName);
-			fileName = new TemplateUtil(fileName).template(tableBean);
+			fileName = new TemplateUtil(fileName, this.template).template(tableBean);
 		}
 		
-		System.out.println("生成: "+ClassUtil.packageToFilePath(this.template.javaPackage)+fileName);
-		FileUtil.write(ClassUtil.packageToFilePath(this.template.javaPackage)+fileName, getCode(tableName));
+		System.out.println("生成: "+this.template.getWriteFileAbsolutePath()+fileName);
+		FileUtil.write(this.template.getWriteFileAbsolutePath()+fileName, getCode(tableName));
 	}
 	
 	/**

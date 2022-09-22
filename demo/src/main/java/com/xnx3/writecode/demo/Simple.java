@@ -1,6 +1,8 @@
 package com.xnx3.writecode.demo;
 
 import com.xnx3.writecode.WriteCode;
+import com.xnx3.writecode.bean.Template;
+import com.xnx3.writecode.interfaces.DataSourceInterface;
 import com.xnx3.writecode.interfaces.impl.Mysql;
 
 /**
@@ -15,10 +17,21 @@ public class Simple {
 		String username = "root"; 	//数据库登录用户名
 		String password = "111111";	//数据库登录密码
 		
-		WriteCode code = new WriteCode(new Mysql(host, port, databaseName, username, password));
+		DataSourceInterface dataSource = new Mysql(host, port, databaseName, username, password);
+//		
+//		Template template = new Template();
+////		template.setJavaPackage(null);
+//		template.setTemplateFileName("entity.template");
+//		template.setWriteFileAbsolutePath(null);
+//		template.setWriteFileName("{database.table.name.hump.upper}.java");
+//		
+		Template entityTemplate = new com.xnx3.writecode.entity.EntityTemplate();
+		
+		WriteCode code = new WriteCode(dataSource, entityTemplate);
 		//手动设置当前生成的包名。如果不手动设置，那生成的entity实体类就会在当前包下
 		//code.setJavaPackage("com.xnx3.entity");	
-		code.writeEntityCodeBySelectTableUI();
+//		code.writeEntityCodeBySelectTableUI();
+		System.out.println(code.getCode("system"));
 		
 	}
 }

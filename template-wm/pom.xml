@@ -5,16 +5,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.xnx3.writecode</groupId>
-	<artifactId>springboot</artifactId>
+	<artifactId>template.wm</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>writecode-springboot</name>
+	<name>writecode-template-wm</name>
 	<description>自动写代码，自动生成实体类、增删查改等代码</description>
 	<url>https://github.com/xnx3/writecode</url>
 
 	<parent>
-	  	<groupId>com.xnx3.writecode</groupId>
+		<groupId>com.xnx3.writecode</groupId>
 		<artifactId>parent</artifactId>
 		<version>1.0</version>
 	</parent>

@@ -1,5 +1,6 @@
 package com.xnx3.writecode.vo;
 
+import com.xnx3.writecode.WriteCode2;
 import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
 import com.xnx3.writecode.interfaces.TemplateInterface;
@@ -20,8 +21,8 @@ public class Test {
 		template.setTemplateFileName("vo.template");
 		template.setWriteFileAbsolutePath(null);
 		template.setWriteFileName("{database.table.name.hump.upper}VO.java");
-//		
-//		WriteCode2 code = new WriteCode2(dataSource, template);
-//		code.writeCode("system");
+		
+		WriteCode2 code = new WriteCode2(dataSource, template);
+		code.writeCode("system");
 	}
 }

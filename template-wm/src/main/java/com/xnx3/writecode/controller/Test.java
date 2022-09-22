@@ -11,7 +11,7 @@ public class Test {
 		String username = "root"; 	//数据库登录用户名
 		String password = "111111";	//数据库登录密码
 		
-//		WriteCode code = new WriteCode(new Mysql(host, port, databaseName, username, password));
-//		code.writeControllerCode("system");
+		WriteCode code = new WriteCode(new Mysql(host, port, databaseName, username, password));
+		code.writeControllerCode("system");
 	}
 }

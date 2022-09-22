@@ -1,6 +1,7 @@
 package com.xnx3.writecode;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JCheckBox;
@@ -8,13 +9,12 @@ import javax.swing.table.DefaultTableModel;
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
 import com.xnx3.SystemUtil;
-import com.xnx3.writecode.entity.Entity;
 import com.xnx3.writecode.bean.TableBean;
-import com.xnx3.writecode.controller.Controller;
-import com.xnx3.HumpUtil;
+import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
 import com.xnx3.writecode.interfaces.SelectTableInterface;
 import com.xnx3.writecode.ui.SelectTableJframe;
+import com.xnx3.writecode.util.TemplateUtil;
 import com.xnx3.ClassUtil;
 import com.xnx3.swing.DialogUtil;
 
@@ -24,58 +24,65 @@ import com.xnx3.swing.DialogUtil;
  *
  */
 public class WriteCode {
-	public String javaPackage = "xxxx"; //生成存放的包，格式如 com.xnx3.j2ee
 	public DataSource dataSource;	//数据源
+	public Template template;	//生成的是啥
 	
-	public WriteCode(DataSourceInterface dataSourceImpl) {
-		StackTraceElement st = Thread.currentThread().getStackTrace()[2];
-		javaPackage = StringUtil.subString(st.getClassName(), null, ".", 1); //得到如 com.xnx3.j2ee
+	public WriteCode(DataSourceInterface dataSource, Template template) {
+		this.template = template;
 		
-		this.dataSource = new DataSource(dataSourceImpl);
+		//判断包名是否有设置
+		if(this.template.javaPackage == null) {
+			StackTraceElement st = Thread.currentThread().getStackTrace()[2];
+			this.template.javaPackage = StringUtil.subString(st.getClassName(), null, ".", 1); //得到如 com.xnx3.j2ee
+		}
+		if(this.template.writeFileAbsolutePath == null) {
+			this.template.setWriteFileAbsolutePath(ClassUtil.packageToFilePath(this.template.javaPackage));
+		}
+		
+		//判断文件夹是否存在，不存在，则创建
+		File file = new File(this.template.getWriteFileAbsolutePath());
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+		
+		this.dataSource = new DataSource(dataSource);
 	}
 	
 	/**
-	 * 要生成的Java类的包。在new对象时，便会在构造方法中会自动获取你运行时的java文件的包名赋予
-	 * @return 格式如 com.xnx3.entity
-	 */
-	public String getJavaPackage() {
-		return javaPackage;
-	}
-
-	public void setJavaPackage(String javaPackage) {
-		this.javaPackage = javaPackage;
-	}
-	
-	/**
-	 * 获取当前操作的数据源
-	 * @return
-	 */
-	public DataSource getDataSource() {
-		return dataSource;
-	}
-
-	/**
-	 * 获取某个表的实体类的java代码
+	 * 获取某个表自动生成的代码
 	 * @param tableName 数据表的名字
 	 * @return 实体类的java代码
 	 */
-	public String getEntityCode(String tableName) {
+	public String getCode(String tableName) {
 		TableBean tableBean = this.dataSource.table(tableName);
 		
-		Entity entity = new Entity();
-		entity.packageName = this.javaPackage;
+		TemplateUtil templateUtil = new TemplateUtil();
+		templateUtil.setTemplate(this.template);
 		/*
 		 * 设置模板，加载顺序为：
 		 * 	1. 优先加载跟当前生成的java同路径下的 entity.template 模板文件
 		 *  2. 从网络中拉取 entity.template 模板文件
 		 * 
 		 */
-		File file = new File(ClassUtil.packageToFilePath(this.javaPackage)+"entity.template");
+		//加载跟当前生成的java同路径下的 entity.template 模板文件
+		File file = new File(ClassUtil.packageToFilePath(this.template.javaPackage)+this.template.templateFileName);
 		if(file.exists()) {
-			entity.setTemplate(FileUtil.read(file.getPath()));
+			templateUtil.setTemplateText(FileUtil.read(file.getPath()));
+		}
+		//加载包内的模板文件
+		try {
+			String jarTemplateText = StringUtil.inputStreamToString(this.template.getClass().getResourceAsStream("template"), FileUtil.UTF8);
+			templateUtil.setTemplateText(jarTemplateText);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
-		String code = entity.template(tableBean);
+		if(templateUtil.getTemplateText() == null || templateUtil.getTemplateText().length() == 0) {
+			System.err.println("模板内容为空！路径："+ClassUtil.packageToFilePath(this.template.javaPackage)+this.template.templateFileName);
+			return "";
+		}
+		
+		String code = templateUtil.template(tableBean);
 		
 		return code;
 	}
@@ -84,9 +91,17 @@ public class WriteCode {
 	 * 写出某个表的实体类的java文件
 	 * @param tableName 数据表的名字
 	 */
-	public void writeEntityCode(String tableName) {
-		System.out.println("生成: "+ClassUtil.packageToFilePath(this.javaPackage)+HumpUtil.upper(tableName)+".java");
-		FileUtil.write(ClassUtil.packageToFilePath(this.javaPackage)+HumpUtil.upper(tableName)+".java", getEntityCode(tableName));
+	public void writeCode(String tableName) {
+		String fileName = this.template.getWriteFileName();
+		
+		//对其进行替换
+		if(fileName.indexOf("{") > -1) {
+			TableBean tableBean = this.dataSource.table(tableName);
+			fileName = new TemplateUtil(fileName, this.template).template(tableBean);
+		}
+		
+		System.out.println("生成: "+this.template.getWriteFileAbsolutePath()+fileName);
+		FileUtil.write(this.template.getWriteFileAbsolutePath()+fileName, getCode(tableName));
 	}
 	
 	/**
@@ -127,50 +142,12 @@ public class WriteCode {
 			@Override
 			public void selectFinish(List<String> list) {
 				for (int i = 0; i < list.size(); i++) {
-					writeEntityCode(list.get(i));
+					writeCode(list.get(i));
 				}
 				DialogUtil.showMessageDialog("写出java文件完毕！");
-				SystemUtil.openLocalFolder(ClassUtil.packageToFilePath(javaPackage));
+				SystemUtil.openLocalFolder(ClassUtil.packageToFilePath(template.javaPackage));
 			}
 		});
 	}
-
-	/**
-	 * 获取某个表的controller类的java代码
-	 * @param tableName 数据表的名字
-	 * @return controller类的java代码
-	 */
-	public String getControllerCode(String tableName) {
-		TableBean tableBean = this.dataSource.table(tableName);
-		
-		Controller controller = new Controller();
-		controller.packageName = this.javaPackage;
-		/*
-		 * 设置模板，加载顺序为：
-		 * 	1. 优先加载跟当前生成的java同路径下的 entity.template 模板文件
-		 *  2. 从网络中拉取 entity.template 模板文件
-		 * 
-		 */
-		System.out.println(ClassUtil.packageToFilePath(this.javaPackage));
-		File file = new File(ClassUtil.packageToFilePath(this.javaPackage)+"controller.template");
-		if(file.exists()) {
-			controller.setTemplate(FileUtil.read(file.getPath()));
-		}
-		//System.out.println(controller.template);
-		String code = controller.template(tableBean);
-		
-		return code;
-	}
-	
-	
-	/**
-	 * 写出某个表的Controller类的java文件
-	 * @param tableName 数据表的名字
-	 */
-	public void writeControllerCode(String tableName) {
-		System.out.println("生成: "+ClassUtil.packageToFilePath(this.javaPackage)+HumpUtil.upper(tableName)+"Controller.java");
-		FileUtil.write(ClassUtil.packageToFilePath(this.javaPackage)+HumpUtil.upper(tableName)+"Controller.java", getControllerCode(tableName));
-	}
-	
 	
 }

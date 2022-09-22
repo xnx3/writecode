@@ -21,9 +21,9 @@ public class Demo {
 		String username = "root"; 	//数据库登录用户名
 		String password = "111111";	//数据库登录密码
 		
-		WriteCode code = new WriteCode(new Mysql(host, port, databaseName, username, password));
+//		WriteCode code = new WriteCode(new Mysql(host, port, databaseName, username, password));
 		//手动设置当前生成的包名。如果不手动设置，那生成的entity实体类就会在当前包下
 		//code.setJavaPackage("com.xnx3.entity");	
-		code.writeEntityCodeBySelectTableUI();
+//		code.writeEntityCodeBySelectTableUI();
 	}
 }
