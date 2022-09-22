@@ -7,6 +7,10 @@ import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.writecode.bean.Template;
 import com.xnx3.net.HttpResponse;
 import com.xnx3.net.HttpUtil;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.xnx3.HumpUtil;
 
 /**
@@ -71,71 +75,58 @@ public class TemplateUtil {
 		templateText = StringUtil.replaceAll(templateText, "{project.path.absolute}", SystemUtil.getCurrentDir());
 		
 		//{codeblock.field}
-		if(templateText.indexOf("{codeblock.field}") > -1) {
-			String fieldTemplate = StringUtil.subString(templateText, "{codeblock.field}", "{/codeblock.field}", 2);  //模板
-			//如果第一个字符是换行符，那就删掉
-			if(fieldTemplate.indexOf("\n") == 0) {
-				fieldTemplate = fieldTemplate.substring(1, fieldTemplate.length());
-			}
-			//如果最后一个字符是tab缩进，那也删掉
-			if(fieldTemplate.lastIndexOf("\t") == fieldTemplate.length()-1) {
-				fieldTemplate = fieldTemplate.substring(0, fieldTemplate.length()-1);
-			}
-			StringBuffer fieldStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
-			for (int i = 0; tableBean.getFieldList() != null && i < tableBean.getFieldList().size(); i++) {
-				FieldBean field = tableBean.getFieldList().get(i);	//具体的表中的某个字段
+		//如果 {codeblock.field} 存在，则需要替换
+		if(templateText.indexOf("{codeblock.field") > -1){
+			Pattern p = Pattern.compile("\\{codeblock\\.field\\}([\\s|\\S]*?)\\{\\/codeblock\\.field\\}");
+			Matcher m = p.matcher(templateText);
+			while (m.find()) {
+				String fieldTemplate = m.group(1);	//全局变量的name
+				System.out.println("---start---"+fieldTemplate+"----end");
 				
-				String fieldString = StringUtil.replaceAll(fieldTemplate, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
-				fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
-				fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.comment}", field.getComment());
-				fieldStringBuffer.append(fieldString);
-			}
-			//替换
-			templateText = StringUtil.replaceAll(templateText, fieldTemplate, fieldStringBuffer.toString());
-			//去掉 field-start、field-end
-			templateText = StringUtil.replaceAll(templateText, "[\\t]+{codeblock.field}[\\n]+", "");
-			templateText = StringUtil.replaceAll(templateText, "{/codeblock.field}[\\n]+", "");
-		}
-		
-		// {codeblock.method}
-		if(templateText.indexOf("{codeblock.method}") > -1) {
-			String methodTemplate = StringUtil.subString(templateText, "{codeblock.method}", "{/codeblock.method}", 2); //模板
-			StringBuffer methodStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
-			for (int i = 0; tableBean.getFieldList() != null && i < tableBean.getFieldList().size(); i++) {
-				FieldBean field = tableBean.getFieldList().get(i);	//具体的表中的某个字段
-				
-				String methodString = StringUtil.replaceAll(methodTemplate, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
-				methodString = StringUtil.replaceAll(methodString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
-				methodString = StringUtil.replaceAll(methodString, "{database.table.field.name.hump.upper}", HumpUtil.upper(field.getName()));
-				methodString = StringUtil.replaceAll(methodString, "{database.table.field.name}", field.getName());
-				methodString = StringUtil.replaceAll(methodString, "{database.table.field.datatype}", field.getDatatype());
-				methodString = StringUtil.replaceAll(methodString, "{database.table.field.length}", field.getLength());
-				methodString = StringUtil.replaceAll(methodString, "{database.table.field.collate}", field.getCollate());
-				methodString = StringUtil.replaceAll(methodString, "{database.table.field.comment}", field.getComment());
-				methodString = StringUtil.replaceAll(methodString, "{database.table.field.default}", field.getDefaultvalue());
-				if(field.getIfAnnotationId().length() == 0) {
-					methodString = StringUtil.replaceAll(methodString, "[\\t]+{if.java.annotation.id}[\\n]+", "");	//没有则移除这一行
-				}else {
-					methodString = StringUtil.replaceAll(methodString, "{if.java.annotation.id}", field.getIfAnnotationId());				
+//				String fieldTemplate = StringUtil.subString(templateText, "{codeblock.field}", "{/codeblock.field}", 2);  //模板
+				System.out.println("---"+fieldTemplate);
+				//如果第一个字符是换行符，那就删掉
+				if(fieldTemplate.indexOf("\n") == 0) {
+					fieldTemplate = fieldTemplate.substring(1, fieldTemplate.length());
 				}
-				if(field.getIfAnnotationGeneratedValue().length() == 0) {
-					methodString = StringUtil.replaceAll(methodString, "[\\t]+{if.java.annotation.generatedvalue}[\\n]+", "");	//没有则移除这一行
-				}else {
-					methodString = StringUtil.replaceAll(methodString, "{if.java.annotation.generatedvalue}", field.getIfAnnotationGeneratedValue());
+				//如果最后一个字符是tab缩进，那也删掉
+				if(fieldTemplate.lastIndexOf("\t") == fieldTemplate.length()-1) {
+					fieldTemplate = fieldTemplate.substring(0, fieldTemplate.length()-1);
 				}
-				if(field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) {
-					methodString = StringUtil.replaceAll(methodString, "{if.database.table.field.default}", "");
-				}else {
-					methodString = StringUtil.replaceAll(methodString, "{if.database.table.field.default}", (field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) ? "":"default '"+field.getDefaultvalue()+"'");
+				StringBuffer fieldStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
+				for (int i = 0; tableBean.getFieldList() != null && i < tableBean.getFieldList().size(); i++) {
+					FieldBean field = tableBean.getFieldList().get(i);	//具体的表中的某个字段
+					
+					String fieldString = StringUtil.replaceAll(fieldTemplate, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
+					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
+					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.name.hump.upper}", HumpUtil.upper(field.getName()));
+					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.comment}", field.getComment());
+					fieldString = StringUtil.replaceAll(fieldString, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
+					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.name}", field.getName());
+					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.length}", field.getLength());
+					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.collate}", field.getCollate());
+					fieldString = StringUtil.replaceAll(fieldString, "{database.table.field.default}", field.getDefaultvalue());
+					if(field.getIfAnnotationId().length() == 0) {
+						fieldString = StringUtil.replaceAll(fieldString, "[\\t]+{if.java.annotation.id}[\\n]+", "");	//没有则移除这一行
+					}else {
+						fieldString = StringUtil.replaceAll(fieldString, "{if.java.annotation.id}", field.getIfAnnotationId());				
+					}
+					if(field.getIfAnnotationGeneratedValue().length() == 0) {
+						fieldString = StringUtil.replaceAll(fieldString, "[\\t]+{if.java.annotation.generatedvalue}[\\n]+", "");	//没有则移除这一行
+					}else {
+						fieldString = StringUtil.replaceAll(fieldString, "{if.java.annotation.generatedvalue}", field.getIfAnnotationGeneratedValue());
+					}
+					if(field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) {
+						fieldString = StringUtil.replaceAll(fieldString, "{if.database.table.field.default}", "");
+					}else {
+						fieldString = StringUtil.replaceAll(fieldString, "{if.database.table.field.default}", (field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) ? "":"default '"+field.getDefaultvalue()+"'");
+					}
+					
+					fieldStringBuffer.append(fieldString);
 				}
 				
-				methodStringBuffer.append(methodString);
+				templateText = templateText.replace("{codeblock.field}"+m.group(1)+"{/codeblock.field}", fieldStringBuffer.toString());
 			}
-			//替换
-			templateText = replaceAll(templateText, methodTemplate, methodStringBuffer.toString());
-			//去掉 field-start、field-end
-			templateText = StringUtil.replaceAll(templateText, "[\\t]+{codeblock.method}[\\n]+", "");
-			templateText = StringUtil.replaceAll(templateText, "[\\t]+{/codeblock.method}[\\n]+", "");
 		}
 		
 		/**** tostring ****/

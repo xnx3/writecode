@@ -69,14 +69,18 @@ public class WriteCode {
 		if(file.exists()) {
 			templateUtil.setTemplateText(FileUtil.read(file.getPath()));
 		}
+		
 		//加载包内的模板文件
-		try {
-			System.out.println(this.template.getClass().getClassLoader().getResource("/").getPath());
-			String jarTemplateText = StringUtil.inputStreamToString(this.template.getClass().getClassLoader().getResourceAsStream(this.template.getClass().getCanonicalName().replaceAll("\\.", "/")+"/template"), FileUtil.UTF8);
-			templateUtil.setTemplateText(jarTemplateText);
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(templateUtil.getTemplateText() == null) {
+			try {
+				System.out.println(this.template.getClass().getClassLoader().getResource("/").getPath());
+				String jarTemplateText = StringUtil.inputStreamToString(this.template.getClass().getClassLoader().getResourceAsStream(this.template.getClass().getCanonicalName().replaceAll("\\.", "/")+"/template"), FileUtil.UTF8);
+				templateUtil.setTemplateText(jarTemplateText);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		
 		
 		if(templateUtil.getTemplateText() == null || templateUtil.getTemplateText().length() == 0) {
 			System.err.println("模板内容为空！路径："+ClassUtil.packageToFilePath(this.template.javaPackage)+this.template.templateFileName);

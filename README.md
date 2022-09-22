@@ -6,8 +6,8 @@
 
 ````
 <dependency>
-	<groupId>com.xnx3</groupId>
-	<artifactId>writecode</artifactId>
+	<groupId>com.xnx3.writecode</groupId>
+	<artifactId>core</artifactId>
 	<version>1.0</version>
 	<scope>provided</scope>
 <dependency>
@@ -49,6 +49,6 @@ public class WriteCode {
 ![image.png](./else/images/selectTableUI.png) 
 
 ## 更多使用
-* 自定义生成实体类的模板
+* 自定义生成实体类的模板 | [变量标签](else/tag.md)
 * 自定义生成的包名(存放的包)
 * 其他数据库的扩展，如 SqlServer、Oracle 等

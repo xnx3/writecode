@@ -1,14 +1,18 @@
-# AutoWriteCode
+当前支持的变量
 
-## 模板
+## 大纲
+* **变量标签** 用于代表某个动态变量
+* **变量代码块** 用于做为循环输出的代码块
 
+## 变量标签
+用于代表某个动态变量
+#### 大致简介
 * **{project.xxxx}** project. 开头的，是跟当前项目相关的
 * **{java.xxxx}** java. 开头的，则是跟java本身相关的
 * **{database.xxxx}** database. 开头的，则是跟数据库相关的
 * **{if.xxxx}** if. 开头的，则是如果有，就输出，如果没有，就不输出  
 
-#### entity.template  
-
+#### 标签列表
 * **{project.path.absolute}** 当前项目的路径，绝对路径。格式如 E:\MyEclipseWork\xnx3
 
 * **{java.package}** 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity  
@@ -32,16 +36,18 @@
 * **{if.java.annotation.generatedvalue}** 如果当前字段比如是自增属性，则输出Java注解 @GeneratedValue(strategy = IDENTITY)
 * **{if.database.table.field.default}** 如果当前数据表的字段有设置默认值，那么输出 default 'xxxx'
 
-##### 代码块 : field-start、field-start
+## 变量代码块
+用于做为循环输出的代码块
+#### 代码块 : {codeblock.field}
 
-````//field-start```` 跟 ````//field-end```` 中间的为循环输出数据表的所有字段属性。如： 
+````{codeblock.field}```` 跟 ````{/codeblock.field}```` 中间的为循环输出数据表的所有字段属性。如： 
 
 ````
-//field-start
+{codeblock.field}
 private Integer id; 
-//field-end
+{/codeblock.field}
 ````
 
-##### 代码块 : get-set-method-start 、get-set-method-end
+#### 代码块 : {codeblock.method}
 
-````//get-set-method-start```` 跟 ````//get-set-method-start```` 中间的为循环输出数据表的所有字段的get、set方法
+````{codeblock.method}```` 跟 ````{/codeblock.method}```` 中间的为循环输出数据表的所有字段的get、set方法
