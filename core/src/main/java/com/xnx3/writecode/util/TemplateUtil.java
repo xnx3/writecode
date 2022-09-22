@@ -66,7 +66,7 @@ public class TemplateUtil {
 		templateText = replaceAll(templateText, "{database.table.name}", tableBean.getName());
 		templateText = replaceAll(templateText, "{database.table.name.hump.upper}", HumpUtil.upper(tableBean.getName()));
 		templateText = replaceAll(templateText, "{database.table.name.hump.lower}", HumpUtil.lower(tableBean.getName()));
-		templateText = replaceAll(templateText, "{project.path.absolute}", SystemUtil.getCurrentDir());
+		templateText = replaceAll(templateText, "{project.path.absolute}", SystemUtil.getCurrentDir().replaceAll("\\\\", "\\\\\\\\"));
 		
 		//{codeblock.field}
 		//如果 {codeblock.field} 存在，则需要替换
@@ -75,10 +75,8 @@ public class TemplateUtil {
 			Matcher m = p.matcher(templateText);
 			while (m.find()) {
 				String fieldTemplate = m.group(1);	//全局变量的name
-				System.out.println("---start---"+fieldTemplate+"----end");
 				
 //				String fieldTemplate = StringUtil.subString(templateText, "{codeblock.field}", "{/codeblock.field}", 2);  //模板
-				System.out.println("---"+fieldTemplate);
 				//如果第一个字符是换行符，那就删掉
 				if(fieldTemplate.indexOf("\n") == 0) {
 					fieldTemplate = fieldTemplate.substring(1, fieldTemplate.length());
@@ -160,10 +158,11 @@ public class TemplateUtil {
 		for (int i = 0; i < s.length; i++) {
 			regex = regex.replaceAll("\\"+s[i], "\\\\"+s[i]);
 		}
-		if(replacement.indexOf("\\") > -1) {
-			//避免 \ 字符消失
-			replacement = replacement.replaceAll("\\", "\\\\");
-		}
+		
+//		while(text.indexOf(regex) > -1) {
+//			text = text.replace(regex, replacement);
+//		}
+		
 		text = text.replaceAll(regex, replacement);
 		
 		return text;

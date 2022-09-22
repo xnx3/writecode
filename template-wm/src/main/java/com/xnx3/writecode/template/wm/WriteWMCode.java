@@ -67,14 +67,16 @@ public class WriteWMCode {
 //		});
 		
 		writeCodeByTableName("system");
+		System.exit(0);
 	}
 	
 	public void writeCodeByTableName(String tableName) {
 		
-//		//生成entity实体类
-//		Template entityTemplate = new EntityTemplate();
-//		entityTemplate.setJavaPackage(this.packageName+".entity");
-//		new WriteCode(dataSource, entityTemplate).writeCode(tableName);
+		//生成entity实体类
+		Template entityTemplate = new EntityTemplate();
+		
+		entityTemplate.setJavaPackage(this.packageName+".entity");
+		new WriteCode(dataSource, entityTemplate).writeCode(tableName);
 //		
 //		//生成Controller
 //		Template controllerTemplate = new ControllerTemplate();
@@ -84,9 +86,9 @@ public class WriteWMCode {
 		//vo
 		
 		//生成list.jsp
-		Template listJspTemplate = new ListJspTemplate();
-		listJspTemplate.setWriteFileAbsolutePath("{project.path.absolute}/src/main/webapp/{database.table.name.hump.lower}/list.jsp");
-		new WriteCode(dataSource, listJspTemplate).writeCode(tableName);
+//		Template listJspTemplate = new ListJspTemplate();
+//		listJspTemplate.setWriteFileAbsolutePath("{project.path.absolute}/src/main/webapp/{database.table.name.hump.lower}/");
+//		new WriteCode(dataSource, listJspTemplate).writeCode(tableName);
 		
 		//edit.jsp
 	}

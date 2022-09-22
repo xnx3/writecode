@@ -19,7 +19,9 @@ public class Template {
 	//template 模板文件的名字
 	//格式如 entity.template
 	public String templateFileName;
-
+	//template 模板文件所在的绝对路径，格式如 /User/apple/template/
+	public String templateFileAbsolutePath;
+	
 	//自动写出的文件的名字。支持替换标签
 	//格式如 UserController.java 或 {database.table.name.hump.upper}Controller.java
 	public String writeFileName;
@@ -70,6 +72,20 @@ public class Template {
 
 	public void setWriteFileName(String writeFileName) {
 		this.writeFileName = writeFileName;
+	}
+
+	public String getTemplateFileAbsolutePath() {
+		return templateFileAbsolutePath;
+	}
+
+	public void setTemplateFileAbsolutePath(String templateFileAbsolutePath) {
+		this.templateFileAbsolutePath = templateFileAbsolutePath;
+	}
+
+	@Override
+	public String toString() {
+		return "Template [javaPackage=" + javaPackage + ", writeFileAbsolutePath=" + writeFileAbsolutePath
+				+ ", templateFileName=" + templateFileName + ", writeFileName=" + writeFileName + "]";
 	}
 	
 	

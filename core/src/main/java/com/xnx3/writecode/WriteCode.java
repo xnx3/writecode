@@ -38,11 +38,8 @@ public class WriteCode {
 		if(this.template.writeFileAbsolutePath == null) {
 			this.template.setWriteFileAbsolutePath(packageToFilePath(this.template.javaPackage));
 		}
-		
-		//判断文件夹是否存在，不存在，则创建
-		File file = new File(this.template.getWriteFileAbsolutePath());
-		if(!file.exists()) {
-			file.mkdirs();
+		if(this.template.templateFileAbsolutePath == null) {
+			this.template.setTemplateFileAbsolutePath(this.template.getWriteFileAbsolutePath());
 		}
 		
 		this.dataSource = new DataSource(dataSource);
@@ -62,14 +59,17 @@ public class WriteCode {
 		//替换当前this.template中的一些参数的标签
 		if(this.template.getWriteFileAbsolutePath().indexOf("{") > -1) {
 			String absPath = new TemplateUtil(this.template.getWriteFileAbsolutePath(), this.template).template(tableBean);
-			System.out.println("set abs : "+absPath);
 			this.template.setWriteFileAbsolutePath(absPath);
 		}
-		templateUtil.setTemplateText(this.template.getWriteFileAbsolutePath());
-		this.template.setWriteFileAbsolutePath(templateUtil.template(tableBean));
+		if(this.template.getWriteFileName().indexOf("{") > -1) {
+			String fileName = new TemplateUtil(this.template.getWriteFileName(), this.template).template(tableBean);
+			this.template.setWriteFileName(fileName);
+		}
+		if(this.template.getTemplateFileAbsolutePath().indexOf("{") > -1) {
+			String path = new TemplateUtil(this.template.getTemplateFileAbsolutePath(), this.template).template(tableBean);
+			this.template.setTemplateFileAbsolutePath(path);
+		}
 		
-		templateUtil.setTemplateText(this.template.getWriteFileName());
-		this.template.setWriteFileName(templateUtil.template(tableBean));
 		
 		/*
 		 * 设置模板，加载顺序为：
@@ -78,7 +78,7 @@ public class WriteCode {
 		 * 
 		 */
 		//加载跟当前生成的java同路径下的 entity.template 模板文件
-		File file = new File(this.template.writeFileAbsolutePath+this.template.templateFileName);
+		File file = new File(this.template.getTemplateFileAbsolutePath()+this.template.templateFileName);
 		if(file.exists()) {
 			templateUtil.setTemplateText(FileUtil.read(file.getPath()));
 		}
@@ -86,7 +86,6 @@ public class WriteCode {
 		//加载包内的模板文件
 		if(templateUtil.getTemplateText() == null) {
 			try {
-//				System.out.println(this.template.getClass().getClassLoader().getResource("/").getPath());
 				String jarTemplateText = StringUtil.inputStreamToString(this.template.getClass().getClassLoader().getResourceAsStream(this.template.getClass().getCanonicalName().replaceAll("\\.", "/")+"/template"), FileUtil.UTF8);
 				templateUtil.setTemplateText(jarTemplateText);
 			} catch (IOException e) {
@@ -110,16 +109,23 @@ public class WriteCode {
 	 * @param tableName 数据表的名字
 	 */
 	public void writeCode(String tableName) {
-		String fileName = this.template.getWriteFileName();
+//		String fileName = this.template.getWriteFileName();
 		
 //		//对其进行替换
 //		if(fileName.indexOf("{") > -1) {
 //			TableBean tableBean = this.dataSource.table(tableName);
 //			fileName = new TemplateUtil(fileName, this.template).template(tableBean);
 //		}
+		String codeText = getCode(tableName);
 		
-		System.out.println("生成: "+this.template.getWriteFileAbsolutePath()+fileName);
-		FileUtil.write(this.template.getWriteFileAbsolutePath()+fileName, getCode(tableName));
+		//判断文件夹是否存在，不存在，则创建
+		File file = new File(this.template.getWriteFileAbsolutePath());
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+		
+		System.out.println("生成: "+this.template.getWriteFileAbsolutePath()+this.template.getWriteFileName());
+		FileUtil.write(this.template.getWriteFileAbsolutePath()+this.template.getWriteFileName(), codeText);
 	}
 	
 	/**
