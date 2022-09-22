@@ -40,14 +40,10 @@
 用于做为循环输出的代码块
 #### 代码块 : {codeblock.field}
 
-````{codeblock.field}```` 跟 ````{/codeblock.field}```` 中间的为循环输出数据表的所有字段属性。如： 
+````{codeblock.field}```` 跟 ````{/codeblock.field}```` 中间的为循环输出数据表的所有字段方面属性。如： 
 
 ````
 {codeblock.field}
-private Integer id; 
+	private {java.field.datatype} {database.table.field.name.hump.lower};
 {/codeblock.field}
 ````
-
-#### 代码块 : {codeblock.method}
-
-````{codeblock.method}```` 跟 ````{/codeblock.method}```` 中间的为循环输出数据表的所有字段的get、set方法
