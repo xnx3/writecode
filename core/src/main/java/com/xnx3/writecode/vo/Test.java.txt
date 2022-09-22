@@ -2,7 +2,6 @@ package com.xnx3.writecode.vo;
 
 import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
-import com.xnx3.writecode.interfaces.TemplateInterface;
 import com.xnx3.writecode.interfaces.impl.Mysql;
 
 public class Test {
