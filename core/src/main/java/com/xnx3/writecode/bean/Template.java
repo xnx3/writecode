@@ -2,6 +2,8 @@ package com.xnx3.writecode.bean;
 
 import java.util.List;
 
+import com.xnx3.writecode.interfaces.TemplateTagExtendInterface;
+
 /**
  * 
  * 生成代码及模板相关
@@ -25,6 +27,9 @@ public class Template {
 	//自动写出的文件的名字。支持替换标签
 	//格式如 UserController.java 或 {database.table.name.hump.upper}Controller.java
 	public String writeFileName;
+	
+	//针对 模板中的变量标签的扩展，增加自己的自定义标签。如果为null则是没有设置扩展，此不生效
+	public TemplateTagExtendInterface templateTagExtend; 
 	
 	/**
 	 * 要生成的Java文件的包名字。如果要写出的文件是Java文件，此项可以设置，不设置默认就是执行类所在的包名
@@ -80,6 +85,14 @@ public class Template {
 
 	public void setTemplateFileAbsolutePath(String templateFileAbsolutePath) {
 		this.templateFileAbsolutePath = templateFileAbsolutePath;
+	}
+
+	public TemplateTagExtendInterface getTemplateTagExtend() {
+		return templateTagExtend;
+	}
+
+	public void setTemplateTagExtend(TemplateTagExtendInterface templateTagExtend) {
+		this.templateTagExtend = templateTagExtend;
 	}
 
 	@Override

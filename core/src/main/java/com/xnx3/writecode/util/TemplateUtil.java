@@ -58,6 +58,9 @@ public class TemplateUtil {
 	}
 	public void setTemplate(Template template) {
 		this.template = template;
+		if(this.templateTagExtend == null && template.getTemplateTagExtend() != null) {
+			this.templateTagExtend = template.getTemplateTagExtend();
+		}
 	}
 	/**
 	 * 传入数据表的名字，输出这个数据表的实体类内容

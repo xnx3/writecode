@@ -23,7 +23,7 @@ import java.util.List;
  * @author <a href="https://github.com/xnx3/writecode">WriteCode自动生成</a>
  */
 @Controller(value="{database.table.name.hump.upper}Controller")
-@RequestMapping("/shop/store/api/carouselImage/")
+@RequestMapping("{project.url.path}{database.table.name.hump.upper}/")
 public class {database.table.name.hump.upper}Controller extends BaseController {
 	@Resource
 	private SqlService sqlService;
