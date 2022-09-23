@@ -33,7 +33,6 @@ public class Entry {
 				}
 				
 				MainJframe mainJframe = new MainJframe();
-				mainJframe.setSize(425, 295);
 				mainJframe.setVisible(true);
 				
 				
