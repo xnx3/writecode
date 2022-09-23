@@ -31,6 +31,36 @@ public class Template {
 	//针对 模板中的变量标签的扩展，增加自己的自定义标签。如果为null则是没有设置扩展，此不生效
 	public TemplateTagExtendInterface templateTagExtend; 
 	
+	public Template() {
+	}
+	
+	/**
+	 * 克隆，本对象克隆一份出来
+	 * @return
+	 */
+	public Template clone() {
+		Template template = new Template();
+		
+		if(this.getJavaPackage() != null) {
+			template.javaPackage = new String(this.getJavaPackage());
+		}
+		if(this.getTemplateFileAbsolutePath() != null) {
+			template.templateFileAbsolutePath = new String(this.getTemplateFileAbsolutePath());
+		}
+		if(this.getTemplateFileName() != null) {
+			template.templateFileName = new String(this.getTemplateFileName());
+		}
+		template.templateTagExtend = this.getTemplateTagExtend();
+		if(this.getWriteFileAbsolutePath() != null) {
+			template.writeFileAbsolutePath = new String(this.getWriteFileAbsolutePath());
+		}
+		if(this.getWriteFileName() != null) {
+			template.writeFileName = new String(this.getWriteFileName());
+		}
+		
+		return template;
+	}
+	
 	/**
 	 * 要生成的Java文件的包名字。如果要写出的文件是Java文件，此项可以设置，不设置默认就是执行类所在的包名
 	 * @return 返回格式如 com.xnx3.j2ee.entity

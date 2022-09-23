@@ -5,30 +5,19 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.xnx3.writecode</groupId>
-	<artifactId>parent</artifactId>
+	<artifactId>client</artifactId>
 	<version>1.0</version>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
-	<name>writecode</name>
+	<name>writecode-client</name>
 	<description>自动写代码，自动生成实体类、增删查改等代码</description>
 	<url>https://github.com/xnx3/writecode</url>
 
-	<modules>
-		<!-- 核心实现 -->
-		<module>core</module>
-		<!-- 桌面客户端可运行软件 -->
-		<module>client</module>
-		<!-- 针对springboot -->
-        <module>springboot</module>
-        <!-- 使用的Demo示例 -->
-        <module>demo</module>
-        
-        <!-- 数据源-mysql -->
-        <module>datasource-mysql</module>
-        
-        <!-- 模板-wm ( http://wm.zvo.cn ) -->
-        <module>template-wm</module>
-    </modules>
+	<parent>
+		<groupId>com.xnx3.writecode</groupId>
+		<artifactId>parent</artifactId>
+	  <version>1.0</version>
+	</parent>
 
 	<licenses>
 		<license>
@@ -65,8 +54,23 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<profiles>
         <profile>
             <id>release</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
             <build>
                 <plugins>
+                	<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<configuration>
+							<archive>
+								<manifest>
+									<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+									<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+								</manifest>
+							</archive>
+						</configuration>
+					</plugin>
                     <!-- Source -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -115,6 +119,15 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                         </executions>
                     </plugin>
                 </plugins>
+                <resources>
+					<!-- 打包 src/main/java 下指定类型的文件 -->
+					<resource>
+						<directory>src/main/java</directory>
+						<includes>
+							<include>**/**</include>
+						</includes>
+					</resource>
+				</resources>
             </build>
             <distributionManagement>
                 <snapshotRepository>
@@ -129,5 +142,22 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         </profile>
     </profiles>
 	
+	
+	<dependencies>
+		<!-- 加入 mysql数据源的writecode  -->
+		<dependency>
+			<groupId>com.xnx3.writecode</groupId>
+			<artifactId>datasource.mysql</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<!-- 加入 wm 的模板 -->
+		<dependency>
+			<groupId>com.xnx3.writecode</groupId>
+			<artifactId>template.wm</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+	</dependencies>
 	
 </project>

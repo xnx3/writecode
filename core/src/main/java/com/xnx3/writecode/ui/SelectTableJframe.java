@@ -47,7 +47,6 @@ public class SelectTableJframe extends JFrame {
 	 */
 	public SelectTableJframe() {
 		setTitle("writecode 自动写代码");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 579, 448);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -55,7 +54,7 @@ public class SelectTableJframe extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
-		JButton btnNewButton = new JButton("生成代码");
+		JButton btnNewButton = new JButton("确  定");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<String> list = new ArrayList<String>();
@@ -68,6 +67,7 @@ public class SelectTableJframe extends JFrame {
 				}
 				System.out.println(list);
 				selectTable.selectFinish(list);
+				disable();
 			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -114,5 +114,13 @@ public class SelectTableJframe extends JFrame {
 		table.getColumnModel().getColumn(2).setPreferredWidth(300);
 		table.getColumnModel().getColumn(2).setMaxWidth(500);
 		
+	}
+	
+
+	/**
+	 * 不显示窗体
+	 */
+	public void disable() {
+		this.setVisible(false);
 	}
 }

@@ -73,7 +73,7 @@ public class TemplateUtil {
 			//没有，那就不替换了
 			return templateText;
 		}
-		
+		String templateText = new String(this.templateText);
 		templateText = replaceAll(templateText, "{java.package}", this.template.javaPackage);
 		templateText = replaceAll(templateText, "{database.table.comment}", tableBean.getComment());
 		templateText = replaceAll(templateText, "{database.table.name}", tableBean.getName());

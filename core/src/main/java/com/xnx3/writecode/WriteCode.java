@@ -28,7 +28,7 @@ public class WriteCode {
 	public Template template;	//生成的是啥
 	
 	public WriteCode(DataSourceInterface dataSource, Template template) {
-		this.template = template;
+		this.template = template.clone();
 		
 		//判断包名是否有设置
 		if(this.template.javaPackage == null) {

@@ -16,7 +16,7 @@ public interface DataSourceInterface {
 	public void connect();
 	
 	/**
-	 * 判断当前是否打开连接，连接状态。
+	 * 判断当前是否打开连接，返回连接状态。（注意，不能用此来判断是否能正常连接数据源）
 	 * @return true已打开连接；false还未打开连接，会自动执行 {@link #connect()}进行打开连接
 	 */
 	public boolean isconnect();
