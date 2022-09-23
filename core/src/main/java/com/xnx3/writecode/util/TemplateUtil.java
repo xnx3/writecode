@@ -1,16 +1,12 @@
 package com.xnx3.writecode.util;
 
-import com.xnx3.StringUtil;
 import com.xnx3.SystemUtil;
 import com.xnx3.writecode.bean.FieldBean;
 import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.writecode.bean.Template;
-import com.xnx3.net.HttpResponse;
-import com.xnx3.net.HttpUtil;
-
+import com.xnx3.writecode.interfaces.TemplateTagExtendInterface;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import com.xnx3.HumpUtil;
 
 /**
@@ -21,6 +17,7 @@ public class TemplateUtil {
 //	public String packageName; 	//{java.package} 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity
 	public String templateText;	//entity.template 模板内容
 	public Template template;	//自定义的模板相关属性
+	public TemplateTagExtendInterface templateTagExtend; //针对 模板中的变量标签的扩展，增加自己的自定义标签。如果为null则是没有设置扩展，此不生效
 	
 	public TemplateUtil() {
 		// TODO Auto-generated constructor stub
@@ -30,7 +27,20 @@ public class TemplateUtil {
 		this.template = template;
 	}
 	
-	
+	/**
+	 * 针对 模板中的变量标签的扩展，增加自己的自定义标签。如果为null则是没有设置扩展，此不生效
+	 * @return
+	 */
+	public TemplateTagExtendInterface getTemplateTagExtend() {
+		return templateTagExtend;
+	}
+	/**
+	 * 针对 模板中的变量标签的扩展，增加自己的自定义标签。如果为null则是没有设置扩展，此不生效
+	 * @param templateTagExtend
+	 */
+	public void setTemplateTagExtend(TemplateTagExtendInterface templateTagExtend) {
+		this.templateTagExtend = templateTagExtend;
+	}
 	/**
 	 * 设置 entity.template 模板内容
 	 * @param templateText entity.template 模板的内容文本
@@ -134,6 +144,10 @@ public class TemplateUtil {
 			}
 			tostring.append("}");
 			templateText = replaceAll(templateText, "{java.tostring}", tostring.toString());
+		}
+		
+		if(this.templateTagExtend != null) {
+			templateText = this.templateTagExtend.appendTag(templateText, this, tableBean);
 		}
 		
 		return templateText;
