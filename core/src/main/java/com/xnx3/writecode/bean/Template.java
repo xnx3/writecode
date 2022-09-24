@@ -35,6 +35,9 @@ public class Template {
 	//生成的controller的访问请求url的路径是什么，传入格式入 /user/api/  这个其实就是Controller上的@RequestMapping用的，使用方式如： @RequestMapping("{project.url.path}{database.table.name.hump.upper}/")
 	public String projectUrlPath;
 	
+	//默认的模板内容，也就是打包在jar中的template文件
+	private String defaultTemplateText;
+	
 	public Template() {
 	}
 	
@@ -63,6 +66,9 @@ public class Template {
 		}
 		if(this.getProjectUrlPath() != null) {
 			template.projectUrlPath = new String(this.getProjectUrlPath());
+		}
+		if(this.getDefaultTemplateText() != null) {
+			template.defaultTemplateText = new String(this.getDefaultTemplateText());
 		}
 		
 		return template;
@@ -139,6 +145,15 @@ public class Template {
 	public void setProjectUrlPath(String projectUrlPath) {
 		this.projectUrlPath = projectUrlPath;
 	}
+
+	public String getDefaultTemplateText() {
+		return defaultTemplateText;
+	}
+
+	public void setDefaultTemplateText(String defaultTemplateText) {
+		this.defaultTemplateText = defaultTemplateText;
+	}
+
 
 	@Override
 	public String toString() {

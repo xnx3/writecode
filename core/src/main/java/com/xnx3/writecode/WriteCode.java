@@ -83,14 +83,9 @@ public class WriteCode {
 			templateUtil.setTemplateText(FileUtil.read(file.getPath()));
 		}
 		
-		//加载包内的模板文件
+		//使用包内默认的模板文件
 		if(templateUtil.getTemplateText() == null) {
-			try {
-				String jarTemplateText = StringUtil.inputStreamToString(this.template.getClass().getClassLoader().getResourceAsStream(this.template.getClass().getCanonicalName().replaceAll("\\.", "/")+"/template"), FileUtil.UTF8);
-				templateUtil.setTemplateText(jarTemplateText);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			templateUtil.setTemplateText(this.template.getDefaultTemplateText());
 		}
 		
 		
