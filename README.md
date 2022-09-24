@@ -48,6 +48,23 @@ public class WriteCode {
 选择那几个表要进行生成，选择后点击生成按钮，即可生成。
 ![image.png](./else/images/selectTableUI.png) 
 
+## 目录结构
+
+```
+writecode                           项目
+├─client                            子项目-桌面客户端运行软件，可打包成exe、dmg，在windows、mac系统中直接运行
+├─core                              writecode的核心支持
+├─datasource-mysql                  子项目-Mysql数据源的扩展实现
+├─demo                              子项目-demo运行示例
+├─else                              其他的杂七杂八相关文件
+│  ├─images                         文档中的一些图片便是存在于此
+│  └─tag.md                         变量标签的文档
+├─template-springboot               子项目-针对SpringBoot的模板文件，如果你是springboot项目，可用此来一键生成实体类、controller等（待完善）
+├─template-wm                       子项目-针对wm的模板文件，可自动生成wm框架的实体类、controller类、vo类、前端的列表页面、编辑页面等
+├─pom.xml                           项目源代码 pom ( Maven )
+└─README.md                         说明
+```
+
 ## 更多使用
 * 自定义生成实体类的模板 | [变量标签](else/tag.md)
 * 自定义生成的包名(存放的包)

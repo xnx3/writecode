@@ -18,8 +18,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		<module>core</module>
 		<!-- 桌面客户端可运行软件 -->
 		<module>client</module>
-		<!-- 针对springboot -->
-        <module>springboot</module>
         <!-- 使用的Demo示例 -->
         <module>demo</module>
         
@@ -28,6 +26,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         
         <!-- 模板-wm ( http://wm.zvo.cn ) -->
         <module>template-wm</module>
+        <!-- 模板-springboot -->
+        <module>template-springboot</module>
     </modules>
 
 	<licenses>
