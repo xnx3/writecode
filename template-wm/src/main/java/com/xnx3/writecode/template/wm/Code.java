@@ -5,8 +5,14 @@ import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.datasource.Mysql;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
 import com.xnx3.writecode.template.wm.controller.ControllerTemplate;
+import com.xnx3.writecode.template.wm.controller.ControllerTemplateTagExtend;
+import com.xnx3.writecode.template.wm.editJsp.EditJspTemplate;
+import com.xnx3.writecode.template.wm.editVo.EditVoTemplate;
+import com.xnx3.writecode.template.wm.editVo.EditVoTemplateTagExtend;
 import com.xnx3.writecode.template.wm.entity.EntityTemplate;
 import com.xnx3.writecode.template.wm.listJsp.ListJspTemplate;
+import com.xnx3.writecode.template.wm.listVo.ListVoTemplate;
+import com.xnx3.writecode.template.wm.listVo.ListVoTemplateTagExtend;
 
 /**
  * 运行测试
@@ -73,11 +79,32 @@ public class Code {
 		Template controllerTemplate = new ControllerTemplate();
 		controllerTemplate.setJavaPackage(this.packageName+".controller");
 		controllerTemplate.setProjectUrlPath(this.projectUrlPath);
+		// 拓展
+		ControllerTemplateTagExtend tagExtend = new ControllerTemplateTagExtend();
+		tagExtend.setProjectEntityPath(this.packageName+".entity");
+		tagExtend.setProjectVoPath(this.packageName+".vo");
+		controllerTemplate.setTemplateTagExtend(tagExtend);
 		new WriteCode(dataSource, controllerTemplate).writeCode(tableName);
 		
 		/*** 生成 list vo ***/
+		Template listVoTemplate = new ListVoTemplate();
+		listVoTemplate.setJavaPackage(this.packageName+".vo");
+		listVoTemplate.setProjectUrlPath(this.projectUrlPath);
+		// 拓展
+		ListVoTemplateTagExtend listVoExtend = new ListVoTemplateTagExtend();
+		listVoExtend.setProjectEntityPath(this.packageName+".entity");
+		listVoTemplate.setTemplateTagExtend(listVoExtend);
+		new WriteCode(dataSource, listVoTemplate).writeCode(tableName);
 		
 		/*** 生成 edit vo ***/
+		Template editVoTemplate = new EditVoTemplate();
+		editVoTemplate.setJavaPackage(this.packageName+".vo");
+		editVoTemplate.setProjectUrlPath(this.projectUrlPath);
+		// 拓展
+		EditVoTemplateTagExtend editVoExtend = new EditVoTemplateTagExtend();
+		editVoExtend.setProjectEntityPath(this.packageName+".entity");
+		editVoTemplate.setTemplateTagExtend(editVoExtend);
+		new WriteCode(dataSource, editVoTemplate).writeCode(tableName);
 		
 		/*** 生成list.jsp ***/
 		Template listJspTemplate = new ListJspTemplate();
@@ -86,6 +113,10 @@ public class Code {
 		new WriteCode(dataSource, listJspTemplate).writeCode(tableName);
 		
 		/*** 生成 edit.jsp ***/
+		Template editJspTemplate = new EditJspTemplate();
+		editJspTemplate.setWriteFileAbsolutePath("{project.path.absolute}/src/main/webapp/{database.table.name.hump.lower}/");
+		editJspTemplate.setProjectUrlPath(this.projectUrlPath);
+		new WriteCode(dataSource, editJspTemplate).writeCode(tableName);
 		
 	}
 
