@@ -1,0 +1,80 @@
+<%@page import="com.xnx3.j2ee.system.WMConfig"%>
+<%@page import="com.xnx3.j2ee.Global"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:include page="/wm/common/head.jsp">
+	<jsp:param name="title" value="编辑" />
+</jsp:include>
+
+<form id="form" class="layui-form"
+	style="padding-top: 35px; margin-bottom: 10px; padding-right: 35px;">
+
+	{codeblock.field}<div class="layui-form-item">
+		<label class="layui-form-label">{database.table.field.comment}</label>
+		<div class="layui-input-block">
+			<input type="text" id="{database.table.field.name.hump.lower}" name="{database.table.field.name.hump.lower}" required class="layui-input" value="" />
+		</div>
+	</div>
+	
+		{/codeblock.field}<div class="layui-form-item">
+		<div class="layui-input-block">
+			<a class="layui-btn" onclick="save()">立即保存</a>
+			<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		</div>
+	</div>
+</form>
+
+<script>
+
+	// 获取窗口索引
+	var index = parent.layer.getFrameIndex(window.name); 
+	// 获取记录id
+	var id = getUrlParams('id');
+	
+	/**
+	 * 保存
+	 */
+	function save() {
+		msg.loading("保存中");
+		// 表单序列化
+		var param = wm.getJsonObjectByForm($("form"));
+		
+		wm.post("/xxx/save.json", param, function(data) {
+			msg.close();
+			if (data.result == '1') {
+				parent.msg.success("操作成功")
+				parent.layer.close(index);
+				// 刷新父窗口
+				parent.location.reload();
+			} else if (data.result == '0') {
+				msg.failure(data.info);
+			} else {
+				msg.failure(result);
+			}
+		}, "text");
+
+		return false;
+	}
+	
+	/**
+	 * 加载数据
+	 */
+	function loadData() {
+		msg.loading("");
+		wm.post("/xxx/xxx/details.json", {id : id}, function(data) {
+			msg.close();
+			if (data.result == '1') {
+				// 将接口获取到的数据自动填充到 form 表单中
+				wm.fillFormValues($('form'), data.xxx);
+			} else if (data.result == '0') {
+				msg.failure(data.info);
+			} else {
+				msg.failure(result);
+			}
+		}, "text");
+	}
+	loadData();
+	
+</script>
+
+<jsp:include page="/wm/common/foot.jsp"></jsp:include>
