@@ -1,6 +1,6 @@
 package {java.package};
 
-import com.xnx3.j2ee.entity.{database.table.name.hump.upper};
+import {project.entity.path}.{database.table.name.hump.upper};
 import com.xnx3.j2ee.system.responseBody.ResponseBodyManage;
 import com.xnx3.j2ee.vo.BaseVO;
 

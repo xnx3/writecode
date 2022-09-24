@@ -2,8 +2,9 @@ package {java.package};
 
 import java.util.List;
 
-import com.xnx3.j2ee.entity.{database.table.name.hump.upper};
+import {project.entity.path}.{database.table.name.hump.upper};
 import com.xnx3.j2ee.system.responseBody.ResponseBodyManage;
+import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.vo.BaseVO;
 
 /**
@@ -14,6 +15,7 @@ import com.xnx3.j2ee.vo.BaseVO;
 public class {database.table.name.hump.upper}ListVO extends BaseVO {
 
 	private List<{database.table.name.hump.upper}> {database.table.name.hump.lower}List;	// {database.table.comment}
+	private Page page;					// 分页
 	
 	public List<{database.table.name.hump.upper}> get{database.table.name.hump.upper}List() {
 		return {database.table.name.hump.lower}List;
@@ -23,9 +25,17 @@ public class {database.table.name.hump.upper}ListVO extends BaseVO {
 		this.{database.table.name.hump.lower}List = {database.table.name.hump.lower}List;
 	}
 	
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	
 	@Override
 	public String toString() {
-		return "{database.table.name.hump.upper}ListVO [{database.table.name.hump.lower}List=" + {database.table.name.hump.lower}List + "]";
+		return "{database.table.name.hump.upper}ListVO [{database.table.name.hump.lower}List=" + {database.table.name.hump.lower}List + ", page=" + page + "]";
 	}
 	
 }
