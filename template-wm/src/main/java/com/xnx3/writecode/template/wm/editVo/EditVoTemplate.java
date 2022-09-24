@@ -1,4 +1,4 @@
-package com.xnx3.writecode.template.wm.vo;
+package com.xnx3.writecode.template.wm.editVo;
 
 import com.xnx3.writecode.bean.Template;
 
@@ -7,8 +7,8 @@ import com.xnx3.writecode.bean.Template;
  * @author 管雷鸣
  *
  */
-public class VoTemplate extends Template{
-	public VoTemplate() {
+public class EditVoTemplate extends Template{
+	public EditVoTemplate() {
 		this.setTemplateFileName("vo.template");
 		this.setWriteFileName("{database.table.name.hump.upper}VO.java");
 	}
