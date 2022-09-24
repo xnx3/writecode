@@ -19,10 +19,11 @@ public class TestRun {
 		Template template = new ControllerTemplate();
 		template.setTemplateFileAbsolutePath("{project.path.absolute}/src/main/java/com/xnx3/writecode/template/wm/controller/");
 		template.setTemplateFileName("template");
+		template.setProjectUrlPath("/admin/user/");
 		
-		ControllerTemplateTagExtend tagExtend = new ControllerTemplateTagExtend();
-		tagExtend.setProjectUrlPath("/admin/user/");
-		template.setTemplateTagExtend(tagExtend);
+//		ControllerTemplateTagExtend tagExtend = new ControllerTemplateTagExtend();
+//		tagExtend.setProjectUrlPath("/admin/user/");
+//		template.setTemplateTagExtend(tagExtend);
 		
 		//进行生成代码
 		WriteCode code = new WriteCode(dataSource, template);

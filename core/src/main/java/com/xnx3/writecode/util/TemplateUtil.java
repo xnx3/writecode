@@ -80,6 +80,8 @@ public class TemplateUtil {
 		templateText = replaceAll(templateText, "{database.table.name.hump.upper}", HumpUtil.upper(tableBean.getName()));
 		templateText = replaceAll(templateText, "{database.table.name.hump.lower}", HumpUtil.lower(tableBean.getName()));
 		templateText = replaceAll(templateText, "{project.path.absolute}", SystemUtil.getCurrentDir().replaceAll("\\\\", "\\\\\\\\"));
+		templateText = replaceAll(templateText, "{project.url.path}",this.template.getProjectUrlPath());
+		
 		
 		//{codeblock.field}
 		//如果 {codeblock.field} 存在，则需要替换

@@ -10,6 +10,7 @@ import com.xnx3.writecode.datasource.Mysql;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
 import com.xnx3.writecode.interfaces.SelectTableInterface;
 import com.xnx3.writecode.template.wm.controller.ControllerTemplate;
+import com.xnx3.writecode.template.wm.controller.ControllerTemplateTagExtend;
 import com.xnx3.writecode.template.wm.entity.EntityTemplate;
 import com.xnx3.writecode.template.wm.listJsp.ListJspTemplate;
 
@@ -70,6 +71,10 @@ public class Code {
 		System.exit(0);
 	}
 	
+	/**
+	 * 生成某个数据表的 entity\controller\vo\jsp 等文件
+	 * @param tableName
+	 */
 	public void writeCodeByTableName(String tableName) {
 		
 		//生成entity实体类
@@ -78,10 +83,14 @@ public class Code {
 		entityTemplate.setJavaPackage(this.packageName+".entity");
 		new WriteCode(dataSource, entityTemplate).writeCode(tableName);
 //		
-//		//生成Controller
-//		Template controllerTemplate = new ControllerTemplate();
-//		controllerTemplate.setJavaPackage(this.packageName+".controller");
-//		new WriteCode(dataSource, controllerTemplate).writeCode(tableName);
+		/*** 生成Controller ***/
+		Template controllerTemplate = new ControllerTemplate();
+		controllerTemplate.setJavaPackage(this.packageName+".controller");
+		//扩展
+		ControllerTemplateTagExtend tagExtend = new ControllerTemplateTagExtend();
+		tagExtend.setProjectUrlPath("/admin/user/");
+		controllerTemplate.setTemplateTagExtend(tagExtend);
+		new WriteCode(dataSource, controllerTemplate).writeCode(tableName);
 		
 		//vo
 		

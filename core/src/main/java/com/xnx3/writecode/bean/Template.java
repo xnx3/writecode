@@ -31,6 +31,10 @@ public class Template {
 	//针对 模板中的变量标签的扩展，增加自己的自定义标签。如果为null则是没有设置扩展，此不生效
 	public TemplateTagExtendInterface templateTagExtend; 
 	
+	//请求的URL路径，比如实际生成的列表请求应该是 /admin/user/list.jsp， 那么这里应该设置为 /admin/user/ 注意格式，以/开头，以/结尾 
+	//生成的controller的访问请求url的路径是什么，传入格式入 /user/api/  这个其实就是Controller上的@RequestMapping用的，使用方式如： @RequestMapping("{project.url.path}{database.table.name.hump.upper}/")
+	public String projectUrlPath;
+	
 	public Template() {
 	}
 	
@@ -56,6 +60,9 @@ public class Template {
 		}
 		if(this.getWriteFileName() != null) {
 			template.writeFileName = new String(this.getWriteFileName());
+		}
+		if(this.getProjectUrlPath() != null) {
+			template.projectUrlPath = new String(this.getProjectUrlPath());
 		}
 		
 		return template;
@@ -123,6 +130,14 @@ public class Template {
 
 	public void setTemplateTagExtend(TemplateTagExtendInterface templateTagExtend) {
 		this.templateTagExtend = templateTagExtend;
+	}
+
+	public String getProjectUrlPath() {
+		return projectUrlPath;
+	}
+
+	public void setProjectUrlPath(String projectUrlPath) {
+		this.projectUrlPath = projectUrlPath;
 	}
 
 	@Override

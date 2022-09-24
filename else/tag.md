@@ -13,7 +13,8 @@
 * **{if.xxxx}** if. 开头的，则是如果有，就输出，如果没有，就不输出  
 
 #### 标签列表
-* **{project.path.absolute}** 当前项目的路径，绝对路径。格式如 E:\MyEclipseWork\xnx3
+* **{project.path.absolute}** 当前项目的路径，在本机磁盘的绝对路径。格式如 E:\eclipseWork\git\writecode
+* **{project.url.path}** 请求的URL路径，比如实际生成的列表请求应该是 /admin/user/list.jsp， 那么这里应该设置为 /admin/user/ 注意格式，以/开头，以/结尾 。 比如生成controller时，这个可以在Controller上的@RequestMapping用的，使用方式如： @RequestMapping("{project.url.path}{database.table.name.hump.upper}/")
 
 * **{java.package}** 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity  
 * **{java.datatype}** 数据类型。会自动根据当前数据表中字段的类型来赋予。如 String、Integer、Boolean、Float等
