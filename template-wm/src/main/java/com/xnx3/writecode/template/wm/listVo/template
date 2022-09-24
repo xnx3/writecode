@@ -1,0 +1,31 @@
+package {java.package};
+
+import java.util.List;
+
+import com.xnx3.j2ee.entity.{database.table.name.hump.upper};
+import com.xnx3.j2ee.system.responseBody.ResponseBodyManage;
+import com.xnx3.j2ee.vo.BaseVO;
+
+/**
+ * {database.table.comment} 列表
+ * @author <a href="https://github.com/xnx3/writecode">WriteCode自动生成</a>
+ */
+@ResponseBodyManage(ignoreField = {}, nullSetDefaultValue = true)
+public class {database.table.name.hump.upper}ListVO extends BaseVO {
+
+	private List<{database.table.name.hump.upper}> {database.table.name.hump.lower}List;	// {database.table.comment}
+	
+	public List<{database.table.name.hump.upper}> get{database.table.name.hump.upper}List() {
+		return {database.table.name.hump.lower}List;
+	}
+	
+	public void set{database.table.name.hump.upper}List(List<{database.table.name.hump.upper}> {database.table.name.hump.lower}List) {
+		this.{database.table.name.hump.lower}List = {database.table.name.hump.lower}List;
+	}
+	
+	@Override
+	public String toString() {
+		return "{database.table.name.hump.upper}ListVO [{database.table.name.hump.lower}List=" + {database.table.name.hump.lower}List + "]";
+	}
+	
+}
