@@ -72,49 +72,40 @@ public class Code {
 		
 		/*** 生成entity实体类 ***/
 		Template entityTemplate = new EntityTemplate();
-		entityTemplate.setJavaPackage(this.packageName+".entity");
+		entityTemplate.setJavaPackage(this.packageName);
+		entityTemplate.setWriteFileAbsolutePath("{project.path.absolute}"+ClassUtil.packageToFilePath(this.packageName+".entity"));
 		new WriteCode(dataSource, entityTemplate).writeCode(tableName);
-
+		
 		/*** 生成Controller ***/
 		Template controllerTemplate = new ControllerTemplate();
-		controllerTemplate.setJavaPackage(this.packageName+".controller");
+		controllerTemplate.setJavaPackage(this.packageName);
 		controllerTemplate.setProjectUrlPath(this.projectUrlPath);
-		// 拓展
-		ControllerTemplateTagExtend tagExtend = new ControllerTemplateTagExtend();
-		tagExtend.setProjectEntityPath(this.packageName+".entity");
-		tagExtend.setProjectVoPath(this.packageName+".vo");
-		controllerTemplate.setTemplateTagExtend(tagExtend);
+		controllerTemplate.setWriteFileAbsolutePath("{project.path.absolute}"+ClassUtil.packageToFilePath(this.packageName+".controller"));
 		new WriteCode(dataSource, controllerTemplate).writeCode(tableName);
 		
 		/*** 生成 list vo ***/
 		Template listVoTemplate = new ListVoTemplate();
-		listVoTemplate.setJavaPackage(this.packageName+".vo");
+		listVoTemplate.setJavaPackage(this.packageName);
 		listVoTemplate.setProjectUrlPath(this.projectUrlPath);
-		// 拓展
-		ListVoTemplateTagExtend listVoExtend = new ListVoTemplateTagExtend();
-		listVoExtend.setProjectEntityPath(this.packageName+".entity");
-		listVoTemplate.setTemplateTagExtend(listVoExtend);
+		listVoTemplate.setWriteFileAbsolutePath("{project.path.absolute}"+ClassUtil.packageToFilePath(this.packageName+".vo"));
 		new WriteCode(dataSource, listVoTemplate).writeCode(tableName);
 		
 		/*** 生成 edit vo ***/
 		Template editVoTemplate = new EditVoTemplate();
-		editVoTemplate.setJavaPackage(this.packageName+".vo");
+		editVoTemplate.setJavaPackage(this.packageName);
 		editVoTemplate.setProjectUrlPath(this.projectUrlPath);
-		// 拓展
-		EditVoTemplateTagExtend editVoExtend = new EditVoTemplateTagExtend();
-		editVoExtend.setProjectEntityPath(this.packageName+".entity");
-		editVoTemplate.setTemplateTagExtend(editVoExtend);
+		editVoTemplate.setWriteFileAbsolutePath("{project.path.absolute}"+ClassUtil.packageToFilePath(this.packageName+".vo"));
 		new WriteCode(dataSource, editVoTemplate).writeCode(tableName);
 		
 		/*** 生成list.jsp ***/
 		Template listJspTemplate = new ListJspTemplate();
-		listJspTemplate.setWriteFileAbsolutePath("{project.path.absolute}/src/main/webapp/{database.table.name.hump.lower}/");
+		listJspTemplate.setWriteFileAbsolutePath("{project.path.absolute}/src/main/webapp{project.url.path}{database.table.name.hump.lower}/");
 		listJspTemplate.setProjectUrlPath(this.projectUrlPath);
 		new WriteCode(dataSource, listJspTemplate).writeCode(tableName);
 		
 		/*** 生成 edit.jsp ***/
 		Template editJspTemplate = new EditJspTemplate();
-		editJspTemplate.setWriteFileAbsolutePath("{project.path.absolute}/src/main/webapp/{database.table.name.hump.lower}/");
+		editJspTemplate.setWriteFileAbsolutePath("{project.path.absolute}/src/main/webapp{project.url.path}{database.table.name.hump.lower}/");
 		editJspTemplate.setProjectUrlPath(this.projectUrlPath);
 		new WriteCode(dataSource, editJspTemplate).writeCode(tableName);
 		

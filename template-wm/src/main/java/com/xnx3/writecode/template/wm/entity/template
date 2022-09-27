@@ -1,4 +1,4 @@
-package {java.package};
+package {java.package}.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Column;
@@ -35,4 +35,5 @@ public class {database.table.name.hump.upper} implements java.io.Serializable{
 	public String toString() {
 		return "{java.tostring}";
 	}
+	
 }

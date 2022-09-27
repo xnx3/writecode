@@ -1,4 +1,4 @@
-package {java.package};
+package {java.package}.controller;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import com.xnx3.j2ee.util.ActionLogUtil;
 import com.xnx3.j2ee.util.Page;
 import com.xnx3.j2ee.util.Sql;
 import com.xnx3.j2ee.vo.BaseVO;
-import {project.entity.path}.{database.table.name.hump.upper};
-import {project.vo.path}.{database.table.name.hump.upper}ListVO;
-import {project.vo.path}.{database.table.name.hump.upper}VO;
+import {java.package}.entity.{database.table.name.hump.upper};
+import {java.package}.vo.{database.table.name.hump.upper}ListVO;
+import {java.package}.vo.{database.table.name.hump.upper}VO;
 
 /**
  * {database.table.comment}
@@ -160,6 +160,14 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 	@RequestMapping(value = "delete.json", method = {RequestMethod.POST})
 	public BaseVO delete(HttpServletRequest request,
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+			
+		/*
+		 *
+		 * 1. 这里是物理
+		 * 2. 要判断是否具有删除权利
+		 *
+		 */
+			
 		if(id - 0 <= 0) {
 			return error("请传入id");
 		}
@@ -169,6 +177,7 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 			return error("要删除的记录不存在");
 		}
 		
+		
 		sqlService.delete(entity);
 		
 		// 日志记录
@@ -176,4 +185,5 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 		
 		return success();
 	}
+	
 }
