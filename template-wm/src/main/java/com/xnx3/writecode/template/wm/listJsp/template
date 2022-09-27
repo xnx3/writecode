@@ -29,11 +29,11 @@
 			{codeblock.field}<td>{{item.{database.table.field.name.hump.lower}}}</td>
 				{/codeblock.field}<td style="width: 200px;">
 				<botton class="layui-btn layui-btn-sm"
-					:onclick="'editItem(' + item.xx + ', \'' + item.xx + '\');'" style="margin-left: 3px;">编辑</botton>
+					:onclick="'editItem(\'' + item.id + '\', \'id=' + item.id + '\');'" style="margin-left: 3px;">编辑</botton>
 				<botton class="layui-btn layui-btn-sm"
-					:onclick="'detailsItem(' + item.xx + ', \'' + item.xx + '\');'" style="margin-left: 3px;">详情</botton>
+					:onclick="'detailsItem(\'' + item.id + '\', \'id=' + item.id + '\');'" style="margin-left: 3px;">详情</botton>
 				<botton class="layui-btn layui-btn-sm"
-					:onclick="'deleteItem(' + item.xx + ', \'' + item.xx + '\');'" style="margin-left: 3px;">删除</botton>
+					:onclick="'deleteItem(\'' + item.id + '\', \'id=' + item.id + '\');'" style="margin-left: 3px;">删除</botton>
 			</td>
 		</tr>
 	</tbody>
@@ -43,7 +43,7 @@
 <script type="text/javascript">
 
 // 刚进入这个页面，加载第一页的数据
-wm.list(1, '{project.url.path}list.json');
+wm.list(1, '{project.url.path}{database.table.name.hump.lower}/list.json');
 
 /**
  * 添加、编辑记录信息
@@ -56,7 +56,7 @@ function editItem(id, name) {
 		title: id > 0 ? '编辑【' + name + '】' : '添加', 
 		area: ['620px', '90%'],
 		shadeClose: true, // 开启遮罩关闭
-		content: '{project.url.path}edit.jsp?id=' + id
+		content: '{project.url.path}{database.table.name.hump.lower}/edit.jsp?id=' + id
 	});
 }
 
@@ -71,7 +71,7 @@ function detailsItem(id, name) {
 		title: '详情&nbsp;【' + name + '】', 
 		area: ['480px', '600px'],
 		shadeClose: true, // 开启遮罩关闭
-		content: '{project.url.path}details.jsp?id=' + id
+		content: '{project.url.path}{database.table.name.hump.lower}/details.jsp?id=' + id
 	});
 }
 
@@ -84,7 +84,7 @@ function deleteItem(id, name) {
 	msg.confirm('是否删除【' + name + '】？', function() {
 		// 显示“删除中”的等待提示
 		parent.msg.loading("删除中");
-		$.post('{project.url.path}delete.json?id=' + id, function(data) {
+		$.post('{project.url.path}{database.table.name.hump.lower}/delete.json?id=' + id, function(data) {
 			// 关闭“删除中”的等待提示
 			parent.msg.close();
 			if(data.result == '1') {

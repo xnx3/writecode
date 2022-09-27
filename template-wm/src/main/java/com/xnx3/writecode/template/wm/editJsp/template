@@ -39,7 +39,7 @@
 		// 表单序列化
 		var param = wm.getJsonObjectByForm($("form"));
 		
-		wm.post("/xxx/save.json", param, function(data) {
+		wm.post("{project.url.path}{database.table.name.hump.lower}/save.json", param, function(data) {
 			msg.close();
 			if (data.result == '1') {
 				parent.msg.success("操作成功")
@@ -61,7 +61,7 @@
 	 */
 	function loadData() {
 		msg.loading("");
-		wm.post("/xxx/xxx/details.json", {id : id}, function(data) {
+		wm.post("{project.url.path}{database.table.name.hump.lower}/details.json", {id : id}, function(data) {
 			msg.close();
 			if (data.result == '1') {
 				// 将接口获取到的数据自动填充到 form 表单中
