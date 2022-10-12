@@ -1,5 +1,6 @@
 package com.xnx3.writecode;
 
+import java.awt.Button;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -128,7 +129,7 @@ public class WriteCode {
 	 * @param selectTable 选择数据表后，点击生成按钮，所执行的操作实现
 	 */
 	public void selectTable(SelectTableInterface selectTable) {
-		SelectTableJframe selectTableJframe = new SelectTableJframe();
+		SelectTableJframe selectTableJframe = new SelectTableJframe(this.dataSource);
 		selectTableJframe.selectTable = selectTable;
 		DefaultTableModel tableModel=(DefaultTableModel) selectTableJframe.table.getModel();
 		tableModel.getDataVector().clear();		//清空所有
@@ -146,6 +147,8 @@ public class WriteCode {
 			Vector rowData = new Vector();
 			rowData.add(false);
 			rowData.add(tableBean.getName());
+			rowData.add("点此设置");
+			rowData.add("点此设置");
 			rowData.add(tableBean.getComment());
 			tableModel.insertRow(i, rowData);
 		}

@@ -3,13 +3,18 @@ package com.xnx3.writecode.ui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.xnx3.swing.DialogUtil;
+import com.xnx3.writecode.DataSource;
+import com.xnx3.writecode.bean.FieldBean;
 import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.writecode.interfaces.SelectTableInterface;
 
@@ -29,6 +34,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 选择数据表
@@ -36,7 +45,7 @@ import javax.swing.JTextField;
  *
  */
 public class SelectTableJframe extends JFrame {
-
+	public DataSource dataSource;	//数据源
 	private JPanel contentPane;
 	public JTable table;
 	public SelectTableInterface selectTable;
@@ -45,7 +54,9 @@ public class SelectTableJframe extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SelectTableJframe() {
+	public SelectTableJframe(DataSource dataSource) {
+		this.dataSource = dataSource;
+		
 		setTitle("writecode 自动写代码");
 		setBounds(100, 100, 579, 448);
 		contentPane = new JPanel();
@@ -89,30 +100,92 @@ public class SelectTableJframe extends JFrame {
 		);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				System.out.println(table.getSelectedRow()+","+table.getSelectedColumn());
+				int currentRow = table.getSelectedRow();
+				Object s = table.getValueAt(currentRow, 1);
+				System.out.println(s.toString());
+				//选的是哪个字段，字段的命名
+				String fieldName = s.toString();
+				
+				if(table.getSelectedColumn() == 2) {
+					//列表页设置
+					//DialogUtil.showMessageDialog("完善中...");
+					
+					//UI相关
+					ListJframe listJframe = new ListJframe(dataSource);
+					listJframe.setVisible(true);
+					DefaultTableModel tableModel=(DefaultTableModel) listJframe.table.getModel();
+					tableModel.getDataVector().clear();		//清空所有
+					
+					
+				}else if(table.getSelectedColumn() == 3) {
+					//编辑页设置
+					//DialogUtil.showMessageDialog("完善中...");
+					
+					//UI相关
+					EditJframe editJframe = new EditJframe(dataSource);
+					editJframe.setVisible(true);
+					DefaultTableModel tableModel=(DefaultTableModel) editJframe.table.getModel();
+					tableModel.getDataVector().clear();		//清空所有
+					
+					//选的是哪个字段，字段的命名
+					
+//					String fieldName = table.getValueAt(currentRow, 1).toString();
+					
+					//查出这个表中有多少字段
+					TableBean tableBean = dataSource.dataSourceInterface.getTable(fieldName);
+					
+					for (int i = 0; i < tableBean.getFieldList().size(); i++) {
+						FieldBean fieldBean = tableBean.getFieldList().get(i);
+						
+						Vector rowData = new Vector();
+						rowData.add(fieldBean.getName());
+						rowData.add("");
+						rowData.add(fieldBean.getComment());
+						tableModel.insertRow(i, rowData);
+					}
+					
+					
+					
+				}
+				
+				
+			}
+		});
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
 		
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null},
+				{null, null, null, null, null},
 			},
 			new String[] {
-				"\u9009\u62E9", "\u6570\u636E\u8868\u540D\u5B57", "\u6570\u636E\u8868\u5907\u6CE8"
+				"\u9009\u62E9", "\u6570\u636E\u8868\u540D\u5B57", "\u5217\u8868\u9875\u8BBE\u7F6E", "\u7F16\u8F91\u9875\u8BBE\u7F6E", "\u6570\u636E\u8868\u5907\u6CE8"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Boolean.class, String.class, String.class
+				Boolean.class, String.class, Object.class, Object.class, String.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				true, false, true, true, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
 			}
 		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(40);
 		table.getColumnModel().getColumn(0).setMaxWidth(40);
 		table.getColumnModel().getColumn(1).setPreferredWidth(200);
 		table.getColumnModel().getColumn(1).setMaxWidth(400);
-		table.getColumnModel().getColumn(2).setPreferredWidth(300);
-		table.getColumnModel().getColumn(2).setMaxWidth(500);
+		table.getColumnModel().getColumn(4).setPreferredWidth(300);
+		table.getColumnModel().getColumn(4).setMaxWidth(500);
 		
 	}
 	
