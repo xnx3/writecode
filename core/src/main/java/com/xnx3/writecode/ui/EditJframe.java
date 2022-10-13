@@ -2,6 +2,13 @@ package com.xnx3.writecode.ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Robot;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,10 +20,15 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.xnx3.writecode.DataSource;
+import com.xnx3.writecode.bean.FieldBean;
+import com.xnx3.writecode.bean.TableBean;
+import com.xnx3.writecode.util.JTableUtil;
 
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * 编辑选项，增加、编辑时要操作哪些字段的设置
@@ -27,52 +39,66 @@ public class EditJframe extends JFrame {
 	public DataSource dataSource;	//数据源
 	private JPanel contentPane;
 	public JTable table;
+	public String tableName;	//当前所操作的数据表的名字
 
 	/**
-	 * Create the frame.
+	 * @param dataSource 数据源
+	 * @param tableName 当前所操作的数据表的名字
 	 */
-	public EditJframe(DataSource dataSource) {
+	public EditJframe(DataSource dataSource, String tableName) {
+		setTitle("新增、编辑时，用户可修改的字段");
 		this.dataSource = dataSource;
-		setBounds(100, 100, 450, 512);
+		this.tableName = tableName;
+		
+		setBounds(100, 100, 450, 444);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
-		JLabel lblNewLabel = new JLabel("正在完善中。。。");
+		JButton btnNewButton = new JButton("调整字段");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectField(e);
+			}
+		});
+		
+		JButton btnNewButton_1 = new JButton("保存设置");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(22)
-							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(96, Short.MAX_VALUE))
+						.addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(24)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(122, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
-					.addGap(37)
-					.addComponent(lblNewLabel)
-					.addContainerGap(70, Short.MAX_VALUE))
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
 		);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"\u70B9\u51FB\u53F3\u4FA7\u6309\u94AE\u6DFB\u52A0", "", "\u5220\u9664"},
+				{"\u70B9\u51FB\u53F3\u4FA7\u6309\u94AE\u6DFB\u52A0", ""},
 			},
 			new String[] {
-				"\u5B57\u6BB5\u540D\u5B57", "\u663E\u793A\u6587\u5B57", "\u64CD\u4F5C"
+				"\u5B57\u6BB5\u540D\u5B57", "\u8BF4\u660E"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, Object.class
+				String.class, String.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -81,4 +107,72 @@ public class EditJframe extends JFrame {
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
+	/**
+	 * 传入table 表的名字，进行填充数据
+	 * @param tableName table表的名字，如 user_role
+	 * @param selectMap map.key 数据表的字段名，value如果是false，那这个字段则不在这里显示 
+	 */
+	public void tableFill(Map<String, Boolean> selectMap) {
+		DefaultTableModel tableModel=(DefaultTableModel) table.getModel();
+		tableModel.getDataVector().clear();		//清空所有
+		
+		//选的是哪个字段，字段的命名
+		
+//		String fieldName = table.getValueAt(currentRow, 1).toString();
+		
+		//查出这个表中有多少字段
+		TableBean tableBean = dataSource.dataSourceInterface.getTable(tableName);
+		
+		for (int i = 0; i < tableBean.getFieldList().size(); i++) {
+			FieldBean fieldBean = tableBean.getFieldList().get(i);
+			if(selectMap.get(fieldBean.getName()) != null && selectMap.get(fieldBean.getName()).toString().equalsIgnoreCase("false")) {
+				continue;
+			}
+			
+			Vector rowData = new Vector();
+			rowData.add(fieldBean.getName());
+			//rowData.add("");
+			rowData.add(fieldBean.getComment());
+			tableModel.insertRow(tableModel.getRowCount(), rowData);
+		}
+	}
+	
+	/**
+	 * 选择、调整字段
+	 */
+	public void selectField(ActionEvent e) {
+		//当前table显示的
+		Map<String, Object[]> tableMap = JTableUtil.getTableData(table, 0);
+		
+		//查出这个表中有多少字段
+		TableBean tableBean = dataSource.dataSourceInterface.getTable(tableName);
+		
+		//绘制UI
+		SelectFieldJframe fieldJframe = new SelectFieldJframe(new SelectFieldJframeInterface() {
+			public void selectFinishCallback(Map<String, Boolean> map) {
+				//点确定后的回调,重新绘制数据
+				tableFill(map);
+			}
+		});
+		fieldJframe.setVisible(true);
+		
+		DefaultTableModel tableModel=(DefaultTableModel) fieldJframe.table.getModel();
+		tableModel.getDataVector().clear();		//清空所有
+		
+		
+		for (int i = 0; i < tableBean.getFieldList().size(); i++) {
+			FieldBean fieldBean = tableBean.getFieldList().get(i);
+			
+			Vector rowData = new Vector();
+			rowData.add(tableMap.get(fieldBean.getName()) != null);
+			rowData.add(fieldBean.getName());
+			rowData.add(fieldBean.getComment());
+			tableModel.insertRow(i, rowData);
+		}
+		
+		
+	}
+	
+	
 }

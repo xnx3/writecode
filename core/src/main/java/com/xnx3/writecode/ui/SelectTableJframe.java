@@ -3,6 +3,7 @@ package com.xnx3.writecode.ui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -108,8 +109,8 @@ public class SelectTableJframe extends JFrame {
 				int currentRow = table.getSelectedRow();
 				Object s = table.getValueAt(currentRow, 1);
 				System.out.println(s.toString());
-				//选的是哪个字段，字段的命名
-				String fieldName = s.toString();
+				//选的是哪个数据表，数据表的命名
+				String tableName = s.toString();
 				
 				if(table.getSelectedColumn() == 2) {
 					//列表页设置
@@ -127,28 +128,9 @@ public class SelectTableJframe extends JFrame {
 					//DialogUtil.showMessageDialog("完善中...");
 					
 					//UI相关
-					EditJframe editJframe = new EditJframe(dataSource);
+					EditJframe editJframe = new EditJframe(dataSource, tableName);
 					editJframe.setVisible(true);
-					DefaultTableModel tableModel=(DefaultTableModel) editJframe.table.getModel();
-					tableModel.getDataVector().clear();		//清空所有
-					
-					//选的是哪个字段，字段的命名
-					
-//					String fieldName = table.getValueAt(currentRow, 1).toString();
-					
-					//查出这个表中有多少字段
-					TableBean tableBean = dataSource.dataSourceInterface.getTable(fieldName);
-					
-					for (int i = 0; i < tableBean.getFieldList().size(); i++) {
-						FieldBean fieldBean = tableBean.getFieldList().get(i);
-						
-						Vector rowData = new Vector();
-						rowData.add(fieldBean.getName());
-						rowData.add("");
-						rowData.add(fieldBean.getComment());
-						tableModel.insertRow(i, rowData);
-					}
-					
+					editJframe.tableFill(new HashMap<String, Boolean>());
 					
 					
 				}
