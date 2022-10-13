@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import com.xnx3.SystemUtil;
 import com.xnx3.swing.DialogUtil;
 import com.xnx3.writecode.WriteCode;
+import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.client.Global;
 import com.xnx3.writecode.interfaces.SelectTableInterface;
@@ -120,7 +121,7 @@ public class MainJframe extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				WriteCode wc = new WriteCode(Global.dataSource, new Template());
 				wc.selectTable(new SelectTableInterface() {
-					public void selectFinish(List<String> list) {
+					public void selectFinish(List<TableBean> list) {
 						System.out.println(list);
 						Global.tableList = list;
 					}

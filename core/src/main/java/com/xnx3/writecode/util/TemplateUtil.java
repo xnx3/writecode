@@ -153,8 +153,8 @@ public class TemplateUtil {
 					fieldTemplate = fieldTemplate.substring(0, fieldTemplate.length()-1);
 				}
 				StringBuffer fieldStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
-				for (int i = 0; tableBean.getFieldList() != null && i < tableBean.getFieldList().size(); i++) {
-					FieldBean field = tableBean.getFieldList().get(i);	//具体的表中的某个字段
+				for (int i = 0; tableBean.getFieldEditList() != null && i < tableBean.getFieldEditList().size(); i++) {
+					FieldBean field = tableBean.getFieldEditList().get(i);	//具体的表中的某个字段
 					
 					String fieldString = replaceAll(fieldTemplate, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
 					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));

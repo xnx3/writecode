@@ -1,18 +1,22 @@
 package com.xnx3.writecode.template.wm;
 
+import java.util.List;
+
+import com.xnx3.swing.DialogUtil;
 import com.xnx3.writecode.WriteCode;
+import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.datasource.Mysql;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
+import com.xnx3.writecode.interfaces.SelectTableInterface;
 import com.xnx3.writecode.template.wm.controller.ControllerTemplate;
 import com.xnx3.writecode.template.wm.controller.ControllerTemplateTagExtend;
 import com.xnx3.writecode.template.wm.editJsp.EditJspTemplate;
 import com.xnx3.writecode.template.wm.editVo.EditVoTemplate;
-import com.xnx3.writecode.template.wm.editVo.EditVoTemplateTagExtend;
 import com.xnx3.writecode.template.wm.entity.EntityTemplate;
 import com.xnx3.writecode.template.wm.listJsp.ListJspTemplate;
 import com.xnx3.writecode.template.wm.listVo.ListVoTemplate;
-import com.xnx3.writecode.template.wm.listVo.ListVoTemplateTagExtend;
+import com.xnx3.writecode.util.ClassUtil;
 
 /**
  * 运行测试
@@ -41,73 +45,71 @@ public class Code {
 	
 	
 	public void write() {
-
-		//指定生成模板为wm框架的实体类
-		Template template = new EntityTemplate();
 		
 		//进行生成代码
-//		WriteCode code = new WriteCode(dataSource, new EntityTemplate());
-//		code.selectTable(new SelectTableInterface() {
-//			@Override
-//			public void selectFinish(List<String> list) {
-//				for (int i = 0; i < list.size(); i++) {
-//					String tableName = list.get(i);
-//					writeCodeByTableName(tableName);
-//				}
-//				DialogUtil.showMessageDialog("写出代码完毕！");
-//				//SystemUtil.openLocalFolder(template.getWriteFileAbsolutePath());
-//				System.exit(0);
-//			}
-//		});
+		WriteCode code = new WriteCode(dataSource, new EntityTemplate());
+		code.selectTable(new SelectTableInterface() {
+			
+			@Override
+			public void selectFinish(List<TableBean> list) {
+				for (int i = 0; i < list.size(); i++) {
+					writeCodeByTableName(list.get(i));
+				}
+				DialogUtil.showMessageDialog("写出代码完毕！");
+				//SystemUtil.openLocalFolder(template.getWriteFileAbsolutePath());
+				System.exit(0);
+			}
+		});
 		
-		writeCodeByTableName("system");
-		System.exit(0);
+		
+//		writeCodeByTableName("system");
+//		System.exit(0);
 	}
 	
 	/**
 	 * 生成某个数据表的 entity\controller\vo\jsp 等文件
-	 * @param tableName
+	 * @param tableBean
 	 */
-	public void writeCodeByTableName(String tableName) {
+	public void writeCodeByTableName(TableBean tableBean) {
 		
 		/*** 生成entity实体类 ***/
 		Template entityTemplate = new EntityTemplate();
 		entityTemplate.setJavaPackage(this.packageName);
 		entityTemplate.setWriteFileAbsolutePath("{project.path.absolute}"+ClassUtil.packageToFilePath(this.packageName+".entity"));
-		new WriteCode(dataSource, entityTemplate).writeCode(tableName);
+		new WriteCode(dataSource, entityTemplate).writeCode(tableBean);
 		
 		/*** 生成Controller ***/
 		Template controllerTemplate = new ControllerTemplate();
 		controllerTemplate.setJavaPackage(this.packageName);
 		controllerTemplate.setProjectUrlPath(this.projectUrlPath);
 		controllerTemplate.setWriteFileAbsolutePath("{project.path.absolute}"+ClassUtil.packageToFilePath(this.packageName+".controller"));
-		new WriteCode(dataSource, controllerTemplate).writeCode(tableName);
+		new WriteCode(dataSource, controllerTemplate).writeCode(tableBean);
 		
 		/*** 生成 list vo ***/
 		Template listVoTemplate = new ListVoTemplate();
 		listVoTemplate.setJavaPackage(this.packageName);
 		listVoTemplate.setProjectUrlPath(this.projectUrlPath);
 		listVoTemplate.setWriteFileAbsolutePath("{project.path.absolute}"+ClassUtil.packageToFilePath(this.packageName+".vo"));
-		new WriteCode(dataSource, listVoTemplate).writeCode(tableName);
+		new WriteCode(dataSource, listVoTemplate).writeCode(tableBean);
 		
 		/*** 生成 edit vo ***/
 		Template editVoTemplate = new EditVoTemplate();
 		editVoTemplate.setJavaPackage(this.packageName);
 		editVoTemplate.setProjectUrlPath(this.projectUrlPath);
 		editVoTemplate.setWriteFileAbsolutePath("{project.path.absolute}"+ClassUtil.packageToFilePath(this.packageName+".vo"));
-		new WriteCode(dataSource, editVoTemplate).writeCode(tableName);
+		new WriteCode(dataSource, editVoTemplate).writeCode(tableBean);
 		
 		/*** 生成list.jsp ***/
 		Template listJspTemplate = new ListJspTemplate();
 		listJspTemplate.setWriteFileAbsolutePath("{project.path.absolute}/src/main/webapp{project.url.path}{database.table.name.hump.lower}/");
 		listJspTemplate.setProjectUrlPath(this.projectUrlPath);
-		new WriteCode(dataSource, listJspTemplate).writeCode(tableName);
+		new WriteCode(dataSource, listJspTemplate).writeCode(tableBean);
 		
 		/*** 生成 edit.jsp ***/
 		Template editJspTemplate = new EditJspTemplate();
 		editJspTemplate.setWriteFileAbsolutePath("{project.path.absolute}/src/main/webapp{project.url.path}{database.table.name.hump.lower}/");
 		editJspTemplate.setProjectUrlPath(this.projectUrlPath);
-		new WriteCode(dataSource, editJspTemplate).writeCode(tableName);
+		new WriteCode(dataSource, editJspTemplate).writeCode(tableBean);
 		
 	}
 

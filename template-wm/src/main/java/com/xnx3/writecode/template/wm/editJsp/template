@@ -9,14 +9,14 @@
 <form id="form" class="layui-form"
 	style="padding-top: 35px; margin-bottom: 10px; padding-right: 35px;">
 
-	{codeblock.field}<div class="layui-form-item">
+	{codeblock.field.edit}<div class="layui-form-item">
 		<label class="layui-form-label">{database.table.field.comment}</label>
 		<div class="layui-input-block">
 			<input type="text" id="{database.table.field.name.hump.lower}" name="{database.table.field.name.hump.lower}" required class="layui-input" value="" />
 		</div>
 	</div>
 	
-		{/codeblock.field}<div class="layui-form-item">
+		{/codeblock.field.edit}<div class="layui-form-item">
 		<div class="layui-input-block">
 			<a class="layui-btn" onclick="save()">立即保存</a>
 			<button type="reset" class="layui-btn layui-btn-primary">重置</button>

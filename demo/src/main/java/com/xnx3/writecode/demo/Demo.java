@@ -27,8 +27,8 @@ public class Demo {
 		
 		//进行生成代码
 		WriteCode code = new WriteCode(dataSource, template);
-//		code.writeEntityCodeBySelectTableUI();
-		System.out.println(code.getCode("system"));
-		System.exit(0);
+		code.writeEntityCodeBySelectTableUI();
+//		System.out.println(code.getCode("system"));
+		//System.exit(0);
 	}
 }
