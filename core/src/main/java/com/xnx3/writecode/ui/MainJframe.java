@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -41,23 +42,24 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * 选择数据表
+ * 主页面，也就是选择数据表的页面
  * @author 管雷鸣
  *
  */
-public class SelectTableJframe extends JFrame {
+public class MainJframe extends JFrame {
 	public DataSource dataSource;	//数据源
 	private JPanel contentPane;
 	public JTable table;
 	public SelectTableInterface selectTable;
-
+	public static Map<String, TableBean> tableBeanMap;	//当前一些设置的，进行自动生成的表的数据。不管是否需要生成这里都会记录. key:table.name
 
 	/**
 	 * Create the frame.
 	 */
-	public SelectTableJframe(DataSource dataSource) {
+	public MainJframe(DataSource dataSource) {
 		this.dataSource = dataSource;
 		
+		this.tableBeanMap = new HashMap<String, TableBean>();
 		setTitle("writecode 自动写代码");
 		setBounds(100, 100, 579, 448);
 		contentPane = new JPanel();
@@ -69,17 +71,16 @@ public class SelectTableJframe extends JFrame {
 		JButton btnNewButton = new JButton("确  定");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<String> list = new ArrayList<String>();
+				List<TableBean> list = new ArrayList<TableBean>();
 				for(int i = 0; i < table.getRowCount(); i++) {
 					Boolean selected = (Boolean) table.getValueAt(i, 0);
 					if(selected) {
 						String tableName = (String) table.getValueAt(i, 1);
-						list.add(tableName);
+						list.add(tableBeanMap.get(tableName));
 					}
 				}
-				System.out.println(list);
 				selectTable.selectFinish(list);
-				disable();
+				setVisible(false);
 			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -128,11 +129,25 @@ public class SelectTableJframe extends JFrame {
 					//DialogUtil.showMessageDialog("完善中...");
 					
 					//UI相关
-					EditJframe editJframe = new EditJframe(dataSource, tableName);
+					EditJframe editJframe = new EditJframe(tableName);
 					editJframe.setVisible(true);
-					editJframe.tableFill(new HashMap<String, Boolean>());
 					
-					
+					Map<String, Boolean> selectMap = new HashMap<String, Boolean>();
+					TableBean tableBean = tableBeanMap.get(tableName);
+					List<FieldBean> selectFieldList = tableBean.getFieldEditList(); //取出数据缓存中，当前选中的
+					List<FieldBean> allFieldList = tableBean.getFieldList(); //所有的
+					for (int i = 0; i < allFieldList.size(); i++) {
+						FieldBean fieldBean = allFieldList.get(i);
+						selectMap.put(fieldBean.getName(), false); //先设置上一个默认的false
+						
+						for (int j = 0; j < selectFieldList.size(); j++) {
+							if(fieldBean.getName().equals(selectFieldList.get(j).getName())) {
+								selectMap.put(fieldBean.getName(), true); //设置中有他
+								continue;
+							}
+						}
+					}
+					editJframe.tableFill(selectMap);
 				}
 				
 				
@@ -171,11 +186,4 @@ public class SelectTableJframe extends JFrame {
 		
 	}
 	
-
-	/**
-	 * 不显示窗体
-	 */
-	public void disable() {
-		this.setVisible(false);
-	}
 }

@@ -41,10 +41,15 @@
 用于做为循环输出的代码块
 #### 代码块 : {codeblock.field}
 
-````{codeblock.field}```` 跟 ````{/codeblock.field}```` 中间的为循环输出数据表的所有字段方面属性。如： 
+````{codeblock.field}```` 跟 ````{/codeblock.field}```` 中间的为循环输出数据表中的所有字段。如： 
 
 ````
 {codeblock.field}
 	private {java.field.datatype} {database.table.field.name.hump.lower};
 {/codeblock.field}
 ````
+
+#### 代码块 : {codeblock.field.edit}
+意思同上 {codeblock.field} ，只不过输出的范围有变化
+````{codeblock.field.edit}```` 跟 ````{/codeblock.field.edit}```` 中间的为循环输出数据表-增加及编辑页面中，需要用户自己编辑的字段
+

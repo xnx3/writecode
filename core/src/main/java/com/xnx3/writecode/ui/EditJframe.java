@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.xnx3.swing.DialogUtil;
 import com.xnx3.writecode.DataSource;
 import com.xnx3.writecode.bean.FieldBean;
 import com.xnx3.writecode.bean.TableBean;
@@ -36,18 +37,15 @@ import java.awt.event.ActionEvent;
  *
  */
 public class EditJframe extends JFrame {
-	public DataSource dataSource;	//数据源
 	private JPanel contentPane;
 	public JTable table;
 	public String tableName;	//当前所操作的数据表的名字
 
 	/**
-	 * @param dataSource 数据源
 	 * @param tableName 当前所操作的数据表的名字
 	 */
-	public EditJframe(DataSource dataSource, String tableName) {
+	public EditJframe(String tableName) {
 		setTitle("新增、编辑时，用户可修改的字段");
-		this.dataSource = dataSource;
 		this.tableName = tableName;
 		
 		setBounds(100, 100, 450, 444);
@@ -65,15 +63,51 @@ public class EditJframe extends JFrame {
 		});
 		
 		JButton btnNewButton_1 = new JButton("保存设置");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TableBean tableBean = MainJframe.tableBeanMap.get(tableName);
+				if(tableBean == null) {
+					DialogUtil.showMessageDialog("异常，table:"+tableName+", 的数据信息 tableBean 为 null");
+					return;
+				}
+				
+				//当前table中所有的filed
+				List<FieldBean> fieldList = tableBean.getFieldList();
+				
+				//当前有的字段
+				Map<String, Boolean> currentFieldMap = new HashMap<String, Boolean>();
+				Map<String, Object[]> tableMap = JTableUtil.getTableData(table, 0);
+				for (Map.Entry<String, Object[]> entry : tableMap.entrySet()) {
+					String key = entry.getKey();
+					if(key == null || key.trim().length() < 1) {
+						continue;
+					}
+					currentFieldMap.put(key, true);
+				}
+				
+				//过滤出选中的来
+				List<FieldBean> selectedFieldList = new ArrayList<FieldBean>();
+				for (int i = 0; i < fieldList.size(); i++) {
+					FieldBean fieldBean = fieldList.get(i);
+					if(currentFieldMap.get(fieldBean.getName()) != null) {
+						selectedFieldList.add(fieldBean);
+					}
+				}
+				tableBean.setFieldEditList(selectedFieldList);
+				
+				MainJframe.tableBeanMap.put(tableName, tableBean);
+				setVisible(false);
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+						.addComponent(btnNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -82,13 +116,14 @@ public class EditJframe extends JFrame {
 					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(122, Short.MAX_VALUE))
+					.addContainerGap(275, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
 		);
 		
 		table = new JTable();
+		table.setEnabled(false);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"\u70B9\u51FB\u53F3\u4FA7\u6309\u94AE\u6DFB\u52A0", ""},
@@ -122,7 +157,7 @@ public class EditJframe extends JFrame {
 //		String fieldName = table.getValueAt(currentRow, 1).toString();
 		
 		//查出这个表中有多少字段
-		TableBean tableBean = dataSource.dataSourceInterface.getTable(tableName);
+		TableBean tableBean = MainJframe.tableBeanMap.get(tableName);
 		
 		for (int i = 0; i < tableBean.getFieldList().size(); i++) {
 			FieldBean fieldBean = tableBean.getFieldList().get(i);
@@ -146,7 +181,7 @@ public class EditJframe extends JFrame {
 		Map<String, Object[]> tableMap = JTableUtil.getTableData(table, 0);
 		
 		//查出这个表中有多少字段
-		TableBean tableBean = dataSource.dataSourceInterface.getTable(tableName);
+		TableBean tableBean = MainJframe.tableBeanMap.get(tableName);
 		
 		//绘制UI
 		SelectFieldJframe fieldJframe = new SelectFieldJframe(new SelectFieldJframeInterface() {

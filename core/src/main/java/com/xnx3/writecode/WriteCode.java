@@ -14,7 +14,7 @@ import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
 import com.xnx3.writecode.interfaces.SelectTableInterface;
-import com.xnx3.writecode.ui.SelectTableJframe;
+import com.xnx3.writecode.ui.MainJframe;
 import com.xnx3.writecode.util.TemplateUtil;
 import com.xnx3.ClassUtil;
 import com.xnx3.swing.DialogUtil;
@@ -47,13 +47,22 @@ public class WriteCode {
 	}
 	
 	/**
-	 * 获取某个表自动生成的代码
+	 * 获取某个表自动生成的代码. 建议使用 {@link #getCode(TableBean)}
 	 * @param tableName 数据表的名字
 	 * @return 实体类的java代码
 	 */
 	public String getCode(String tableName) {
 		TableBean tableBean = this.dataSource.table(tableName);
-		
+		return getCode(tableBean);
+	}
+	
+
+	/**
+	 * 获取某个表自动生成的代码
+	 * @param tableName 数据表的名字
+	 * @return 实体类的java代码
+	 */
+	public String getCode(TableBean tableBean) {
 		TemplateUtil templateUtil = new TemplateUtil();
 		templateUtil.setTemplate(this.template);
 		
@@ -100,9 +109,12 @@ public class WriteCode {
 		return code;
 	}
 	
+	
 	/**
-	 * 写出某个表的实体类的java文件
+	 * 根据数据库中某个表的信息，写出代码文件.
+	 * 建议使用 {@link #writeCode(TableBean)}
 	 * @param tableName 数据表的名字
+	 * @deprecated
 	 */
 	public void writeCode(String tableName) {
 //		String fileName = this.template.getWriteFileName();
@@ -124,12 +136,31 @@ public class WriteCode {
 		FileUtil.write(this.template.getWriteFileAbsolutePath()+this.template.getWriteFileName(), codeText);
 	}
 	
+
+	/**
+	 * 根据数据库中某个表的信息，写出代码文件。
+	 * @param tableName 数据表的名字
+	 */
+	public void writeCode(TableBean tableBean) {
+		String codeText = getCode(tableBean);
+		
+		//判断文件夹是否存在，不存在，则创建
+		File file = new File(this.template.getWriteFileAbsolutePath());
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+		
+		System.out.println("生成: "+this.template.getWriteFileAbsolutePath()+this.template.getWriteFileName());
+		FileUtil.write(this.template.getWriteFileAbsolutePath()+this.template.getWriteFileName(), codeText);
+	}
+	
+	
 	/**
 	 * 出现一个UI界面，通过界面选择数据表，然后进行生成
 	 * @param selectTable 选择数据表后，点击生成按钮，所执行的操作实现
 	 */
 	public void selectTable(SelectTableInterface selectTable) {
-		SelectTableJframe selectTableJframe = new SelectTableJframe(this.dataSource);
+		MainJframe selectTableJframe = new MainJframe(this.dataSource);
 		selectTableJframe.selectTable = selectTable;
 		DefaultTableModel tableModel=(DefaultTableModel) selectTableJframe.table.getModel();
 		tableModel.getDataVector().clear();		//清空所有
@@ -147,10 +178,14 @@ public class WriteCode {
 			Vector rowData = new Vector();
 			rowData.add(false);
 			rowData.add(tableBean.getName());
-			rowData.add("点此设置");
-			rowData.add("点此设置");
+			rowData.add("设置");
+			rowData.add("设置");
 			rowData.add(tableBean.getComment());
 			tableModel.insertRow(i, rowData);
+			
+			//获取这个表的详细信息,进行持久化存储
+			TableBean tb = this.dataSource.dataSourceInterface.getTable(tableBean.getName());
+			selectTableJframe.tableBeanMap.put(tableBean.getName(), tb);
 		}
 		
 		selectTableJframe.setVisible(true);
@@ -162,7 +197,7 @@ public class WriteCode {
 	public void writeEntityCodeBySelectTableUI() {
 		selectTable(new SelectTableInterface() {
 			@Override
-			public void selectFinish(List<String> list) {
+			public void selectFinish(List<TableBean> list) {
 				for (int i = 0; i < list.size(); i++) {
 					writeCode(list.get(i));
 				}
