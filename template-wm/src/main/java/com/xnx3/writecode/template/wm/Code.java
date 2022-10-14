@@ -61,8 +61,8 @@ public class Code {
 			}
 		});
 		
-		
-//		writeCodeByTableName("system");
+//		dataSource.connect();
+//		writeCodeByTableName(dataSource.getTable("system"));
 //		System.exit(0);
 	}
 	

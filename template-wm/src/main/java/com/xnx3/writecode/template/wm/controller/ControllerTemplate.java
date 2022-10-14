@@ -23,4 +23,9 @@ public class ControllerTemplate extends Template{
 			e.printStackTrace();
 		}
 	}
+	
+	public static void main(String[] args) {
+		ControllerTemplate temp = new ControllerTemplate();
+		System.out.println(temp);
+	}
 }

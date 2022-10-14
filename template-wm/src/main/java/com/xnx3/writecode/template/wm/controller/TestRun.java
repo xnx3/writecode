@@ -20,6 +20,7 @@ public class TestRun {
 		//template.setTemplateFileAbsolutePath("{project.path.absolute}/src/main/java/com/xnx3/writecode/template/wm/controller/");
 		//template.setTemplateFileName("template");
 		template.setProjectUrlPath("/admin/user/");
+		template.setWriteFileName("{database.table.name.hump.upper}Controller.java.txt");
 		
 //		ControllerTemplateTagExtend tagExtend = new ControllerTemplateTagExtend();
 //		tagExtend.setProjectUrlPath("/admin/user/");

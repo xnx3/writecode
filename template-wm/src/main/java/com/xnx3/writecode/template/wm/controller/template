@@ -111,14 +111,17 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 	/**
 	 * 添加或修改一条记录
 	 * @param token 当前操作用户的登录标识 <required>
-	 * 			<a href="xxxxx.html">/xxxx/login.json</a> 取得</p>
+	 * 			<a href="xxxxx.html">/xxxx/login.json</a> 取得</p>{codeblock.field.edit}
+	 * @param {database.table.field.name.hump.lower} {database.table.field.comment}{/codeblock.field.edit}
 	 * @return 保存结果
 	 * @author <a href="https://github.com/xnx3/writecode">WriteCode自动生成</a>
 	 */
 	@ResponseBody
 	@RequestMapping(value = "save.json", method = {RequestMethod.POST})
-	public BaseVO save(HttpServletRequest request, {database.table.name.hump.upper} inputEntity) {
-		Integer id = inputEntity.getId();
+	public BaseVO save(
+			//@RequestParam(value = "id", required = false, defaultValue="0") int id,
+{codeblock.field.edit}			@RequestParam(value = "{database.table.field.name.hump.lower}", required = false) {database.table.field.datatype.java} {database.table.field.name.hump.lower},
+{/codeblock.field.edit}			HttpServletRequest request) {
 		// 创建一个实体
 		{database.table.name.hump.upper} entity;
 		if(id == null || id - 0 == 0) {
@@ -133,8 +136,8 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 		}
 		
 		// 给实体赋值
-		{codeblock.field}entity.set{database.table.field.name.hump.upper}(inputEntity.get{database.table.field.name.hump.upper}());
-			{/codeblock.field}
+		{codeblock.field.edit}entity.set{database.table.field.name.hump.upper}({database.table.field.name.hump.lower});
+			{/codeblock.field.edit}
 		// 保存实体
 		sqlService.save(entity);
 		

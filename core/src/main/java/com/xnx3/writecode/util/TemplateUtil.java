@@ -107,6 +107,8 @@ public class TemplateUtil {
 					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
 					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.upper}", HumpUtil.upper(field.getName()));
 					fieldString = replaceAll(fieldString, "{database.table.field.comment}", field.getComment());
+					fieldString = replaceAll(fieldString, "{database.table.field.datatype}", field.getDatatype());
+					fieldString = replaceAll(fieldString, "{database.table.field.datatype.java}", DataTypeUtil.databaseToJava(field.getDatatype()));
 					fieldString = replaceAll(fieldString, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
 					fieldString = replaceAll(fieldString, "{database.table.field.name}", field.getName());
 					fieldString = replaceAll(fieldString, "{database.table.field.length}", field.getLength());
@@ -160,6 +162,8 @@ public class TemplateUtil {
 					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
 					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.upper}", HumpUtil.upper(field.getName()));
 					fieldString = replaceAll(fieldString, "{database.table.field.comment}", field.getComment());
+					fieldString = replaceAll(fieldString, "{database.table.field.datatype}", field.getDatatype());
+					fieldString = replaceAll(fieldString, "{database.table.field.datatype.java}", DataTypeUtil.databaseToJava(field.getDatatype()));
 					fieldString = replaceAll(fieldString, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
 					fieldString = replaceAll(fieldString, "{database.table.field.name}", field.getName());
 					fieldString = replaceAll(fieldString, "{database.table.field.length}", field.getLength());
