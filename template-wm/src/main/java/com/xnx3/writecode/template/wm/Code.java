@@ -2,6 +2,7 @@ package com.xnx3.writecode.template.wm;
 
 import java.util.List;
 
+import com.xnx3.j2ee.util.ApplicationPropertiesUtil;
 import com.xnx3.swing.DialogUtil;
 import com.xnx3.writecode.WriteCode;
 import com.xnx3.writecode.bean.TableBean;
@@ -41,29 +42,38 @@ public class Code {
 	}
 	
 	public Code() {
+		//读取，加载mysql数据库配置信息
+		String ip = ApplicationPropertiesUtil.getProperty("database.ip");
+		String username = ApplicationPropertiesUtil.getProperty("spring.datasource.username");
+		String password = ApplicationPropertiesUtil.getProperty("spring.datasource.password");
+		String databaseName = ApplicationPropertiesUtil.getProperty("database.name");
+		
+		dataSource = new Mysql(ip, port, databaseName, username, password);
 	}
 	
 	
 	public void write() {
 		
+		
+		
 		//进行生成代码
 		WriteCode code = new WriteCode(dataSource, new EntityTemplate());
-		code.selectTable(new SelectTableInterface() {
-			
-			@Override
-			public void selectFinish(List<TableBean> list) {
-				for (int i = 0; i < list.size(); i++) {
-					writeCodeByTableName(list.get(i));
-				}
-				DialogUtil.showMessageDialog("写出代码完毕！");
-				//SystemUtil.openLocalFolder(template.getWriteFileAbsolutePath());
-				System.exit(0);
-			}
-		});
+//		code.selectTable(new SelectTableInterface() {
+//			
+//			@Override
+//			public void selectFinish(List<TableBean> list) {
+//				for (int i = 0; i < list.size(); i++) {
+//					writeCodeByTableName(list.get(i));
+//				}
+//				DialogUtil.showMessageDialog("写出代码完毕！");
+//				//SystemUtil.openLocalFolder(template.getWriteFileAbsolutePath());
+//				System.exit(0);
+//			}
+//		});
 		
-//		dataSource.connect();
-//		writeCodeByTableName(dataSource.getTable("system"));
-//		System.exit(0);
+		dataSource.connect();
+		writeCodeByTableName(dataSource.getTable("system"));
+		System.exit(0);
 	}
 	
 	/**

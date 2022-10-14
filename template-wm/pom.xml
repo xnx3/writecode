@@ -152,6 +152,20 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		</dependency>
 		
 		<!-- 加入wm，关于wm具体可参考 http://wm.zvo.cn -->
+		<dependency>
+			<groupId>com.xnx3.wangmarket.wm</groupId>
+			<artifactId>wm</artifactId>
+			<version>2.23</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		
 		<!-- <dependency>
 			<groupId>com.xnx3.wangmarket.wm</groupId>
 			<artifactId>wm</artifactId>
