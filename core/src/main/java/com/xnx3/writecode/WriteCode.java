@@ -5,8 +5,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
+
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+
+import org.jvnet.substance.SubstanceLookAndFeel;
+import org.jvnet.substance.skin.NebulaSkin;
+
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
 import com.xnx3.SystemUtil;
@@ -164,35 +173,46 @@ public class WriteCode {
 	 * @param selectTable 选择数据表后，点击生成按钮，所执行的操作实现
 	 */
 	public void selectTable(SelectTableInterface selectTable) {
-		MainJframe selectTableJframe = new MainJframe(this.dataSource);
-		selectTableJframe.selectTable = selectTable;
-		DefaultTableModel tableModel=(DefaultTableModel) selectTableJframe.table.getModel();
-		tableModel.getDataVector().clear();		//清空所有
-		
-		if(!this.dataSource.dataSourceInterface.isconnect()) {
-			this.dataSource.dataSourceInterface.connect();
-		}
-		List<TableBean> list = this.dataSource.dataSourceInterface.getTableList();
-		for (int i = 0; i < list.size(); i++) {
-			TableBean tableBean = list.get(i);
-			JCheckBox chckbxNewCheckBox = new JCheckBox(tableBean.getName()+" - "+tableBean.getComment());
-			selectTableJframe.add(chckbxNewCheckBox);
-			selectTableJframe.getContentPane().add(chckbxNewCheckBox);
-			
-			Vector rowData = new Vector();
-			rowData.add(false);
-			rowData.add(tableBean.getName());
-			rowData.add("设置");
-			rowData.add("设置");
-			rowData.add(tableBean.getComment());
-			tableModel.insertRow(i, rowData);
-			
-			//获取这个表的详细信息,进行持久化存储
-			TableBean tb = this.dataSource.dataSourceInterface.getTable(tableBean.getName());
-			selectTableJframe.tableBeanMap.put(tableBean.getName(), tb);
-		}
-		
-		selectTableJframe.setVisible(true);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		JDialog.setDefaultLookAndFeelDecorated(true);
+		SwingUtilities.invokeLater(new Runnable() { 
+			public void run() {
+				try{
+					SubstanceLookAndFeel.setSkin(new NebulaSkin());
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				MainJframe selectTableJframe = new MainJframe();
+				selectTableJframe.selectTable = selectTable;
+				DefaultTableModel tableModel=(DefaultTableModel) selectTableJframe.table.getModel();
+				tableModel.getDataVector().clear();		//清空所有
+				
+				if(!dataSource.dataSourceInterface.isconnect()) {
+					dataSource.dataSourceInterface.connect();
+				}
+				List<TableBean> list = dataSource.dataSourceInterface.getTableList();
+				for (int i = 0; i < list.size(); i++) {
+					TableBean tableBean = list.get(i);
+					JCheckBox chckbxNewCheckBox = new JCheckBox(tableBean.getName()+" - "+tableBean.getComment());
+					selectTableJframe.add(chckbxNewCheckBox);
+					selectTableJframe.getContentPane().add(chckbxNewCheckBox);
+					
+					Vector rowData = new Vector();
+					rowData.add(false);
+					rowData.add(tableBean.getName());
+					rowData.add("<html><img src=\"https://img0.baidu.com/it/u=1308554881,3945382158&fm=253&fmt=auto&app=138&f=JPEG?w=488&h=500\" width=\"15\" height=\"15\" />");
+					rowData.add("<html><center><img src=\"https://img0.baidu.com/it/u=1308554881,3945382158&fm=253&fmt=auto&app=138&f=JPEG?w=488&h=500\" width=\"15\" height=\"15\" /></center>");
+					rowData.add(tableBean.getComment());
+					tableModel.insertRow(i, rowData);
+					
+					//获取这个表的详细信息,进行持久化存储
+					TableBean tb = dataSource.dataSourceInterface.getTable(tableBean.getName());
+					selectTableJframe.tableBeanMap.put(tableBean.getName(), tb);
+				}
+				
+				selectTableJframe.setVisible(true);
+			}
+		});
 	}
 	
 	/**

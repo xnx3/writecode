@@ -58,22 +58,22 @@ public class Code {
 		
 		//进行生成代码
 		WriteCode code = new WriteCode(dataSource, new EntityTemplate());
-//		code.selectTable(new SelectTableInterface() {
-//			
-//			@Override
-//			public void selectFinish(List<TableBean> list) {
-//				for (int i = 0; i < list.size(); i++) {
-//					writeCodeByTableName(list.get(i));
-//				}
-//				DialogUtil.showMessageDialog("写出代码完毕！");
-//				//SystemUtil.openLocalFolder(template.getWriteFileAbsolutePath());
-//				System.exit(0);
-//			}
-//		});
+		code.selectTable(new SelectTableInterface() {
+			
+			@Override
+			public void selectFinish(List<TableBean> list) {
+				for (int i = 0; i < list.size(); i++) {
+					writeCodeByTableName(list.get(i));
+				}
+				DialogUtil.showMessageDialog("写出代码完毕！");
+				//SystemUtil.openLocalFolder(template.getWriteFileAbsolutePath());
+				System.exit(0);
+			}
+		});
 		
-		dataSource.connect();
-		writeCodeByTableName(dataSource.getTable("system"));
-		System.exit(0);
+//		dataSource.connect();
+//		writeCodeByTableName(dataSource.getTable("system"));
+//		System.exit(0);
 	}
 	
 	/**

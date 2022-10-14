@@ -47,7 +47,7 @@ import java.awt.event.MouseEvent;
  *
  */
 public class MainJframe extends JFrame {
-	public DataSource dataSource;	//数据源
+//	public DataSource dataSource;	//数据源
 	private JPanel contentPane;
 	public JTable table;
 	public SelectTableInterface selectTable;
@@ -56,8 +56,9 @@ public class MainJframe extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainJframe(DataSource dataSource) {
-		this.dataSource = dataSource;
+	public MainJframe() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		this.dataSource = dataSource;
 		
 		this.tableBeanMap = new HashMap<String, TableBean>();
 		setTitle("writecode 自动写代码");
@@ -85,19 +86,19 @@ public class MainJframe extends JFrame {
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addGap(141)
-					.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 302, GroupLayout.PREFERRED_SIZE)
 					.addGap(125))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-					.addGap(28)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		
@@ -118,7 +119,7 @@ public class MainJframe extends JFrame {
 					//DialogUtil.showMessageDialog("完善中...");
 					
 					//UI相关
-					ListJframe listJframe = new ListJframe(dataSource);
+					ListJframe listJframe = new ListJframe();
 					listJframe.setVisible(true);
 					DefaultTableModel tableModel=(DefaultTableModel) listJframe.table.getModel();
 					tableModel.getDataVector().clear();		//清空所有

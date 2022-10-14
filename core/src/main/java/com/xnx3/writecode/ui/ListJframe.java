@@ -26,7 +26,7 @@ import javax.swing.JLabel;
  *
  */
 public class ListJframe extends JFrame {
-	public DataSource dataSource;	//数据源
+//	public DataSource dataSource;	//数据源
 	private JPanel contentPane;
 	public JTable table;
 
@@ -34,8 +34,8 @@ public class ListJframe extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ListJframe(DataSource dataSource) {
-		this.dataSource = dataSource;
+	public ListJframe() {
+//		this.dataSource = dataSource;
 		setBounds(100, 100, 842, 579);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
