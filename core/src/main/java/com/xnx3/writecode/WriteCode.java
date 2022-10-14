@@ -75,9 +75,13 @@ public class WriteCode {
 			String fileName = new TemplateUtil(this.template.getWriteFileName(), this.template).template(tableBean);
 			this.template.setWriteFileName(fileName);
 		}
-		if(this.template.getTemplateFileAbsolutePath().indexOf("{") > -1) {
+		if(this.template.getTemplateFileAbsolutePath() != null && this.template.getTemplateFileAbsolutePath().indexOf("{") > -1) {
 			String path = new TemplateUtil(this.template.getTemplateFileAbsolutePath(), this.template).template(tableBean);
 			this.template.setTemplateFileAbsolutePath(path);
+		}
+		if(this.template.getProjectUrlPath() != null && this.template.getProjectUrlPath().indexOf("{") > -1) {
+			String text = new TemplateUtil(this.template.getProjectUrlPath(), this.template).template(tableBean);
+			this.template.setProjectUrlPath(text);
 		}
 		
 		

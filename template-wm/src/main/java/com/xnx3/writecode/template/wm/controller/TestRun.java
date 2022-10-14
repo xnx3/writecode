@@ -17,8 +17,8 @@ public class TestRun {
 		DataSourceInterface dataSource = new Mysql(host, port, databaseName, username, password);
 		//指定生成模板为wm框架的实体类
 		Template template = new ControllerTemplate();
-		template.setTemplateFileAbsolutePath("{project.path.absolute}/src/main/java/com/xnx3/writecode/template/wm/controller/");
-		template.setTemplateFileName("template");
+		//template.setTemplateFileAbsolutePath("{project.path.absolute}/src/main/java/com/xnx3/writecode/template/wm/controller/");
+		//template.setTemplateFileName("template");
 		template.setProjectUrlPath("/admin/user/");
 		
 //		ControllerTemplateTagExtend tagExtend = new ControllerTemplateTagExtend();
