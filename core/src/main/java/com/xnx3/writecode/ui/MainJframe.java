@@ -107,10 +107,8 @@ public class MainJframe extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				System.out.println(table.getSelectedRow()+","+table.getSelectedColumn());
 				int currentRow = table.getSelectedRow();
 				Object s = table.getValueAt(currentRow, 1);
-				System.out.println(s.toString());
 				//选的是哪个数据表，数据表的命名
 				String tableName = s.toString();
 				

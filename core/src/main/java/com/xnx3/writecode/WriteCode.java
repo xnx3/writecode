@@ -173,6 +173,7 @@ public class WriteCode {
 	 * @param selectTable 选择数据表后，点击生成按钮，所执行的操作实现
 	 */
 	public void selectTable(SelectTableInterface selectTable) {
+		//开启美观度后会变得很卡，所以去了
 //		JFrame.setDefaultLookAndFeelDecorated(true);
 //		JDialog.setDefaultLookAndFeelDecorated(true);
 //		SwingUtilities.invokeLater(new Runnable() { 

@@ -66,6 +66,9 @@ public class ListJframe extends JFrame {
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "\u641C\u7D22\u5B57\u6BB5", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setToolTipText("点击可进行编辑要在列表中显示的哪些字段");
+		scrollPane.setAutoscrolls(true);
+		scrollPane.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		scrollPane.setBorder(new TitledBorder(null, "\u6570\u636E\u5217\u8868", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		addSearchFieldButton = new JButton("编辑");
@@ -113,6 +116,7 @@ public class ListJframe extends JFrame {
 		);
 		
 		searchFieldLabel = new JLabel("New label");
+		searchFieldLabel.setToolTipText("鼠标点击可编辑要进行搜索的字段");
 		searchFieldLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

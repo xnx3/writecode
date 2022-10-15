@@ -69,7 +69,7 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 		// 按照上方条件查询出该实体总数 用集合来装
 		List<{database.table.name.hump.upper}> list = sqlService.findBySql(sql, {database.table.name.hump.upper}.class);
 		
-		vo.set{database.table.name.hump.upper}List(list);
+		vo.setList(list);
 		vo.setPage(page);
 		
 		// 日志记录

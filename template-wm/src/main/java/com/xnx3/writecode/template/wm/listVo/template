@@ -1,7 +1,6 @@
 package {java.package}.vo;
 
 import java.util.List;
-
 import {java.package}.entity.{database.table.name.hump.upper};
 import com.xnx3.j2ee.system.responseBody.ResponseBodyManage;
 import com.xnx3.j2ee.util.Page;
@@ -14,15 +13,15 @@ import com.xnx3.j2ee.vo.BaseVO;
 @ResponseBodyManage(ignoreField = {}, nullSetDefaultValue = true)
 public class {database.table.name.hump.upper}ListVO extends BaseVO {
 
-	private List<{database.table.name.hump.upper}> {database.table.name.hump.lower}List;	// {database.table.comment}
+	private List<{database.table.name.hump.upper}> list;	// {database.table.comment}
 	private Page page;	// 分页
 	
-	public List<{database.table.name.hump.upper}> get{database.table.name.hump.upper}List() {
-		return {database.table.name.hump.lower}List;
+	public List<{database.table.name.hump.upper}> getList() {
+		return this.list;
 	}
 	
-	public void set{database.table.name.hump.upper}List(List<{database.table.name.hump.upper}> {database.table.name.hump.lower}List) {
-		this.{database.table.name.hump.lower}List = {database.table.name.hump.lower}List;
+	public void setList(List<{database.table.name.hump.upper}> list) {
+		this.list = list;
 	}
 	
 	public Page getPage() {

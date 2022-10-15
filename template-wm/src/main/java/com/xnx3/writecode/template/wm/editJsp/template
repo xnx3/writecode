@@ -6,10 +6,14 @@
 	<jsp:param name="title" value="编辑" />
 </jsp:include>
 
+<!-- 如果有id输入项，隐藏不显示出来 -->
+<style>
+#item_id{ display:none;}
+</style>
 <form id="form" class="layui-form"
 	style="padding-top: 35px; margin-bottom: 10px; padding-right: 35px;">
 
-	{codeblock.field.edit}<div class="layui-form-item">
+	{codeblock.field.edit}<div class="layui-form-item" id="item_{database.table.field.name.hump.lower}">
 		<label class="layui-form-label">{database.table.field.comment}</label>
 		<div class="layui-input-block">
 			<input type="text" id="{database.table.field.name.hump.lower}" name="{database.table.field.name.hump.lower}" required class="layui-input" value="" />
@@ -65,7 +69,7 @@
 			msg.close();
 			if (data.result == '1') {
 				// 将接口获取到的数据自动填充到 form 表单中
-				wm.fillFormValues($('form'), data.xxx);
+				wm.fillFormValues($('form'), data.{database.table.name.hump.lower});
 			} else if (data.result == '0') {
 				msg.failure(data.info);
 			} else {
@@ -73,7 +77,13 @@
 			}
 		}, "text");
 	}
-	loadData();
+	if(id != null && id > 0){
+		//编辑
+		loadData();
+	}else{
+		//新增
+		
+	}
 	
 </script>
 
