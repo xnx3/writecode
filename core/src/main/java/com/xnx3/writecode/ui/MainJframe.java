@@ -119,7 +119,7 @@ public class MainJframe extends JFrame {
 					//DialogUtil.showMessageDialog("完善中...");
 					
 					//UI相关
-					ListJframe listJframe = new ListJframe();
+					ListJframe listJframe = new ListJframe(tableName);
 					listJframe.setVisible(true);
 					DefaultTableModel tableModel=(DefaultTableModel) listJframe.table.getModel();
 					tableModel.getDataVector().clear();		//清空所有

@@ -1,7 +1,6 @@
 package com.xnx3.writecode.template.wm;
 
 import java.util.List;
-
 import com.xnx3.j2ee.util.ApplicationPropertiesUtil;
 import com.xnx3.swing.DialogUtil;
 import com.xnx3.writecode.WriteCode;

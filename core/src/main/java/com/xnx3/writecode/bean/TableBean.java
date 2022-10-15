@@ -44,6 +44,9 @@ public class TableBean {
 		this.fieldEditList = fieldEditList;
 	}
 	public List<FieldBean> getFieldListSearchList() {
+		if(this.fieldListSearchList == null) {
+			this.fieldListSearchList = this.fieldList;
+		}
 		return fieldListSearchList;
 	}
 	public void setFieldListSearchList(List<FieldBean> fieldListSearchList) {
@@ -57,7 +60,10 @@ public class TableBean {
 	}
 	@Override
 	public String toString() {
-		return "TableBean [name=" + name + ", comment=" + comment + ", fieldList=" + fieldList + "]";
+		return "TableBean [name=" + name + ", comment=" + comment + ", fieldList=" + fieldList + ", fieldEditList="
+				+ fieldEditList + ", fieldListSearchList=" + fieldListSearchList + ", fieldListTableList="
+				+ fieldListTableList + "]";
 	}
+	
 	
 }

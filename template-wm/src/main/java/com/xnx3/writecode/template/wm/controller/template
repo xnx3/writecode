@@ -55,7 +55,7 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 		// 增加更多查询条件
 		//sql.appendWhere("xxx = " + xxx);
 		// 查询条件-配置按某个字端搜索内容
-		//sql.setSearchColumn(new String[] {"xxx", "xxx"});
+		sql.setSearchColumn(new String[] {{codeblock.field.list.search}"{database.table.field.name}", {/codeblock.field.list.search}"xxxxxxx"});
 		// 查询数据表的记录总条数
 		int count = sqlService.count("{database.table.name}", sql.getWhere());
 		

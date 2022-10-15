@@ -7,10 +7,14 @@
 </jsp:include>
 <script src="/<%=Global.CACHE_FILE %>StandardClasses_age_type.js"></script>
 <jsp:include page="/wm/common/list/formSearch_formStart.jsp"></jsp:include>
+
+{codeblock.field.list.search}
 <jsp:include page="/wm/common/list/formSearch_input.jsp">
-	<jsp:param name="iw_label" value="按xx筛选" />
-	<jsp:param name="iw_name" value="xx" />
+	<jsp:param name="iw_label" value="{database.table.field.name}" />
+	<jsp:param name="iw_name" value="{database.table.field.comment}" />
 </jsp:include>
+{/codeblock.field.list.search}
+
 <a class="layui-btn" href="javascript:wm.list(1);" style="margin-left: 15px;">搜索</a>
 
 <a href="javascript:editItem(0, '');" class="layui-btn layui-btn-normal"

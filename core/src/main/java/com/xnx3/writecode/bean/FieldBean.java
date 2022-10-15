@@ -62,6 +62,7 @@ public class FieldBean {
 	public void setIfAnnotationGeneratedValue(String ifAnnotationGeneratedValue) {
 		this.ifAnnotationGeneratedValue = ifAnnotationGeneratedValue;
 	}
+	
 	@Override
 	public String toString() {
 		return "FieldBean [name=" + name + ", comment=" + comment + ", defaultvalue=" + defaultvalue + ", datatype="

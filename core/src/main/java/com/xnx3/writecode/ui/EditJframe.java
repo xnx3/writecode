@@ -45,7 +45,7 @@ public class EditJframe extends JFrame {
 	 * @param tableName 当前所操作的数据表的名字
 	 */
 	public EditJframe(String tableName) {
-		setTitle("新增、编辑时，用户可修改的字段");
+		setTitle("用户编辑信息时，form表单所提交的字段");
 		this.tableName = tableName;
 		
 		setBounds(100, 100, 450, 444);
@@ -145,7 +145,6 @@ public class EditJframe extends JFrame {
 	
 	/**
 	 * 传入table 表的名字，进行填充数据
-	 * @param tableName table表的名字，如 user_role
 	 * @param selectMap map.key 数据表的字段名，value如果是false，那这个字段则不在这里显示 
 	 */
 	public void tableFill(Map<String, Boolean> selectMap) {

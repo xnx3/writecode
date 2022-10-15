@@ -173,15 +173,15 @@ public class WriteCode {
 	 * @param selectTable 选择数据表后，点击生成按钮，所执行的操作实现
 	 */
 	public void selectTable(SelectTableInterface selectTable) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() { 
-			public void run() {
-				try{
-					SubstanceLookAndFeel.setSkin(new NebulaSkin());
-				}catch(Exception e){
-					e.printStackTrace();
-				}
+//		JFrame.setDefaultLookAndFeelDecorated(true);
+//		JDialog.setDefaultLookAndFeelDecorated(true);
+//		SwingUtilities.invokeLater(new Runnable() { 
+//			public void run() {
+//				try{
+//					SubstanceLookAndFeel.setSkin(new NebulaSkin());
+//				}catch(Exception e){
+//					e.printStackTrace();
+//				}
 				MainJframe selectTableJframe = new MainJframe();
 				selectTableJframe.selectTable = selectTable;
 				DefaultTableModel tableModel=(DefaultTableModel) selectTableJframe.table.getModel();
@@ -211,8 +211,8 @@ public class WriteCode {
 				}
 				
 				selectTableJframe.setVisible(true);
-			}
-		});
+//			}
+//		});
 	}
 	
 	/**

@@ -5,6 +5,8 @@ import com.xnx3.writecode.bean.FieldBean;
 import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.interfaces.TemplateTagExtendInterface;
+
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.xnx3.HumpUtil;
@@ -84,11 +86,14 @@ public class TemplateUtil {
 		
 		
 		//{codeblock.field}
-		templateText = codeblockField_tag_Replace(templateText, tableBean, "codeblock.field");
+		templateText = codeblockField_tag_Replace(templateText, tableBean.getFieldList(), "codeblock.field");
 
 		//{codeblock.field.edit}
-		templateText = codeblockField_tag_Replace(templateText, tableBean, "codeblock.field.edit");
+		templateText = codeblockField_tag_Replace(templateText, tableBean.getFieldEditList(), "codeblock.field.edit");
 
+		//{codeblock.field.list.search}
+		templateText = codeblockField_tag_Replace(templateText, tableBean.getFieldListSearchList(), "codeblock.field.list.search");
+		
 		/**** tostring ****/
 		if(templateText.indexOf("{java.tostring}") > -1) {
 			StringBuffer tostring = new StringBuffer();
@@ -146,7 +151,11 @@ public class TemplateUtil {
 	 * @param tag 传入如 codeblock.field.edit
 	 * @return
 	 */
-	public static String codeblockField_tag_Replace(String templateText, TableBean tableBean, String tag) {
+	public static String codeblockField_tag_Replace(String templateText, List<FieldBean> fileBeanList, String tag) {
+		if(fileBeanList == null) {
+			return templateText;
+		}
+		
 		//如果 {codeblock.field} 存在，则需要替换
 		if(templateText.indexOf("{"+tag+"") > -1){
 //			\\{codeblock\\.field\\}
@@ -164,8 +173,8 @@ public class TemplateUtil {
 					fieldTemplate = fieldTemplate.substring(0, fieldTemplate.length()-1);
 				}
 				StringBuffer fieldStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
-				for (int i = 0; tableBean.getFieldList() != null && i < tableBean.getFieldList().size(); i++) {
-					FieldBean field = tableBean.getFieldList().get(i);	//具体的表中的某个字段
+				for (int i = 0; fileBeanList != null && i < fileBeanList.size(); i++) {
+					FieldBean field = fileBeanList.get(i);	//具体的表中的某个字段
 					
 					String fieldString = replaceAll(fieldTemplate, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
 					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
