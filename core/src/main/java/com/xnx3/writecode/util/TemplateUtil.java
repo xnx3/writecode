@@ -94,6 +94,9 @@ public class TemplateUtil {
 		//{codeblock.field.list.search}
 		templateText = codeblockField_tag_Replace(templateText, tableBean.getFieldListSearchList(), "codeblock.field.list.search");
 		
+		//{codeblock.field.list.table}
+		templateText = codeblockField_tag_Replace(templateText, tableBean.getFieldListTableList(), "codeblock.field.list.table");
+				
 		/**** tostring ****/
 		if(templateText.indexOf("{java.tostring}") > -1) {
 			StringBuffer tostring = new StringBuffer();

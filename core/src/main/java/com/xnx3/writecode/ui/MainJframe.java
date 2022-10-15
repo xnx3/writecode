@@ -121,10 +121,10 @@ public class MainJframe extends JFrame {
 					//UI相关
 					ListJframe listJframe = new ListJframe(tableName);
 					listJframe.setVisible(true);
-					DefaultTableModel tableModel=(DefaultTableModel) listJframe.table.getModel();
-					tableModel.getDataVector().clear();		//清空所有
 					
-					
+					//显示数据
+					listJframe.searchFieldFill();
+					listJframe.tableFill();
 				}else if(table.getSelectedColumn() == 3) {
 					//编辑页设置
 					//DialogUtil.showMessageDialog("完善中...");

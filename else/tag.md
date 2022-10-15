@@ -57,3 +57,7 @@
 意思同上 {codeblock.field} ，只不过输出的范围有变化
 ````{codeblock.field.list.search}```` 跟 ````{/codeblock.field.list.search}```` 中间的为循环输出数据表-列表页面中，搜索检索的字段
 
+#### {codeblock.field.list.table}
+意思同上 {codeblock.field} ，只不过输出的范围有变化
+````{codeblock.field.list.table}```` 跟 ````{/codeblock.field.list.table}```` 中间的为循环输出数据表-列表页面中，中间主体table列表显示的字段
+

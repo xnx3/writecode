@@ -16,8 +16,7 @@ import javax.persistence.Table;
 public class {database.table.name.hump.upper} implements java.io.Serializable{
 	
 {codeblock.field}
-	private {java.field.datatype} {database.table.field.name.hump.lower};	//{database.table.field.comment}
-{/codeblock.field}
+	private {java.field.datatype} {database.table.field.name.hump.lower};	//{database.table.field.comment}{/codeblock.field}
 	
 {codeblock.field}
 	{if.java.annotation.id}

@@ -53,6 +53,9 @@ public class TableBean {
 		this.fieldListSearchList = fieldListSearchList;
 	}
 	public List<FieldBean> getFieldListTableList() {
+		if(this.fieldListTableList == null) {
+			this.fieldListTableList = this.fieldList;
+		}
 		return fieldListTableList;
 	}
 	public void setFieldListTableList(List<FieldBean> fieldListTableList) {
