@@ -41,7 +41,6 @@ public class WriteCode {
 
 ## 第三步，运行 WeiteCode.java
 
-
 <div style="width:100%; text-align:center;">
 	<img src="https://res.zvo.cn/writecode/wm_demo_writecode_run.gif" style="width:80%" />
 </div>
