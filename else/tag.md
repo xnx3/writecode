@@ -25,6 +25,7 @@
 * **{database.table.name.hump.lower}** 数据表的名字的小驼峰式命名，如 userRole
   
 * **{database.table.field.comment}** 数据表中，字段的注释
+* **{database.table.field.comment.split}** 数据表中，字段的注释的截取，截取,，。前部分的，作为标题，比如 addtime 字段的备注为 "添加时间，10位unix时间戳"  那么这个调取出的文字便是 "添加时间" 
 * **{database.table.field.name}** 数据表中，字段名。如 role_id
 * **{database.table.field.name.hump.lower}** 数据表中，字段名的小驼峰式命名。如本来是role_id，会输出为 roleId
 * **{database.table.field.name.hump.upper}** 数据表中，字段名的大驼峰式命名。如本来是role_id，会输出为 RoleId

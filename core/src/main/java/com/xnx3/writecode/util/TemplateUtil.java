@@ -183,6 +183,7 @@ public class TemplateUtil {
 					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
 					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.upper}", HumpUtil.upper(field.getName()));
 					fieldString = replaceAll(fieldString, "{database.table.field.comment}", field.getComment());
+					fieldString = replaceAll(fieldString, "{database.table.field.comment.split}", fieldCommentSplit(field.getComment()));
 					fieldString = replaceAll(fieldString, "{database.table.field.datatype}", field.getDatatype());
 					fieldString = replaceAll(fieldString, "{database.table.field.datatype.java}", DataTypeUtil.databaseToJava(field.getDatatype()));
 					fieldString = replaceAll(fieldString, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
@@ -217,5 +218,17 @@ public class TemplateUtil {
 			}
 		}
 		return templateText;
+	}
+	
+	/**
+	 * 针对 field.comment 的split截取
+	 * @param fieldComment 
+	 * @return 返回 ,，。前的文本
+	 */
+	public static String fieldCommentSplit(String fieldComment) {
+		if(fieldComment == null) {
+			return "";
+		}
+		return fieldComment.trim().split(",|，,|。")[0];
 	}
 }
