@@ -63,6 +63,7 @@ public class ListJframe extends JFrame {
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
+		panel.setAutoscrolls(true);
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "\u641C\u7D22\u5B57\u6BB5", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -116,6 +117,7 @@ public class ListJframe extends JFrame {
 		);
 		
 		searchFieldLabel = new JLabel("New label");
+		searchFieldLabel.setAutoscrolls(true);
 		searchFieldLabel.setToolTipText("鼠标点击可编辑要进行搜索的字段");
 		searchFieldLabel.addMouseListener(new MouseAdapter() {
 			@Override

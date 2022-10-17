@@ -174,15 +174,15 @@ public class WriteCode {
 	 */
 	public void selectTable(SelectTableInterface selectTable) {
 		//开启美观度后会变得很卡，所以去了
-//		JFrame.setDefaultLookAndFeelDecorated(true);
-//		JDialog.setDefaultLookAndFeelDecorated(true);
-//		SwingUtilities.invokeLater(new Runnable() { 
-//			public void run() {
-//				try{
-//					SubstanceLookAndFeel.setSkin(new NebulaSkin());
-//				}catch(Exception e){
-//					e.printStackTrace();
-//				}
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		JDialog.setDefaultLookAndFeelDecorated(true);
+		SwingUtilities.invokeLater(new Runnable() { 
+			public void run() {
+				try{
+					SubstanceLookAndFeel.setSkin(new NebulaSkin());
+				}catch(Exception e){
+					e.printStackTrace();
+				}
 				MainJframe selectTableJframe = new MainJframe();
 				selectTableJframe.setVisible(true);
 				
@@ -203,8 +203,10 @@ public class WriteCode {
 					Vector rowData = new Vector();
 					rowData.add(false);
 					rowData.add(tableBean.getName());
-					rowData.add("<html><img src=\"https://img0.baidu.com/it/u=1308554881,3945382158&fm=253&fmt=auto&app=138&f=JPEG?w=488&h=500\" width=\"15\" height=\"15\" />");
-					rowData.add("<html><center><img src=\"https://img0.baidu.com/it/u=1308554881,3945382158&fm=253&fmt=auto&app=138&f=JPEG?w=488&h=500\" width=\"15\" height=\"15\" /></center>");
+					rowData.add("设置");
+					rowData.add("设置");
+					//rowData.add("<html>&nbsp;&nbsp;<img src=\"http://res.zvo.cn/writecode/set.png\" width=\"15\" height=\"15\" />");
+					//rowData.add("<html>&nbsp;&nbsp;<img src=\"http://res.zvo.cn/writecode/set.png\" width=\"15\" height=\"15\" />");
 					rowData.add(tableBean.getComment());
 					tableModel.insertRow(i, rowData);
 					
@@ -214,8 +216,8 @@ public class WriteCode {
 				}
 				
 				
-//			}
-//		});
+			}
+		});
 	}
 	
 	/**

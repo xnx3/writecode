@@ -47,4 +47,12 @@ public class JTableUtil {
 		}
 		return map;
 	}
+	
+	/**
+	 * 设置tabloe的ui风格，如字体大小、行高等
+	 */
+	public static void setTableUI(JTable table) {
+		table.setRowHeight(20);	//设置行高
+		table.setRowMargin(4);
+	}
 }

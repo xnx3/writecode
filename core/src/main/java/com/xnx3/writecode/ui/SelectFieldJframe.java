@@ -19,8 +19,11 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  * 选择字段
@@ -40,7 +43,7 @@ public class SelectFieldJframe extends JFrame {
 	 */
 	public SelectFieldJframe(SelectFieldJframeInterface selectFieldJframeInterface) {
 		this.selectFieldJframeInterface = selectFieldJframeInterface;
-		setBounds(100, 100, 450, 480);
+		setBounds(100, 100, 450, 526);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -65,25 +68,53 @@ public class SelectFieldJframe extends JFrame {
 			}
 		});
 		btnNewButton.setFont(new Font("宋体", Font.PLAIN, 16));
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("全选/全不选");
+		chckbxNewCheckBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boolean select = false;
+				if(chckbxNewCheckBox.isSelected()) {
+					select = true;
+					
+				}
+				
+				//变为全不选
+				int row = table.getRowCount();
+				for (int i = 0; i < row; i++) {
+					Object value = table.getValueAt(i, 0);
+					if(value == null) {
+						continue;
+					}
+					table.setValueAt(select, i, 0);
+				}
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(96)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+					.addGap(10)
+					.addComponent(chckbxNewCheckBox, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(98, Short.MAX_VALUE)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE)
+					.addGap(78))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 345, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-					.addContainerGap())
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(chckbxNewCheckBox)
+					.addGap(30)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(19))
 		);
 		
 		table = new JTable();
+		table.setRowHeight(20);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
@@ -99,8 +130,8 @@ public class SelectFieldJframe extends JFrame {
 				return columnTypes[columnIndex];
 			}
 		});
-		table.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table.getColumnModel().getColumn(0).setMaxWidth(50);
+		table.getColumnModel().getColumn(0).setPreferredWidth(45);
+		table.getColumnModel().getColumn(0).setMaxWidth(45);
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
 		

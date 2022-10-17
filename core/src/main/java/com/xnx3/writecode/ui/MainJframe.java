@@ -19,6 +19,7 @@ import com.xnx3.writecode.DataSource;
 import com.xnx3.writecode.bean.FieldBean;
 import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.writecode.interfaces.SelectTableInterface;
+import com.xnx3.writecode.util.JTableUtil;
 
 import javax.swing.JCheckBox;
 import java.awt.FlowLayout;
@@ -103,9 +104,12 @@ public class MainJframe extends JFrame {
 		);
 		
 		table = new JTable();
+		JTableUtil.setTableUI(table);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				int x = e.getXOnScreen() + 10;
+				int y = e.getYOnScreen() + 10;
 				
 				int currentRow = table.getSelectedRow();
 				Object s = table.getValueAt(currentRow, 1);
@@ -118,6 +122,7 @@ public class MainJframe extends JFrame {
 					
 					//UI相关
 					ListJframe listJframe = new ListJframe(tableName);
+					listJframe.setBounds(x, y, 700, 400);
 					listJframe.setVisible(true);
 					
 					//显示数据
@@ -129,6 +134,7 @@ public class MainJframe extends JFrame {
 					
 					//UI相关
 					EditJframe editJframe = new EditJframe(tableName);
+					editJframe.setBounds(x, y, 550, 500);
 					editJframe.setVisible(true);
 					
 					Map<String, Boolean> selectMap = new HashMap<String, Boolean>();
