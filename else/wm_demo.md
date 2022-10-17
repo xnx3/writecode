@@ -2,7 +2,7 @@
 
 ## 第一步，mysql库中增加用于demo演示的数据表 person
 
-![image.png](./else/images/wm_demo_table.png)   
+![image.png](//res.zvo.cn/writecode/wm_demo_table.png)   
 创建表的SQL语句：  
 
 ````
@@ -18,7 +18,7 @@ CREATE TABLE `person` (
 ````
 
 ## 第二步，项目中增加一个 WeiteCode.java
-![image.png](./images/wm_demo_java_tree.png)   
+![image.png](//res.zvo.cn/writecode/wm_demo_java_tree.png)   
 
 ````
 package com;
@@ -41,7 +41,7 @@ public class WriteCode {
 
 ## 第三步，运行 WeiteCode.java
 
-<video src="./video/wm_demo_writecode_run.mov">
+<video src="//res.zvo.cn/writecode/wm_demo_writecode_run.mov">
 </video>
 
 ## 第四步，使用
