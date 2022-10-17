@@ -41,7 +41,8 @@ public class WriteCode {
 
 ## 第三步，运行 WeiteCode.java
 
+wm_demo_writecode_run.gif
 <div style="width:100%; text-align:center;">
-	<video autoplay="autoplay" style="width:70%" src="https://res.zvo.cn/writecode/wm_demo_writecode_run.mov"></video>
+	<img src="https://res.zvo.cn/writecode/wm_demo_writecode_run.gif" style="width:80%" />
 </div>
 ## 第四步，使用
