@@ -157,7 +157,7 @@ public class MainJframe extends JFrame {
 		
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null},
+				{null, "\u52A0\u8F7D\u4E2D...", null, null, "\u52A0\u8F7D\u4E2D..."},
 			},
 			new String[] {
 				"\u9009\u62E9", "\u6570\u636E\u8868\u540D\u5B57", "\u5217\u8868\u9875\u8BBE\u7F6E", "\u7F16\u8F91\u9875\u8BBE\u7F6E", "\u6570\u636E\u8868\u5907\u6CE8"
@@ -168,12 +168,6 @@ public class MainJframe extends JFrame {
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
-			}
-			boolean[] columnEditables = new boolean[] {
-				true, false, true, true, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
 			}
 		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(40);

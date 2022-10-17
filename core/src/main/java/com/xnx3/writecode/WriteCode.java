@@ -184,14 +184,16 @@ public class WriteCode {
 //					e.printStackTrace();
 //				}
 				MainJframe selectTableJframe = new MainJframe();
-				selectTableJframe.selectTable = selectTable;
-				DefaultTableModel tableModel=(DefaultTableModel) selectTableJframe.table.getModel();
-				tableModel.getDataVector().clear();		//清空所有
+				selectTableJframe.setVisible(true);
 				
 				if(!dataSource.dataSourceInterface.isconnect()) {
 					dataSource.dataSourceInterface.connect();
 				}
 				List<TableBean> list = dataSource.dataSourceInterface.getTableList();
+				
+				selectTableJframe.selectTable = selectTable;
+				DefaultTableModel tableModel=(DefaultTableModel) selectTableJframe.table.getModel();
+				tableModel.getDataVector().clear();		//清空所有
 				for (int i = 0; i < list.size(); i++) {
 					TableBean tableBean = list.get(i);
 					JCheckBox chckbxNewCheckBox = new JCheckBox(tableBean.getName()+" - "+tableBean.getComment());
@@ -211,7 +213,7 @@ public class WriteCode {
 					selectTableJframe.tableBeanMap.put(tableBean.getName(), tb);
 				}
 				
-				selectTableJframe.setVisible(true);
+				
 //			}
 //		});
 	}
