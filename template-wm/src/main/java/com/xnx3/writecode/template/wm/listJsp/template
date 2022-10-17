@@ -9,7 +9,7 @@
 
 {codeblock.field.list.search}
 <jsp:include page="/wm/common/list/formSearch_input.jsp">
-	<jsp:param name="iw_label" value="{database.table.field.comment}" />
+	<jsp:param name="iw_label" value="{database.table.field.comment.split}" />
 	<jsp:param name="iw_name" value="{database.table.field.name}" />
 </jsp:include>{/codeblock.field.list.search}
 
@@ -22,7 +22,7 @@
 <table class="layui-table iw_table">
 	<thead>
 		<tr>
-			{codeblock.field.list.table}<th>{database.table.field.comment}</th>
+			{codeblock.field.list.table}<th>{database.table.field.comment.split}</th>
 				{/codeblock.field.list.table}<th>操作</th>
 		</tr>
 	</thead>

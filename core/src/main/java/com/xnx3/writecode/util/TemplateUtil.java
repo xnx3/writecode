@@ -229,6 +229,11 @@ public class TemplateUtil {
 		if(fieldComment == null) {
 			return "";
 		}
-		return fieldComment.trim().split(",|，,|。")[0];
+		return fieldComment.trim().split(",|，|。")[0];
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(fieldCommentSplit("任命，公司名"));
+		
 	}
 }

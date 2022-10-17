@@ -14,7 +14,7 @@
 	style="padding-top: 35px; margin-bottom: 10px; padding-right: 35px;">
 
 	{codeblock.field.edit}<div class="layui-form-item" id="item_{database.table.field.name.hump.lower}">
-		<label class="layui-form-label">{database.table.field.comment}</label>
+		<label class="layui-form-label">{database.table.field.comment.split}</label>
 		<div class="layui-input-block">
 			<input type="text" id="{database.table.field.name.hump.lower}" name="{database.table.field.name.hump.lower}" required class="layui-input" value="" />
 		</div>

@@ -105,7 +105,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     </plugin>
                     
                     <!-- GPG -->
-                    <plugin>
+                    <!-- <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>1.5</version>
@@ -118,6 +118,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                             </execution>
                         </executions>
                     </plugin>
+                     -->
                 </plugins>
                 <resources>
 					<!-- 打包 src/main/java 下指定类型的文件 -->
