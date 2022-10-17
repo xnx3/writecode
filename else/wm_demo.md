@@ -46,4 +46,6 @@ public class WriteCode {
 </div>
 
 
-## 第四步，使用
+## 第四步，直接使用
+运行起来项目，访问测试：  
+localhost:8080/demo/person/list.jsp
