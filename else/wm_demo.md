@@ -2,7 +2,7 @@
 
 ## 第一步，mysql库中增加用于demo演示的数据表 person
 
-![image.png](//res.zvo.cn/writecode/wm_demo_table.png)   
+![image.png](https://res.zvo.cn/writecode/wm_demo_table.png)   
 创建表的SQL语句：  
 
 ````
