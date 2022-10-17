@@ -18,7 +18,7 @@ CREATE TABLE `person` (
 ````
 
 ## 第二步，项目中增加一个 WeiteCode.java
-![image.png](./else/images/wm_demo_java_tree.png)   
+![image.png](./images/wm_demo_java_tree.png)   
 
 ````
 package com;
@@ -41,7 +41,7 @@ public class WriteCode {
 
 ## 第三步，运行 WeiteCode.java
 
-<video src="./else/video/wm_demo_writecode_run.mov">
+<video src="./video/wm_demo_writecode_run.mov">
 </video>
 
 ## 第四步，使用
