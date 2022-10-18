@@ -39,7 +39,7 @@ public class WriteCode {
 }
 ````
 
-## 第三步，运行 WeiteCode.java
+## 第三步，运行 WriteCode.java
 
 ![image.png](https://res.zvo.cn/writecode/wm_demo_writecode_run.gif)   
 

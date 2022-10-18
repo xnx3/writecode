@@ -29,6 +29,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 /**
  * 主界面
  * @author 管雷鸣
@@ -119,10 +121,13 @@ public class MainJframe extends JFrame {
 		SelectTableButton = new JButton("选择数据表");
 		SelectTableButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(Global.dataSource == null) {
+					DialogUtil.showMessageDialog("请配置数据源连接信息");
+					return;
+				}
 				WriteCode wc = new WriteCode(Global.dataSource, new Template());
 				wc.selectTable(new SelectTableInterface() {
 					public void selectFinish(List<TableBean> list) {
-						System.out.println(list);
 						Global.tableList = list;
 					}
 				});
@@ -137,29 +142,44 @@ public class MainJframe extends JFrame {
 			}
 		});
 		lblNewLabel_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		JLabel lblNewLabel_3 = new JLabel("添加");
+		lblNewLabel_3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setForeground(Color.BLUE);
+		lblNewLabel_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DialogUtil.showMessageDialog("如果您是别的框架的作者或者有意向针对自己某个规范场景进行增加模板，<br/>比如 struts、以及不止仅限于Java的thinkphp等框架，都可以联系我微信 xnx3com <br/>免费为您增加适合自己的自动写代码的模板");
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(SelectTableButton, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnNewButton))
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(33, Short.MAX_VALUE))
-				.addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(45)
-					.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 271, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(51, Short.MAX_VALUE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(SelectTableButton, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnNewButton))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(45)
+							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 271, GroupLayout.PREFERRED_SIZE)))
+					.addGap(51))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -172,7 +192,8 @@ public class MainJframe extends JFrame {
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_3))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
