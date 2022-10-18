@@ -67,5 +67,5 @@ writecode                           项目
 
 ## 更多使用
 * 自定义生成实体类的模板 | [变量标签](else/tag.md)
-* 自定义生成的包名(存放的包)
+* [在wm及网市场云建站系统中的深度集成使用](else/wm_demo.md)
 * [其他数据库的扩展，如 SqlServer、Oracle 等](else/datasource.md)
