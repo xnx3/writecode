@@ -9,6 +9,12 @@ import com.xnx3.writecode.interfaces.TemplateTagExtendInterface;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 import com.xnx3.HumpUtil;
 
 /**
@@ -114,6 +120,45 @@ public class TemplateUtil {
 		
 		if(this.templateTagExtend != null) {
 			templateText = this.templateTagExtend.appendTag(templateText, this, tableBean);
+		}
+		
+		/**** {codeblock.javascript} ****/
+		if(templateText.indexOf("{codeblock.javascript}") > -1) {
+			//如果 {codeblock.field} 存在，则需要替换
+				
+			ScriptEngineManager manager = new ScriptEngineManager();
+			ScriptEngine engine = manager.getEngineByName("JavaScript");
+			
+			Pattern p = Pattern.compile("\\{codeblock\\.javascript\\}([\\s|\\S]*?)\\{\\/codeblock\\.javascript\\}");
+			Matcher m = p.matcher(templateText);
+			while (m.find()) {
+				String jsTemplate = m.group(1);	//全局变量的name
+//				System.out.println("jsTemplate:"+jsTemplate);
+				
+				//如果第一个字符是换行符，那就删掉
+				if(jsTemplate.indexOf("\n") == 0) {
+					jsTemplate = jsTemplate.substring(1, jsTemplate.length());
+				}
+				//如果最后一个字符是tab缩进，那也删掉
+				if(jsTemplate.lastIndexOf("\t") == jsTemplate.length()-1) {
+					jsTemplate = jsTemplate.substring(0, jsTemplate.length()-1);
+				}
+				
+				
+				String js = "function writecode(){ "+jsTemplate+" }";
+				Invocable inv = (Invocable) engine;
+				try {
+					engine.eval(js);
+					Object result = (Object) inv.invokeFunction("writecode");
+//					System.out.println("jsTemplate "+jsTemplate+" : " + result);
+//					System.out.println("--{code.javascript}"+m.group(1)+"{/code.javascript}--");
+					templateText = templateText.replace("{codeblock.javascript}"+m.group(1)+"{/codeblock.javascript}", result == null? "":(String)result);
+				} catch (NoSuchMethodException | ScriptException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
 		}
 		
 		return templateText;

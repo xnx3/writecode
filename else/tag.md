@@ -50,6 +50,16 @@
 {/codeblock.field}
 ````
 
+则会生成如下代码： 
+
+````
+private Integer id;
+private String name;
+private Integer age;
+private String idcard;
+private Integer addtime;
+````
+
 #### {codeblock.field.edit}
 意思同上 {codeblock.field} ，只不过输出的范围有变化
 ````{codeblock.field.edit}```` 跟 ````{/codeblock.field.edit}```` 中间的为循环输出数据表-增加及编辑页面中，需要用户自己编辑的字段
@@ -62,3 +72,28 @@
 意思同上 {codeblock.field} ，只不过输出的范围有变化
 ````{codeblock.field.list.table}```` 跟 ````{/codeblock.field.list.table}```` 中间的为循环输出数据表-列表页面中，中间主体table列表显示的字段
 
+#### {codeblock.javascript}
+执行javascript脚本，如进行逻辑判断输出、字符串剪裁、组合等更多扩展。  
+它可以直接用，也可以放到 {codeblock.field} 这些代码块中使用。  
+使用方式如：  
+
+````
+{codeblock.field}
+字段名:{database.table.field.name}
+{codeblock.javascript}
+if('{database.table.field.name}' == 'id'){
+	return '--这个是id字段';
+}
+{/codeblock.javascript}
+{/codeblock.field}
+````
+
+生成的代码如下：  
+
+````
+字段名:id--这个是id字段
+字段名:name
+字段名:age
+字段名:idcard
+字段名:addtime
+````
