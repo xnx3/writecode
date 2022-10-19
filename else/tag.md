@@ -79,8 +79,7 @@ private Integer addtime;
 
 ````
 {codeblock.field}
-字段名:{database.table.field.name}
-{codeblock.javascript}
+字段名:{database.table.field.name}{codeblock.javascript}
 if('{database.table.field.name}' == 'id'){
 	return '--这个是id字段';
 }
