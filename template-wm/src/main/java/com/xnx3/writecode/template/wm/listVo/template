@@ -34,7 +34,7 @@ public class {database.table.name.hump.upper}ListVO extends BaseVO {
 	
 	@Override
 	public String toString() {
-		return "{database.table.name.hump.upper}ListVO [{database.table.name.hump.lower}List=" + {database.table.name.hump.lower}List + ", page=" + page + "]";
+		return "{database.table.name.hump.upper}ListVO [list=" + list + ", page=" + page + "]";
 	}
 	
 }
