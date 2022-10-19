@@ -7,14 +7,6 @@
 </jsp:include>
 <jsp:include page="/wm/common/list/formSearch_formStart.jsp"></jsp:include>
 
-{codeblock.field}
-字段名:{database.table.field.name}{codeblock.javascript}
-if('{database.table.field.name}' == 'id'){
-	return '--注意，这个是id字段！';
-}
-{/codeblock.javascript}
-{/codeblock.field}
-
 {codeblock.field.list.search}
 <jsp:include page="/wm/common/list/formSearch_input.jsp">
 	<jsp:param name="iw_label" value="{database.table.field.comment.split}" />
