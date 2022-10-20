@@ -11,6 +11,7 @@ CREATE TABLE `person` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` char(20) DEFAULT NULL COMMENT '姓名，用户的名字',
   `age` int(11) DEFAULT NULL COMMENT '年龄，几岁，如 28 则是28岁',
+  `sex` tinyint(2) DEFAULT '1' COMMENT '性别，是男性还是女性。[1-男性, 2-女性]',
   `idcard` char(30) DEFAULT NULL COMMENT '身份证号',
   `addtime` int(11) DEFAULT '0' COMMENT '添加时间，这条信息的录入时间，10位时间戳',
   PRIMARY KEY (`id`)

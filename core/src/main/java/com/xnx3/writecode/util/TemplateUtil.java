@@ -315,9 +315,14 @@ public class TemplateUtil {
 		if(fieldComment == null) {
 			return "";
 		}
-		String comment = new String(fieldComment);
 		
+		//判断是否存在常量标识
 		String str = StringUtil.subString(fieldComment, "[", "]");
+		if(str == null || str.length() == 0) {
+			return fieldComment;
+		}
+		
+		String comment = new String(fieldComment);
 		if(str.indexOf("-") > -1) {
 			//应该是是了，把这个忽略掉
 			comment = comment.replace("["+str+"]", "");

@@ -28,7 +28,7 @@ public class Tet {
 		WriteCode code = new WriteCode(dataSource, template);
 //		code.writeEntityCodeBySelectTableUI();
 //		System.out.println(code.getCode("system"));
-		code.writeCode("system");	//写出system表
+		code.writeCode("person");	//写出person表
 		System.exit(0);
 	}
 }
