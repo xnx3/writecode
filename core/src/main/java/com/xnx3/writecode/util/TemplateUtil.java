@@ -91,17 +91,17 @@ public class TemplateUtil {
 		templateText = replaceAll(templateText, "{project.url.path}",this.template.getProjectUrlPath());
 		
 		
-		//{codeblock.field}
-		templateText = codeblockField_tag_Replace(templateText, tableBean.getFieldList(), "codeblock.field");
+		//{foreach.field}
+		templateText = foreachField_tag_Replace(templateText, tableBean.getFieldList(), "foreach.table.field");
 
-		//{codeblock.field.edit}
-		templateText = codeblockField_tag_Replace(templateText, tableBean.getFieldEditList(), "codeblock.field.edit");
+		//{foreach.field.edit}
+		templateText = foreachField_tag_Replace(templateText, tableBean.getFieldEditList(), "foreach.field.edit");
 
-		//{codeblock.field.list.search}
-		templateText = codeblockField_tag_Replace(templateText, tableBean.getFieldListSearchList(), "codeblock.field.list.search");
+		//{foreach.field.list.search}
+		templateText = foreachField_tag_Replace(templateText, tableBean.getFieldListSearchList(), "foreach.field.list.search");
 		
-		//{codeblock.field.list.table}
-		templateText = codeblockField_tag_Replace(templateText, tableBean.getFieldListTableList(), "codeblock.field.list.table");
+		//{foreach.field.list.table}
+		templateText = foreachField_tag_Replace(templateText, tableBean.getFieldListTableList(), "foreach.field.list.table");
 				
 		/**** tostring ****/
 		if(templateText.indexOf("{java.tostring}") > -1) {
@@ -122,14 +122,14 @@ public class TemplateUtil {
 			templateText = this.templateTagExtend.appendTag(templateText, this, tableBean);
 		}
 		
-		/**** {codeblock.javascript} ****/
-		if(templateText.indexOf("{codeblock.javascript}") > -1) {
-			//如果 {codeblock.field} 存在，则需要替换
+		/**** {javascript} ****/
+		if(templateText.indexOf("{javascript}") > -1) {
+			//如果 {javascript} 存在，则需要替换
 				
 			ScriptEngineManager manager = new ScriptEngineManager();
 			ScriptEngine engine = manager.getEngineByName("JavaScript");
 			
-			Pattern p = Pattern.compile("\\{codeblock\\.javascript\\}([\\s|\\S]*?)\\{\\/codeblock\\.javascript\\}");
+			Pattern p = Pattern.compile("\\{javascript\\}([\\s|\\S]*?)\\{\\/javascript\\}");
 			Matcher m = p.matcher(templateText);
 			while (m.find()) {
 				String jsTemplate = m.group(1);	//全局变量的name
@@ -152,7 +152,7 @@ public class TemplateUtil {
 					Object result = (Object) inv.invokeFunction("writecode");
 //					System.out.println("jsTemplate "+jsTemplate+" : " + result);
 //					System.out.println("--{code.javascript}"+m.group(1)+"{/code.javascript}--");
-					templateText = templateText.replace("{codeblock.javascript}"+m.group(1)+"{/codeblock.javascript}", result == null? "":(String)result);
+					templateText = templateText.replace("{javascript}"+m.group(1)+"{/javascript}", result == null? "":(String)result);
 				} catch (NoSuchMethodException | ScriptException e) {
 					e.printStackTrace();
 				}
@@ -194,19 +194,19 @@ public class TemplateUtil {
 	}
 	
 	/**
-	 * codeblock.field 相关标签的替换
+	 * foreach.field 相关标签的替换
 	 * @param templateText 替换的字符串，源
-	 * @param tag 传入如 codeblock.field.edit
+	 * @param tag 传入如 foreach.field.edit
 	 * @return
 	 */
-	public static String codeblockField_tag_Replace(String templateText, List<FieldBean> fileBeanList, String tag) {
+	public static String foreachField_tag_Replace(String templateText, List<FieldBean> fileBeanList, String tag) {
 		if(fileBeanList == null) {
 			return templateText;
 		}
 		
-		//如果 {codeblock.field} 存在，则需要替换
+		//如果 {foreach.field} 存在，则需要替换
 		if(templateText.indexOf("{"+tag+"") > -1){
-//			\\{codeblock\\.field\\}
+//			\\{foreach\\.field\\}
 			Pattern p = Pattern.compile("\\{"+tag.replaceAll("\\.", "\\\\.")+"\\}([\\s|\\S]*?)\\{\\/"+tag.replaceAll("\\.", "\\\\.")+"\\}");
 			Matcher m = p.matcher(templateText);
 			while (m.find()) {

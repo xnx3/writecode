@@ -7,11 +7,11 @@
 </jsp:include>
 <jsp:include page="/wm/common/list/formSearch_formStart.jsp"></jsp:include>
 
-{codeblock.field.list.search}
+{foreach.field.list.search}
 <jsp:include page="/wm/common/list/formSearch_input.jsp">
 	<jsp:param name="iw_label" value="{database.table.field.comment.split}" />
 	<jsp:param name="iw_name" value="{database.table.field.name}" />
-</jsp:include>{/codeblock.field.list.search}
+</jsp:include>{/foreach.field.list.search}
 
 <a class="layui-btn" href="javascript:wm.list(1);" style="margin-left: 15px;">搜索</a>
 
@@ -22,14 +22,14 @@
 <table class="layui-table iw_table">
 	<thead>
 		<tr>
-			{codeblock.field.list.table}<th>{database.table.field.comment.split}</th>
-				{/codeblock.field.list.table}<th>操作</th>
+			{foreach.field.list.table}<th>{database.table.field.comment.split}</th>
+				{/foreach.field.list.table}<th>操作</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr v-for="item in list" id="list">
-			{codeblock.field.list.table}<td>{{item.{database.table.field.name.hump.lower}}}</td>
-				{/codeblock.field.list.table}<td style="width: 200px;">
+			{foreach.field.list.table}<td>{{item.{database.table.field.name.hump.lower}}}</td>
+				{/foreach.field.list.table}<td style="width: 200px;">
 				<botton class="layui-btn layui-btn-sm"
 					:onclick="'editItem(\'' + item.id + '\', \'id=' + item.id + '\');'" style="margin-left: 3px;">编辑</botton>
 				<botton class="layui-btn layui-btn-sm"

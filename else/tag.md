@@ -40,14 +40,14 @@
 
 ## 变量代码块
 用于做为循环输出的代码块
-#### {codeblock.field}
+#### {foreach.field}
 
 ````{codeblock.field}```` 跟 ````{/codeblock.field}```` 中间的为循环输出数据表中的所有字段。如： 
 
 ````
-{codeblock.field}
+{foreach.field}
 	private {java.field.datatype} {database.table.field.name.hump.lower};
-{/codeblock.field}
+{/foreach.field}
 ````
 
 则会生成如下代码： 
@@ -60,31 +60,31 @@ private String idcard;
 private Integer addtime;
 ````
 
-#### {codeblock.field.edit}
-意思同上 {codeblock.field} ，只不过输出的范围有变化
-````{codeblock.field.edit}```` 跟 ````{/codeblock.field.edit}```` 中间的为循环输出数据表-增加及编辑页面中，需要用户自己编辑的字段
+#### {foreach.field.edit}
+意思同上 {foreach.field} ，只不过输出的范围有变化
+````{foreach.field.edit}```` 跟 ````{/foreach.field.edit}```` 中间的为循环输出数据表-增加及编辑页面中，需要用户自己编辑的字段
 
-#### {codeblock.field.list.search}
-意思同上 {codeblock.field} ，只不过输出的范围有变化
-````{codeblock.field.list.search}```` 跟 ````{/codeblock.field.list.search}```` 中间的为循环输出数据表-列表页面中，搜索检索的字段
+#### {foreach.field.list.search}
+意思同上 {foreach.field} ，只不过输出的范围有变化
+````{foreach.field.list.search}```` 跟 ````{/foreach.field.list.search}```` 中间的为循环输出数据表-列表页面中，搜索检索的字段
 
-#### {codeblock.field.list.table}
-意思同上 {codeblock.field} ，只不过输出的范围有变化
-````{codeblock.field.list.table}```` 跟 ````{/codeblock.field.list.table}```` 中间的为循环输出数据表-列表页面中，中间主体table列表显示的字段
+#### {foreach.field.list.table}
+意思同上 {foreach.field} ，只不过输出的范围有变化
+````{foreach.field.list.table}```` 跟 ````{/foreach.field.list.table}```` 中间的为循环输出数据表-列表页面中，中间主体table列表显示的字段
 
-#### {codeblock.javascript}
+#### {foreach.javascript}
 执行javascript脚本，如进行逻辑判断输出、字符串剪裁、组合等更多扩展。  
-它可以直接用，也可以放到 {codeblock.field} 这些代码块中使用。  
+它可以直接用，也可以放到 {foreach.field} 这些代码块中使用。  
 使用方式如：  
 
 ````
-{codeblock.field}
-字段名:{database.table.field.name}{codeblock.javascript}
+{foreach.field}
+字段名:{database.table.field.name}{javascript}
 if('{database.table.field.name}' == 'id'){
 	return '--这个是id字段';
 }
-{/codeblock.javascript}
-{/codeblock.field}
+{/javascript}
+{/foreach.field}
 ````
 
 生成的代码如下：  
