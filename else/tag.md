@@ -26,6 +26,7 @@
   
 * **{database.table.field.comment}** 数据表中，字段的注释
 * **{database.table.field.comment.split}** 数据表中，字段的注释的截取，截取,，。前部分的，作为标题，比如 addtime 字段的备注为 "添加时间，10位unix时间戳"  那么这个调取出的文字便是 "添加时间" 
+* **{database.table.field.comment.ignore.const}** 字段注释，去掉常量标注。比如字段的注释为： ````性别，是男性还是女性。[1-男性, 2-女性] ```` 这个便只会输出 ````性别，是男性还是女性。````
 * **{database.table.field.name}** 数据表中，字段名。如 role_id
 * **{database.table.field.name.hump.lower}** 数据表中，字段名的小驼峰式命名。如本来是role_id，会输出为 roleId
 * **{database.table.field.name.hump.upper}** 数据表中，字段名的大驼峰式命名。如本来是role_id，会输出为 RoleId
@@ -60,6 +61,20 @@ private String idcard;
 private Integer addtime;
 ````
 
+#### {foreach.field.comment.const}
+将字段注释中标记的常量循环输出。  
+字段的注释中可能会带有常量，就比如 person 人员数据表中，有一个sex性别字段，这个字段的取值有两个： 值为1代表男性，值为2代表女性，这个sex字段在设计数据表时，其结构为：  
+
+````
+`sex` tinyint(2) DEFAULT '1' COMMENT '性别，是男性还是女性。[1-男性, 2-女性]',
+`````
+
+可以看到注释中，有 **[1-男性, 2-女性]** 如此便可以通过此标签来循环输出这里定义的信息。  
+再这个 {foreach.field.comment.const} 标签内，有两个标签可以使用：  
+* **{database.table.field.comment.const.value}** 常量的值，也就是数据表中要实际存的值，就如上面示例中性别，这里可以调出 1、2
+* **{database.table.field.comment.const.explain}** 常量的说明，并不会存储到数据库中，但是需要显示给用户或者给与备注提示数字代表的意思，就如上面示例中性别，这里可以调出 男性、女性
+
+
 #### {foreach.field.edit}
 意思同上 {foreach.field} ，只不过输出的范围有变化
 ````{foreach.field.edit}```` 跟 ````{/foreach.field.edit}```` 中间的为循环输出数据表-增加及编辑页面中，需要用户自己编辑的字段
@@ -72,9 +87,10 @@ private Integer addtime;
 意思同上 {foreach.field} ，只不过输出的范围有变化
 ````{foreach.field.list.table}```` 跟 ````{/foreach.field.list.table}```` 中间的为循环输出数据表-列表页面中，中间主体table列表显示的字段
 
-#### {foreach.javascript}
+#### {javascript}
 执行javascript脚本，如进行逻辑判断输出、字符串剪裁、组合等更多扩展。  
-它可以直接用，也可以放到 {foreach.field} 这些代码块中使用。  
+它可以直接用，也可以放到 {field} 这些代码块中使用。  
+其中 return 的字符串，便是要显示输出的字符串  
 使用方式如：  
 
 ````

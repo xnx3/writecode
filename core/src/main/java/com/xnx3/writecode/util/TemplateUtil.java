@@ -6,6 +6,7 @@ import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.interfaces.TemplateTagExtendInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +17,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 import com.xnx3.HumpUtil;
+import com.xnx3.StringUtil;
 
 /**
  * 自动生成实体类代码
@@ -92,7 +94,7 @@ public class TemplateUtil {
 		
 		
 		//{foreach.field}
-		templateText = foreachField_tag_Replace(templateText, tableBean.getFieldList(), "foreach.table.field");
+		templateText = foreachField_tag_Replace(templateText, tableBean.getFieldList(), "foreach.field");
 
 		//{foreach.field.edit}
 		templateText = foreachField_tag_Replace(templateText, tableBean.getFieldEditList(), "foreach.field.edit");
@@ -133,7 +135,7 @@ public class TemplateUtil {
 			Matcher m = p.matcher(templateText);
 			while (m.find()) {
 				String jsTemplate = m.group(1);	//全局变量的name
-//				System.out.println("jsTemplate:"+jsTemplate);
+				//System.out.println("jsTemplate:"+jsTemplate);
 				
 				//如果第一个字符是换行符，那就删掉
 				if(jsTemplate.indexOf("\n") == 0) {
@@ -220,6 +222,12 @@ public class TemplateUtil {
 				if(fieldTemplate.lastIndexOf("\t") == fieldTemplate.length()-1) {
 					fieldTemplate = fieldTemplate.substring(0, fieldTemplate.length()-1);
 				}
+				//模板中是否有循环遍历注释常量输出. true为有
+				boolean foreachCommentConst = false;	
+				if(fieldTemplate.indexOf("{foreach.field.comment.const}") > -1) {
+					foreachCommentConst = true;
+				}
+				
 				StringBuffer fieldStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
 				for (int i = 0; fileBeanList != null && i < fileBeanList.size(); i++) {
 					FieldBean field = fileBeanList.get(i);	//具体的表中的某个字段
@@ -229,6 +237,7 @@ public class TemplateUtil {
 					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.upper}", HumpUtil.upper(field.getName()));
 					fieldString = replaceAll(fieldString, "{database.table.field.comment}", field.getComment());
 					fieldString = replaceAll(fieldString, "{database.table.field.comment.split}", fieldCommentSplit(field.getComment()));
+					fieldString = replaceAll(fieldString, "{database.table.field.comment.ignore.const}", fieldCommentIgnoreConst(field.getComment()));
 					fieldString = replaceAll(fieldString, "{database.table.field.datatype}", field.getDatatype());
 					fieldString = replaceAll(fieldString, "{database.table.field.datatype.java}", DataTypeUtil.databaseToJava(field.getDatatype()));
 					fieldString = replaceAll(fieldString, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
@@ -255,6 +264,26 @@ public class TemplateUtil {
 					}else {
 						fieldString = replaceAll(fieldString, "{if.database.table.field.default}", (field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) ? "":"default '"+field.getDefaultvalue()+"'");
 					}
+					if(foreachCommentConst) {
+						Pattern pConst = Pattern.compile("\\{foreach\\.field\\.comment\\.const\\}([\\s|\\S]*?)\\{\\/foreach\\.field\\.comment\\.const\\}");
+						Matcher mConst = pConst.matcher(fieldString);
+						while (mConst.find()) {
+							String commentConstTemplate = mConst.group(1);
+							List<CommentConstBean> constList = getCommentConst(field.getComment());
+							
+							StringBuffer constStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
+							for(int c = 0; c<constList.size(); c++){
+								CommentConstBean bean = constList.get(c);
+								
+								String str = new String(commentConstTemplate);
+								str = replaceAll(str, "{database.table.field.comment.const.value}", bean.getValue());
+								str = replaceAll(str, "{database.table.field.comment.const.explain}", bean.getExplain());
+								constStringBuffer.append(str);
+							}
+							fieldString = fieldString.replace("{foreach.field.comment.const}"+mConst.group(1)+"{/foreach.field.comment.const}", constStringBuffer.toString());
+						}
+					}
+					
 					
 					fieldStringBuffer.append(fieldString);
 				}
@@ -277,8 +306,89 @@ public class TemplateUtil {
 		return fieldComment.trim().split(",|，|。")[0];
 	}
 	
+	/**
+	 * 将字段注释中的变量标记去掉，如  性别，是男性还是女性。[1-男性, 2-女性]  会返回 性别，是男性还是女性。
+	 * @param fieldComment
+	 * @return
+	 */
+	public static String fieldCommentIgnoreConst(String fieldComment) {
+		if(fieldComment == null) {
+			return "";
+		}
+		String comment = new String(fieldComment);
+		
+		String str = StringUtil.subString(fieldComment, "[", "]");
+		if(str.indexOf("-") > -1) {
+			//应该是是了，把这个忽略掉
+			comment = comment.replace("["+str+"]", "");
+		}
+		return comment;
+	}
+	
 	public static void main(String[] args) {
 		System.out.println(fieldCommentSplit("任命，公司名"));
 		
 	}
+	
+	/**
+	 * 传入数据表的某列的注释，获取注释中包含定义的常量及说明。
+	 * @param comment 表的注释，传入如 用户性别 [1-男性, 2-女性]
+	 * @return list 如果注释中没有这方面的标记，那list.size 便是 0，list不会为null
+	 */
+	public static List<CommentConstBean> getCommentConst(String comment) {
+		List<CommentConstBean> list = new ArrayList<CommentConstBean>();
+		
+		//取得 [] 内的值，取得如 1-xxxxxx, 2-xxxxx2
+		String str = StringUtil.subString(comment, "[", "]");
+		if(str == null) {
+			return list;
+		}
+		String[] items = str.split(",");
+		
+		for (int i = 0; i < items.length; i++) {
+			String item = items[i];
+			String[] values = item.split("-");
+			if(values.length != 2) {
+				continue;
+			}
+			
+			String value = values[0].trim(); //要往数据表中存的值
+			String explain = values[1].trim();	//值的说明，这个值表示什么
+			if(value.length() == 0) {
+				continue;
+			}
+			if(explain.length() == 0) {
+				explain = value;
+			}
+			CommentConstBean constBean = new CommentConstBean();
+			constBean.setValue(value);
+			constBean.setExplain(explain);
+			//System.out.println(value+" - "+explain);
+			list.add(constBean);
+		}
+		return list;
+	}
+	
+}
+/**
+ * 字段备注中所定义的常量信息
+ * @author 管雷鸣
+ */
+class CommentConstBean{
+	private String value; 	//值，王数据表中存储的值
+	private String explain;	//值的说明，描述
+	
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
+	public String getExplain() {
+		return explain;
+	}
+	public void setExplain(String explain) {
+		this.explain = explain;
+	}
+	
 }

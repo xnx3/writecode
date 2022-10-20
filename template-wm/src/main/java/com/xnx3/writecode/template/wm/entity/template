@@ -14,8 +14,15 @@ import javax.persistence.Table;
 @Entity()
 @Table(name = "{database.table.name}")
 public class {database.table.name.hump.upper} implements java.io.Serializable{
+{foreach.field}{foreach.field.comment.const}
+	/**
+	 * {database.table.field.comment.split} - {database.table.field.comment.const.explain}
+	 */
+	public static final {java.field.datatype} {javascript}return '{database.table.field.name.hump.lower}_{database.table.field.comment.const.value}'.toUpperCase();{/javascript};{/foreach.field.comment.const}{/foreach.field}
+
 {foreach.field}
-	private {java.field.datatype} {database.table.field.name.hump.lower};	//{database.table.field.comment}{/foreach.field}
+	private {java.field.datatype} {database.table.field.name.hump.lower};	//{database.table.field.comment.ignore.const} {javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '<ul>':'';{/javascript}{foreach.field.comment.const}<li>{database.table.field.comment.const.value} : {database.table.field.comment.const.explain}</li>{/foreach.field.comment.const}{javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '</ul>':'';{/javascript}
+{/foreach.field}
 	
 {foreach.field}
 	{if.java.annotation.id}
