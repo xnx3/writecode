@@ -14,6 +14,7 @@ import com.xnx3.writecode.template.wm.controller.ControllerTemplateTagExtend;
 import com.xnx3.writecode.template.wm.editJsp.EditJspTemplate;
 import com.xnx3.writecode.template.wm.editVo.EditVoTemplate;
 import com.xnx3.writecode.template.wm.entity.EntityTemplate;
+import com.xnx3.writecode.template.wm.generateCache.GenerateCacheTemplate;
 import com.xnx3.writecode.template.wm.listJsp.ListJspTemplate;
 import com.xnx3.writecode.template.wm.listVo.ListVoTemplate;
 import com.xnx3.writecode.util.ClassUtil;
@@ -100,6 +101,12 @@ public class Code {
 		listVoTemplate.setProjectUrlPath(this.projectUrlPath);
 		listVoTemplate.setWriteFileAbsolutePath("{project.path.absolute}"+ClassUtil.packageToFilePath(this.packageName+".vo"));
 		new WriteCode(dataSource, listVoTemplate).writeCode(tableBean);
+		
+		/*** 生成 generateCache ***/
+		Template generateCacheTemplate = new GenerateCacheTemplate();
+		generateCacheTemplate.setJavaPackage(this.packageName);
+		generateCacheTemplate.setWriteFileAbsolutePath("{project.path.absolute}"+ClassUtil.packageToFilePath(this.packageName+".generateCache"));
+		new WriteCode(dataSource, generateCacheTemplate).writeCode(tableBean);
 		
 		/*** 生成 edit vo ***/
 		Template editVoTemplate = new EditVoTemplate();

@@ -1,0 +1,41 @@
+package {java.package}.generateCache;
+
+import com.xnx3.j2ee.generateCache.BaseGenerate;
+import org.springframework.stereotype.Component;
+
+/**
+ * {database.table.comment} 自动生成js缓存文件
+ * @author <a href="https://github.com/xnx3/writecode">AutoWriteCode自动生成</a>
+ */
+@Component(value="{database.table.name.hump.upper}GenerateCache")
+public class {database.table.name.hump.upper} extends BaseGenerate {
+    
+    public {database.table.name.hump.upper}(){
+{foreach.field}{javascript}
+		if('{database.table.field.comment}'.indexOf('[')>-1 && '{database.table.field.comment}'.indexOf(']') > -1){
+			return '		{database.table.field.name.hump.lower}();	//{database.table.field.comment.split}';
+		}
+{/javascript}{/foreach.field}
+	}
+
+{foreach.field}{javascript}
+		if('{database.table.field.comment}'.indexOf('[')>-1 && '{database.table.field.comment}'.indexOf(']') > -1){
+			var java = '';
+			java = java + '	/**	\n';
+			java = java + '	 * {database.table.field.comment.split}	\n';
+			java = java + '	 */\n';
+			java = java + '	public void {database.table.field.name.hump.lower}() {\n'
+			java = java + '		createCacheObject("{database.table.field.name.hump.lower}");';
+			return java;
+		}
+{/javascript}{foreach.field.comment.const}
+		cacheAdd({java.package}.entity.{database.table.name.hump.upper}.{javascript}return '{database.table.field.name.hump.lower}_{database.table.field.comment.const.value}'.toUpperCase();{/javascript}, {javascript}return '{java.field.datatype}'.toLowerCase() == 'string'? '"{database.table.field.comment.const.value}"':'{database.table.field.comment.const.value}'; {/javascript});{/foreach.field.comment.const}{javascript}
+		if('{database.table.field.comment}'.indexOf('[')>-1 && '{database.table.field.comment}'.indexOf(']') > -1){
+			var java = '\n';
+			java = java + '		generateCacheFile();\n'
+			java = java + '	}';
+			return java;
+		}
+{/javascript}{/foreach.field}    
+    
+}

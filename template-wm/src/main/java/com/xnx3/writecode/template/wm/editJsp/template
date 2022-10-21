@@ -5,7 +5,11 @@
 <jsp:include page="/wm/common/head.jsp">
 	<jsp:param name="title" value="编辑" />
 </jsp:include>
-
+{foreach.field}{javascript}
+	if('{database.table.field.comment}'.indexOf('[')>-1 && '{database.table.field.comment}'.indexOf(']') > -1){
+		return '<script src="/<%=Global.CACHE_FILE %>{database.table.name.hump.upper}_{database.table.field.name.hump.lower}.js"></script>';
+	}
+{/javascript}{/foreach.field}
 <!-- 如果有id输入项，隐藏不显示出来 -->
 <style>
 #item_id{ display:none;}
