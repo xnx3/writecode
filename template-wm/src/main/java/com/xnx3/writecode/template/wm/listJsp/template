@@ -48,8 +48,8 @@
 				{/foreach.field.list.table}<td style="width: 200px;">
 				<botton class="layui-btn layui-btn-sm"
 					:onclick="'editItem(\'' + item.id + '\', \'id=' + item.id + '\');'" style="margin-left: 3px;">编辑</botton>
-				<botton class="layui-btn layui-btn-sm"
-					:onclick="'detailsItem(\'' + item.id + '\', \'id=' + item.id + '\');'" style="margin-left: 3px;">详情</botton>
+				<!-- <botton class="layui-btn layui-btn-sm"
+					:onclick="'detailsItem(\'' + item.id + '\', \'id=' + item.id + '\');'" style="margin-left: 3px;">详情</botton> -->
 				<botton class="layui-btn layui-btn-sm"
 					:onclick="'deleteItem(\'' + item.id + '\', \'id=' + item.id + '\');'" style="margin-left: 3px;">删除</botton>
 			</td>
