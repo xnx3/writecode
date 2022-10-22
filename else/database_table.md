@@ -16,7 +16,7 @@ CREATE TABLE `person` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='人员表，演示 entity 类';
 ````
 
-# 说明
+# 注意事项
 
 ### 数据表的备注
 ![image.png](images/database_table_line_tablecomment.png)  
