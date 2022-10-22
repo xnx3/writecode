@@ -32,9 +32,14 @@
 * **{database.table.field.name.hump.upper}** 数据表中，字段名的大驼峰式命名。如本来是role_id，会输出为 RoleId
 * **{database.table.field.default}** 数据表中，字段的默认值。一般这个标签不怎么用，二是用 {if.database.table.field.default}
 * **{database.table.field.datatype}** 数据表中，字段的数据类型，如 int、char、varchar 等
-* **{database.table.field.datatype.java}** 数据表中，字段的数据类型在Java中的表示，如 String、Integer、Short 等
+* **{database.table.field.datatype.java.object}** 数据表中，字段的数据类型在Java中的表示，如 String、Integer、Short 等
+* **{database.table.field.datatype.java.basic}** 数据表中，字段的数据类型在Java中的表示，如 String、int、short 等
 * **{database.table.field.length}** 数据表中，字段数据的长度，比如类型是int、chat等类型，这里输出格式为 11 ,比如类型是float型，这里输出格式为 3,6
 * **{database.table.field.collate}** 数据表中，字段的编码格式，针对字符串类型，防止乱码。如果数据表中本身是int型，并没有设置编码格式，那这个则没有任何输出。如果数据字段是char，设置了字符编码，那会输出如 COLLATE utf8mb4_unicode_ci
+PRIMARY KEY
+* **{database.table.field.primaryKey}** 当前字段是否是主键，如果是，输出 true ,如果不是，输出 false
+* **{database.table.field.autoIncrement}** 当前字段是否是自增属性，如果是，输出 true ,如果不是，输出 false
+
 * **{if.java.annotation.id}** 如果当前字段是主键，则输出Java注解 @Id
 * **{if.java.annotation.generatedvalue}** 如果当前字段比如是自增属性，则输出Java注解 @GeneratedValue(strategy = IDENTITY)
 * **{if.database.table.field.default}** 如果当前数据表的字段有设置默认值，那么输出 default 'xxxx'
@@ -47,7 +52,7 @@
 
 ````
 {foreach.field}
-	private {java.field.datatype} {database.table.field.name.hump.lower};
+	private {database.table.field.datatype.java.object} {database.table.field.name.hump.lower};
 {/foreach.field}
 ````
 

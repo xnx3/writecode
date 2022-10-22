@@ -67,7 +67,8 @@ writecode                           项目
 └─README.md                         说明
 ```
 
-## 更多使用
+## 更多文档
 * 自定义生成实体类的模板 | [变量标签](else/tag.md)
+* [数据表的设计](else/database_table.md)
 * [在wm及网市场云建站系统中的深度集成使用](else/wm_demo.md)
 * [其他数据库的扩展，如 SqlServer、Oracle 等](else/datasource.md)
