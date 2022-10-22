@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 /**
  * {database.table.comment}
- * @author <a href="https://github.com/xnx3/writecode">AutoWriteCode自动生成</a>
+ * @author <a href="https://github.com/xnx3/writecode">WriteCode自动生成</a>
  */
 @Entity()
 @Table(name = "{database.table.name}")
@@ -19,7 +19,6 @@ public class {database.table.name.hump.upper} implements java.io.Serializable{
 	 * {database.table.field.comment.split} - {database.table.field.comment.const.explain}
 	 */
 	public static final {database.table.field.datatype.java.object} {javascript}return '{database.table.field.name.hump.lower}_{database.table.field.comment.const.value}'.toUpperCase();{/javascript} = {javascript}return '{database.table.field.datatype.java.object}'.toLowerCase() == 'string'? '"{database.table.field.comment.const.value}"':'{database.table.field.comment.const.value}'; {/javascript};{/foreach.field.comment.const}{/foreach.field}
-
 {foreach.field}
 	private {database.table.field.datatype.java.object} {database.table.field.name.hump.lower};	//{database.table.field.comment.ignore.const} {javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '<ul>':'';{/javascript}{foreach.field.comment.const}<li>{database.table.field.comment.const.value} : {database.table.field.comment.const.explain}</li>{/foreach.field.comment.const}{javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '</ul>':'';{/javascript}{/foreach.field}
 
@@ -27,7 +26,7 @@ public class {database.table.name.hump.upper} implements java.io.Serializable{
 	return {database.table.field.primaryKey}? '	@Id\n':'';
 {/javascript}{javascript}
 	return {database.table.field.autoIncrement}? '	@GeneratedValue(strategy = IDENTITY)\n':'';
-{/javascript}	@Column(name = "{database.table.field.name}", columnDefinition="{database.table.field.datatype}({database.table.field.length}) COMMENT '{database.table.field.comment}' {if.database.table.field.default}")
+{/javascript}	@Column(name = "{database.table.field.name}", columnDefinition="{database.table.field.datatype}({database.table.field.length}) COMMENT '{database.table.field.comment}'")
 	public {database.table.field.datatype.java.object} get{database.table.field.name.hump.upper}() {
 		return {database.table.field.name.hump.lower};
 	}

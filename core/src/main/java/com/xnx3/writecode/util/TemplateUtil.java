@@ -247,26 +247,6 @@ public class TemplateUtil {
 					fieldString = replaceAll(fieldString, "{database.table.field.default}", field.getDefaultvalue());
 					fieldString = replaceAll(fieldString, "{database.table.field.primaryKey}", field.isPrimaryKey()+"");
 					fieldString = replaceAll(fieldString, "{database.table.field.autoIncrement}", field.isAutoIncrement()+"");
-//					if(field.getIfAnnotationId().length() == 0) {
-//						fieldString = replaceAll(fieldString, "[\\t]+{if.java.annotation.id}[\\r|\\n]+", "");	//没有则移除这一行
-//						fieldString = replaceAll(fieldString, "{if.java.annotation.id}[\\r|\\n]+", "");	//没有则移除这一行
-//						fieldString = replaceAll(fieldString, "{if.java.annotation.id}", "");	//没有则移除这一行
-//					}else {
-//						fieldString = replaceAll(fieldString, "{if.java.annotation.id}", field.getIfAnnotationId());				
-//					}
-//					if(field.getIfAnnotationGeneratedValue().length() == 0) {
-//						fieldString = replaceAll(fieldString, "[\\t]+{if.java.annotation.generatedvalue}[\\r|\\n]+", "");	//没有则移除这一行
-//						fieldString = replaceAll(fieldString, "{if.java.annotation.generatedvalue}[\\r|\\n]+", "");	//没有则移除这一行
-//						fieldString = replaceAll(fieldString, "{if.java.annotation.generatedvalue}", "");	//没有则移除这一行
-//					}else {
-//						fieldString = replaceAll(fieldString, "{if.java.annotation.generatedvalue}", field.getIfAnnotationGeneratedValue());
-//					}
-//					fieldString = replaceAll(fieldString, "{if.database.table.field.default}", field.getDefaultvalue());
-//					if(field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) {
-//						fieldString = replaceAll(fieldString, "{if.database.table.field.default}", "");
-//					}else {
-//						fieldString = replaceAll(fieldString, "{if.database.table.field.default}", (field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) ? "":"default '"+field.getDefaultvalue()+"'");
-//					}
 					if(foreachCommentConst) {
 						Pattern pConst = Pattern.compile("\\{foreach\\.field\\.comment\\.const\\}([\\s|\\S]*?)\\{\\/foreach\\.field\\.comment\\.const\\}");
 						Matcher mConst = pConst.matcher(fieldString);

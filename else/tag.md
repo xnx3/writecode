@@ -10,7 +10,6 @@
 * **{project.xxxx}** project. 开头的，是跟当前项目相关的
 * **{java.xxxx}** java. 开头的，则是跟java本身相关的
 * **{database.xxxx}** database. 开头的，则是跟数据库相关的
-* **{if.xxxx}** if. 开头的，则是如果有，就输出，如果没有，就不输出 (也就是输出空字符串) 
 
 #### 标签列表
 * **{project.path.absolute}** 当前项目的路径，在本机磁盘的绝对路径。格式如 E:\eclipseWork\git\writecode
@@ -39,10 +38,6 @@
 PRIMARY KEY
 * **{database.table.field.primaryKey}** 当前字段是否是主键，如果是，输出 true ,如果不是，输出 false
 * **{database.table.field.autoIncrement}** 当前字段是否是自增属性，如果是，输出 true ,如果不是，输出 false
-
-* **{if.java.annotation.id}** 如果当前字段是主键，则输出Java注解 @Id
-* **{if.java.annotation.generatedvalue}** 如果当前字段比如是自增属性，则输出Java注解 @GeneratedValue(strategy = IDENTITY)
-* **{if.database.table.field.default}** 如果当前数据表的字段有设置默认值，那么输出 default 'xxxx'
 
 ## 变量代码块
 用于做为循环输出的代码块

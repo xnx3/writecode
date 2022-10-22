@@ -12,22 +12,18 @@ import com.xnx3.j2ee.vo.BaseVO;
  */
 @ResponseBodyManage(ignoreField = {}, nullSetDefaultValue = true)
 public class {database.table.name.hump.upper}ListVO extends BaseVO {
-
 	private List<{database.table.name.hump.upper}> list;	// {database.table.comment}
 	private Page page;	// 分页
 	
 	public List<{database.table.name.hump.upper}> getList() {
 		return this.list;
 	}
-	
 	public void setList(List<{database.table.name.hump.upper}> list) {
 		this.list = list;
 	}
-	
 	public Page getPage() {
 		return page;
 	}
-
 	public void setPage(Page page) {
 		this.page = page;
 	}
@@ -36,5 +32,4 @@ public class {database.table.name.hump.upper}ListVO extends BaseVO {
 	public String toString() {
 		return "{database.table.name.hump.upper}ListVO [list=" + list + ", page=" + page + "]";
 	}
-	
 }

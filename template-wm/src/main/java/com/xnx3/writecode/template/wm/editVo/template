@@ -10,13 +10,11 @@ import com.xnx3.j2ee.vo.BaseVO;
  */
 @ResponseBodyManage(ignoreField = {}, nullSetDefaultValue = true)
 public class {database.table.name.hump.upper}VO extends BaseVO {
-
 	private {database.table.name.hump.upper} {database.table.name.hump.lower};	// {database.table.comment}
 	
 	public {database.table.name.hump.upper} get{database.table.name.hump.upper}() {
 		return {database.table.name.hump.lower};
 	}
-	
 	public void set{database.table.name.hump.upper}({database.table.name.hump.upper} {database.table.name.hump.lower}) {
 		this.{database.table.name.hump.lower} = {database.table.name.hump.lower};
 	}
