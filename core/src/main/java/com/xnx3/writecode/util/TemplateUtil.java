@@ -231,39 +231,42 @@ public class TemplateUtil {
 				StringBuffer fieldStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
 				for (int i = 0; fileBeanList != null && i < fileBeanList.size(); i++) {
 					FieldBean field = fileBeanList.get(i);	//具体的表中的某个字段
-					
-					String fieldString = replaceAll(fieldTemplate, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
+
+					String fieldString = new String(fieldTemplate);
 					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.lower}", HumpUtil.lower(field.getName()));
 					fieldString = replaceAll(fieldString, "{database.table.field.name.hump.upper}", HumpUtil.upper(field.getName()));
 					fieldString = replaceAll(fieldString, "{database.table.field.comment}", field.getComment());
 					fieldString = replaceAll(fieldString, "{database.table.field.comment.split}", fieldCommentSplit(field.getComment()));
 					fieldString = replaceAll(fieldString, "{database.table.field.comment.ignore.const}", fieldCommentIgnoreConst(field.getComment()));
 					fieldString = replaceAll(fieldString, "{database.table.field.datatype}", field.getDatatype());
-					fieldString = replaceAll(fieldString, "{database.table.field.datatype.java}", DataTypeUtil.databaseToJava(field.getDatatype()));
-					fieldString = replaceAll(fieldString, "{java.field.datatype}", DataTypeUtil.databaseToJava(field.getDatatype()));
+					fieldString = replaceAll(fieldString, "{database.table.field.datatype.java.object}", DataTypeUtil.databaseToJava(field.getDatatype()).getObjectName());
+					fieldString = replaceAll(fieldString, "{database.table.field.datatype.java.basic}", DataTypeUtil.databaseToJava(field.getDatatype()).getBasicName());
 					fieldString = replaceAll(fieldString, "{database.table.field.name}", field.getName());
 					fieldString = replaceAll(fieldString, "{database.table.field.length}", field.getLength());
 					fieldString = replaceAll(fieldString, "{database.table.field.collate}", field.getCollate());
 					fieldString = replaceAll(fieldString, "{database.table.field.default}", field.getDefaultvalue());
-					if(field.getIfAnnotationId().length() == 0) {
-						fieldString = replaceAll(fieldString, "[\\t]+{if.java.annotation.id}[\\r|\\n]+", "");	//没有则移除这一行
-						fieldString = replaceAll(fieldString, "{if.java.annotation.id}[\\r|\\n]+", "");	//没有则移除这一行
-						fieldString = replaceAll(fieldString, "{if.java.annotation.id}", "");	//没有则移除这一行
-					}else {
-						fieldString = replaceAll(fieldString, "{if.java.annotation.id}", field.getIfAnnotationId());				
-					}
-					if(field.getIfAnnotationGeneratedValue().length() == 0) {
-						fieldString = replaceAll(fieldString, "[\\t]+{if.java.annotation.generatedvalue}[\\r|\\n]+", "");	//没有则移除这一行
-						fieldString = replaceAll(fieldString, "{if.java.annotation.generatedvalue}[\\r|\\n]+", "");	//没有则移除这一行
-						fieldString = replaceAll(fieldString, "{if.java.annotation.generatedvalue}", "");	//没有则移除这一行
-					}else {
-						fieldString = replaceAll(fieldString, "{if.java.annotation.generatedvalue}", field.getIfAnnotationGeneratedValue());
-					}
-					if(field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) {
-						fieldString = replaceAll(fieldString, "{if.database.table.field.default}", "");
-					}else {
-						fieldString = replaceAll(fieldString, "{if.database.table.field.default}", (field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) ? "":"default '"+field.getDefaultvalue()+"'");
-					}
+					fieldString = replaceAll(fieldString, "{database.table.field.primaryKey}", field.isPrimaryKey()+"");
+					fieldString = replaceAll(fieldString, "{database.table.field.autoIncrement}", field.isAutoIncrement()+"");
+//					if(field.getIfAnnotationId().length() == 0) {
+//						fieldString = replaceAll(fieldString, "[\\t]+{if.java.annotation.id}[\\r|\\n]+", "");	//没有则移除这一行
+//						fieldString = replaceAll(fieldString, "{if.java.annotation.id}[\\r|\\n]+", "");	//没有则移除这一行
+//						fieldString = replaceAll(fieldString, "{if.java.annotation.id}", "");	//没有则移除这一行
+//					}else {
+//						fieldString = replaceAll(fieldString, "{if.java.annotation.id}", field.getIfAnnotationId());				
+//					}
+//					if(field.getIfAnnotationGeneratedValue().length() == 0) {
+//						fieldString = replaceAll(fieldString, "[\\t]+{if.java.annotation.generatedvalue}[\\r|\\n]+", "");	//没有则移除这一行
+//						fieldString = replaceAll(fieldString, "{if.java.annotation.generatedvalue}[\\r|\\n]+", "");	//没有则移除这一行
+//						fieldString = replaceAll(fieldString, "{if.java.annotation.generatedvalue}", "");	//没有则移除这一行
+//					}else {
+//						fieldString = replaceAll(fieldString, "{if.java.annotation.generatedvalue}", field.getIfAnnotationGeneratedValue());
+//					}
+//					fieldString = replaceAll(fieldString, "{if.database.table.field.default}", field.getDefaultvalue());
+//					if(field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) {
+//						fieldString = replaceAll(fieldString, "{if.database.table.field.default}", "");
+//					}else {
+//						fieldString = replaceAll(fieldString, "{if.database.table.field.default}", (field.getDefaultvalue() == null || field.getDefaultvalue().equalsIgnoreCase("null")) ? "":"default '"+field.getDefaultvalue()+"'");
+//					}
 					if(foreachCommentConst) {
 						Pattern pConst = Pattern.compile("\\{foreach\\.field\\.comment\\.const\\}([\\s|\\S]*?)\\{\\/foreach\\.field\\.comment\\.const\\}");
 						Matcher mConst = pConst.matcher(fieldString);

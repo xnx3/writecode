@@ -84,6 +84,7 @@ public class Mysql implements DataSourceInterface{
 		// 遍历记录所有字段信息
 		List<FieldBean> fieldBeanList = new LinkedList<FieldBean>();
 		for (Map<String, Object> field : fields) {
+			System.out.println(field.get("COLUMN_DEFAULT"));
 			FieldBean fieldBean = new FieldBean();
 			fieldBean.setName(field.get("COLUMN_NAME") + "");
 			fieldBean.setComment(field.get("COLUMN_COMMENT") + "");
@@ -106,18 +107,16 @@ public class Mysql implements DataSourceInterface{
 				fieldBean.setLength(length);
 			}
 			fieldBean.setCollate(field.get("COLLATION_NAME") + "");
+			
 			// 判断字段是否为主键
-			String key = "";
 			if (field.get("COLUMN_KEY") != null && "PRI".equals(field.get("COLUMN_KEY") + "")) {
-				key = "@Id";
+				fieldBean.setPrimaryKey(true);
 			}
-			fieldBean.setIfAnnotationId(key);
+			
 			// 判断字段是否为自增属性
-			String extra = "";
 			if (field.get("EXTRA") != null && "auto_increment".equals(field.get("EXTRA") + "")) {
-				extra = "@GeneratedValue(strategy = IDENTITY)";
+				fieldBean.setAutoIncrement(true);
 			}
-			fieldBean.setIfAnnotationGeneratedValue(extra);
 			fieldBeanList.add(fieldBean);
 		}
 		tableBean.setFieldList(fieldBeanList);
