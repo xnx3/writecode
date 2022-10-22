@@ -3,8 +3,8 @@
 ## 当前项目相关
 project. 开头的，是跟当前项目相关的。有：  
 * **{project.path.absolute}** 当前项目的路径，在本机磁盘的绝对路径。格式如 E:\eclipseWork\git\writecode
-* **{project.url.path}** 请求的URL路径，比如实际生成的列表请求应该是 /admin/user/list.jsp， 那么这里应该设置为 /admin/user/ 注意格式，以/开头，以/结尾 。 比如生成controller时，这个可以在Controller上的@RequestMapping用的，使用方式如： @RequestMapping("{project.url.path}{database.table.name.hump.upper}/")  
-* **{project.package}** 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity  
+* **{project.url.path}** 请求的URL路径，比如实际生成的列表请求应该是 /admin/user/list.jsp， 那么这里应该设置为 /admin/user/ 注意格式，以/开头，以/结尾 。 比如生成controller时，这个可以在Controller上的@RequestMapping用的，使用方式如： @RequestMapping("{project.url.path}{database.table.name.hump.upper}/")  【须设置】  
+* **{project.package}** 生成的实体类是在哪个包，格式如 com.xnx3.j2ee.entity  【须设置】  
 
 ## 数据表本身相关
 * **{database.table.comment}** 数据表的备注，这个表是干什么的，如 用户表  
@@ -86,9 +86,9 @@ if(true){
 
 可执行javascript脚本，如进行逻辑判断输出、字符串剪裁、组合等更多扩展。  
 其中 return 的字符串，便是要显示输出的字符串  
-本标签可以直接用，也可以放到 {database.table.field...} 这些代码块中使用。  
+本标签可以直接用，也可以放到 {foreach.field...} 这些循环输出中使用。  
 使用方式如：  
-
+	
 ````
 {foreach.field}
 字段名:{database.table.field.name}{javascript}
