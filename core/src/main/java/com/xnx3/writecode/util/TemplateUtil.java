@@ -106,7 +106,7 @@ public class TemplateUtil {
 		templateText = foreachField_tag_Replace(templateText, tableBean.getFieldListTableList(), "foreach.field.list.table");
 				
 		/**** tostring ****/
-		if(templateText.indexOf("{java.tostring}") > -1) {
+		if(templateText.indexOf("{database.table.tostring}") > -1) {
 			StringBuffer tostring = new StringBuffer();
 			tostring.append("{");
 			for (int i = 0; tableBean.getFieldList() != null && i < tableBean.getFieldList().size(); i++) {
@@ -117,7 +117,7 @@ public class TemplateUtil {
 				tostring.append(HumpUtil.lower(field.getName())+" : \"+this."+HumpUtil.lower(field.getName())+"+\"");
 			}
 			tostring.append("}");
-			templateText = replaceAll(templateText, "{java.tostring}", tostring.toString());
+			templateText = replaceAll(templateText, "{database.table.tostring}", tostring.toString());
 		}
 		
 		if(this.templateTagExtend != null) {

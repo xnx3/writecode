@@ -36,6 +36,6 @@ public class {database.table.name.hump.upper} implements java.io.Serializable{
 {/foreach.field}
 	@Override
 	public String toString() {
-		return "{java.tostring}";
+		return "{database.table.tostring}";
 	}
 }
