@@ -24,6 +24,7 @@ import java.util.Map;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Cursor;
 
 /**
  * 选择字段
@@ -70,6 +71,7 @@ public class SelectFieldJframe extends JFrame {
 		btnNewButton.setFont(new Font("宋体", Font.PLAIN, 16));
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("全选/全不选");
+		chckbxNewCheckBox.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		chckbxNewCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean select = false;

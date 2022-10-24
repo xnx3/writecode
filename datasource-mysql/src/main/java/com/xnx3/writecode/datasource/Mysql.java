@@ -84,7 +84,7 @@ public class Mysql implements DataSourceInterface{
 		// 遍历记录所有字段信息
 		List<FieldBean> fieldBeanList = new LinkedList<FieldBean>();
 		for (Map<String, Object> field : fields) {
-			System.out.println(field.get("COLUMN_DEFAULT"));
+			//System.out.println(field.get("COLUMN_DEFAULT"));
 			FieldBean fieldBean = new FieldBean();
 			fieldBean.setName(field.get("COLUMN_NAME") + "");
 			fieldBean.setComment(field.get("COLUMN_COMMENT") + "");
