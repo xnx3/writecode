@@ -2,6 +2,7 @@ package com.xnx3.writecode.ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -194,6 +195,9 @@ public class ListJframe extends JFrame {
 	 * 选择、调整字段
 	 */
 	public void selectTableField() {
+		int x = this.getX() + 30;
+		int y = this.getY() + 30;
+
 		//查出这个表当前的信息
 		TableBean tableBean = MainJframe.tableBeanMap.get(tableName);
 		
@@ -230,6 +234,7 @@ public class ListJframe extends JFrame {
 				tableFill();
 			}
 		});
+		fieldJframe.setBounds(x, y, 350, 520);
 		fieldJframe.setVisible(true);
 				
 		DefaultTableModel tableModel=(DefaultTableModel) fieldJframe.table.getModel();
@@ -307,6 +312,7 @@ public class ListJframe extends JFrame {
 				searchFieldFill();
 			}
 		});
+		fieldJframe.setBounds(this.getX()+30, this.getY()+30, 350, 520);
 		fieldJframe.setVisible(true);
 		
 		DefaultTableModel tableModel=(DefaultTableModel) fieldJframe.table.getModel();

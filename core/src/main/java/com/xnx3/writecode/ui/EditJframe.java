@@ -176,6 +176,9 @@ public class EditJframe extends JFrame {
 	 * 选择、调整字段
 	 */
 	public void selectField(ActionEvent e) {
+		int x = this.getX() + 30;
+		int y = this.getY() + 30;
+		
 		//当前table显示的
 		Map<String, Object[]> tableMap = JTableUtil.getTableData(table, 0);
 		
@@ -189,6 +192,7 @@ public class EditJframe extends JFrame {
 				tableFill(map);
 			}
 		});
+		fieldJframe.setBounds(x, y, 350, 520);
 		fieldJframe.setVisible(true);
 		
 		DefaultTableModel tableModel=(DefaultTableModel) fieldJframe.table.getModel();
