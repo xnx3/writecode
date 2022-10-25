@@ -46,9 +46,10 @@ public class WriteCode {
 
 将 host、port、databaseName、username、password 填上，然后直接运行即可看到下图。
 
-#### 3. 选择数据表，进行生成对应的实体类
+#### 3. 选择数据表，自动写出代码
 选择那几个表要进行生成，选择后点击生成按钮，即可生成。
-![image.png](./else/images/selectTableUI.png) 
+![image.png](http://res.zvo.cn/writecode/wm_demo_writecode_run.gif) 
+
 
 ## 目录结构
 
