@@ -48,8 +48,10 @@ public class WriteCode {
 
 #### 3. 选择数据表，自动写出代码
 选择那几个表要进行生成，选择后点击生成按钮，即可生成。
-![image.png](./else/wm_demo_writecode_run.gif) 
+![image.png](https://res.zvo.cn/writecode/wm_demo_writecode_run.gif) 
 
+#### 4. 运行，使用
+![image.png](https://res.zvo.cn/writecode/write_page_runing.gif) 
 
 ## 目录结构
 

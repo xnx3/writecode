@@ -71,7 +71,7 @@ function editItem(id, name) {
 	layer.open({
 		type: 2, 
 		title: id > 0 ? '编辑【' + name + '】' : '添加', 
-		area: ['620px', '90%'],
+		area: ['450px', '460px'],
 		shadeClose: true, // 开启遮罩关闭
 		content: '{project.url.path}{database.table.name.hump.lower}/edit.jsp?id=' + id
 	});
@@ -86,7 +86,7 @@ function detailsItem(id, name) {
 	layer.open({
 		type: 2, 
 		title: '详情&nbsp;【' + name + '】', 
-		area: ['480px', '600px'],
+		area: ['450px', '460px'],
 		shadeClose: true, // 开启遮罩关闭
 		content: '{project.url.path}{database.table.name.hump.lower}/details.jsp?id=' + id
 	});

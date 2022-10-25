@@ -60,7 +60,7 @@ public class SelectFieldJframe extends JFrame {
 					Object[] objs = entry.getValue();
 					if(objs != null && objs[0] != null) {
 						map.put(entry.getKey(), (Boolean)objs[0]);
-						System.out.println(entry.getKey()+ "= " + (Boolean)objs[0]);
+						//System.out.println(entry.getKey()+ "= " + (Boolean)objs[0]);
 					}
 				}
 				

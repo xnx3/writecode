@@ -109,7 +109,7 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 	 * 添加或修改一条记录
 	 * @param token 当前操作用户的登录标识 <required>
 	 * 			<a href="xxxxx.html">/xxxx/login.json</a> 取得</p>{foreach.field.edit}
-	 * @param {database.table.field.name.hump.lower} {database.table.field.comment}{/foreach.field.edit}
+	 * @param {database.table.field.name.hump.lower} {database.table.field.comment.ignore.const} {javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '<ul>':'';{/javascript}{foreach.field.comment.const}<li>{database.table.field.comment.const.value} : {database.table.field.comment.const.explain}</li>{/foreach.field.comment.const}{javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '</ul>':'';{/javascript}{/foreach.field.edit}
 	 * @return 保存结果
 	 * @author <a href="https://github.com/xnx3/writecode">WriteCode自动生成</a>
 	 */
@@ -117,7 +117,14 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 	@RequestMapping(value = "save.json", method = {RequestMethod.POST})
 	public BaseVO save(
 			//@RequestParam(value = "id", required = false, defaultValue="0") int id,
-{foreach.field.edit}			@RequestParam(value = "{database.table.field.name.hump.lower}", required = false) {database.table.field.datatype.java.basic} {database.table.field.name.hump.lower},
+{foreach.field.edit}			{javascript}
+if('int,long,short,float,double'.indexOf('{database.table.field.datatype.java.basic}') > -1){
+	//要defaultValue=0
+	return '@RequestParam(value = "{database.table.field.name.hump.lower}", required = false, defaultValue="0") {database.table.field.datatype.java.basic} {database.table.field.name.hump.lower},';
+}else{
+	return '@RequestParam(value = "{database.table.field.name.hump.lower}", required = false) {database.table.field.datatype.java.basic} {database.table.field.name.hump.lower},';
+}
+{/javascript}
 {/foreach.field.edit}			HttpServletRequest request) {
 		// 创建一个实体
 		{database.table.name.hump.upper} entity;
@@ -133,8 +140,13 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 		}
 		
 		// 给实体赋值
-		{foreach.field.edit}entity.set{database.table.field.name.hump.upper}({database.table.field.name.hump.lower});
-			{/foreach.field.edit}
+		{foreach.field.edit}{javascript}
+			if('{database.table.field.name.hump.upper}' == 'Id'){
+				//如果是id，那不输出，修改时不会修改主键的
+			}else{
+				return '\n		entity.set{database.table.field.name.hump.upper}({database.table.field.name.hump.lower});';
+			}
+		{/javascript}{/foreach.field.edit}
 		// 保存实体
 		sqlService.save(entity);
 		

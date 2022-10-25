@@ -39,61 +39,60 @@
 </form>
 
 <script>
-
-	// 获取窗口索引
-	var index = parent.layer.getFrameIndex(window.name); 
-	// 获取记录id
-	var id = getUrlParams('id');
+// 获取窗口索引
+var index = parent.layer.getFrameIndex(window.name); 
+// 获取记录id
+var id = getUrlParams('id');
 	
-	/**
-	 * 保存
-	 */
-	function save() {
-		msg.loading("保存中");
-		// 表单序列化
-		var param = wm.getJsonObjectByForm($("form"));
-		
-		wm.post("{project.url.path}{database.table.name.hump.lower}/save.json", param, function(data) {
-			msg.close();
-			if (data.result == '1') {
-				parent.msg.success("操作成功")
-				parent.layer.close(index);
-				// 刷新父窗口
-				parent.location.reload();
-			} else if (data.result == '0') {
-				msg.failure(data.info);
-			} else {
-				msg.failure(result);
-			}
-		}, "text");
-
-		return false;
-	}
+/**
+ * 保存
+ */
+function save() {
+	msg.loading("保存中");
+	// 表单序列化
+	var param = wm.getJsonObjectByForm($("form"));
 	
-	/**
-	 * 加载数据
-	 */
-	function loadData() {
-		msg.loading("加载中");
-		wm.post("{project.url.path}{database.table.name.hump.lower}/details.json", {id : id}, function(data) {
-			msg.close();
-			if (data.result == '1') {
-				// 将接口获取到的数据自动填充到 form 表单中
-				wm.fillFormValues($('form'), data.{database.table.name.hump.lower});
-			} else if (data.result == '0') {
-				msg.failure(data.info);
-			} else {
-				msg.failure(result);
-			}
-		}, "text");
-	}
-	if(id != null && id > 0){
-		//编辑
-		loadData();
-	}else{
-		//新增
-		
-	}
+	wm.post("{project.url.path}{database.table.name.hump.lower}/save.json", param, function(data) {
+		msg.close();
+		if (data.result == '1') {
+			parent.msg.success("操作成功")
+			parent.layer.close(index);
+			// 刷新父窗口
+			parent.location.reload();
+		} else if (data.result == '0') {
+			msg.failure(data.info);
+		} else {
+			msg.failure(result);
+		}
+	}, "text");
+
+	return false;
+}
+
+/**
+ * 加载数据
+ */
+function loadData() {
+	msg.loading("加载中");
+	wm.post("{project.url.path}{database.table.name.hump.lower}/details.json", {id : id}, function(data) {
+		msg.close();
+		if (data.result == '1') {
+			// 将接口获取到的数据自动填充到 form 表单中
+			wm.fillFormValues($('form'), data.{database.table.name.hump.lower});
+		} else if (data.result == '0') {
+			msg.failure(data.info);
+		} else {
+			msg.failure(result);
+		}
+	}, "text");
+}
+if(id != null && id > 0){
+	//编辑
+	loadData();
+}else{
+	//新增
+	
+}
 	
 </script>
 
