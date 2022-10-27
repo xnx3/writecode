@@ -23,9 +23,9 @@ public class {database.table.name.hump.upper} implements java.io.Serializable{
 	private {database.table.field.datatype.java.object} {database.table.field.name.hump.lower};	//{database.table.field.comment.ignore.const} {javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '<ul>':'';{/javascript}{foreach.field.comment.const}<li>{database.table.field.comment.const.value} : {database.table.field.comment.const.explain}</li>{/foreach.field.comment.const}{javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '</ul>':'';{/javascript}{/foreach.field}
 
 {foreach.field}{javascript}
-	return {database.table.field.primaryKey}? '	@Id\n':'';
+	return '{database.table.field.primaryKey}'=='true'? '	@Id\n':'';
 {/javascript}{javascript}
-	return {database.table.field.autoIncrement}? '	@GeneratedValue(strategy = IDENTITY)\n':'';
+	return '{database.table.field.autoIncrement}'=='true'? '	@GeneratedValue(strategy = IDENTITY)\n':'';
 {/javascript}	@Column(name = "{database.table.field.name}", columnDefinition="{database.table.field.datatype}({database.table.field.length}) COMMENT '{database.table.field.comment}'")
 	public {database.table.field.datatype.java.object} get{database.table.field.name.hump.upper}() {
 		return {database.table.field.name.hump.lower};

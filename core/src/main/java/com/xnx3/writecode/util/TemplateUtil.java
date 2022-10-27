@@ -251,16 +251,21 @@ public class TemplateUtil {
 						Pattern pConst = Pattern.compile("\\{foreach\\.field\\.comment\\.const\\}([\\s|\\S]*?)\\{\\/foreach\\.field\\.comment\\.const\\}");
 						Matcher mConst = pConst.matcher(fieldString);
 						while (mConst.find()) {
-							String commentConstTemplate = mConst.group(1);
+							
+							System.out.println("find  "+mConst.group(1));
+							System.out.println("split  "+fieldCommentSplit(field.getComment()));
+							String commentConstTemplate = new String(mConst.group(1));
 							List<CommentConstBean> constList = getCommentConst(field.getComment());
 							
 							StringBuffer constStringBuffer = new StringBuffer();	//所有字段属性的集合字符串
 							for(int c = 0; c<constList.size(); c++){
 								CommentConstBean bean = constList.get(c);
 								
-								String str = new String(commentConstTemplate);
+								String str = commentConstTemplate;
+								System.out.println("ori str   "+str);
 								str = replaceAll(str, "{database.table.field.comment.const.value}", bean.getValue());
 								str = replaceAll(str, "{database.table.field.comment.const.explain}", bean.getExplain());
+								System.out.println("now str   "+str);
 								constStringBuffer.append(str);
 							}
 							fieldString = fieldString.replace("{foreach.field.comment.const}"+mConst.group(1)+"{/foreach.field.comment.const}", constStringBuffer.toString());
@@ -286,7 +291,7 @@ public class TemplateUtil {
 		if(fieldComment == null) {
 			return "";
 		}
-		return fieldComment.trim().split(",|，|。")[0];
+		return fieldComment.trim().split(",|，|。|\\]|\\[| ")[0];
 	}
 	
 	/**
@@ -335,6 +340,7 @@ public class TemplateUtil {
 		
 		for (int i = 0; i < items.length; i++) {
 			String item = items[i];
+			//System.out.println("item---  "+item);
 			String[] values = item.split("-");
 			if(values.length != 2) {
 				continue;
