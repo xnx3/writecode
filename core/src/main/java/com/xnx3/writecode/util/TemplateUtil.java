@@ -320,7 +320,7 @@ public class TemplateUtil {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(fieldCommentSplit("任命，公司名"));
+		System.out.println(getCommentConst("[1-男， 2-女]"));
 		
 	}
 	
@@ -337,7 +337,7 @@ public class TemplateUtil {
 		if(str == null) {
 			return list;
 		}
-		String[] items = str.split(",");
+		String[] items = str.split(",|，|；|;");
 		
 		for (int i = 0; i < items.length; i++) {
 			String item = items[i];

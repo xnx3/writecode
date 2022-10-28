@@ -122,12 +122,21 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 	public BaseVO save(
 			//@RequestParam(value = "id", required = false, defaultValue="0") int id,
 {foreach.field.edit}			{javascript}
-if('int,long,short,float,double'.indexOf('{database.table.field.datatype.java.basic}') > -1){
-	//要defaultValue=0
-	return '@RequestParam(value = "{database.table.field.name.hump.lower}", required = false, defaultValue="0") {database.table.field.datatype.java.basic} {database.table.field.name.hump.lower},';
-}else{
-	return '@RequestParam(value = "{database.table.field.name.hump.lower}", required = false) {database.table.field.datatype.java.basic} {database.table.field.name.hump.lower},';
-}
+	//默认是数据表中给出的默认值，如果数据表中没有给出默认值，那数字的就是0，字符串的就是空字符串
+	var defaultStr = '';
+	if('{database.table.field.default}' != 'null' && '{database.table.field.default}' != 'undefined' && '{database.table.field.default}' != ''){
+		defaultStr = '{database.table.field.default}'
+	}else{
+		//数据表设计中该字段没有设置默认值，那分字符型跟数字两种类型
+		if('int,long,short,float,double'.indexOf('{database.table.field.datatype.java.basic}') > -1){
+			//数字型的就赋予0
+			defaultStr = '0';
+		}else{
+			//字符串的就赋予空字符串
+			defaultStr = '';
+		}
+	}
+	return '@RequestParam(value = "{database.table.field.name.hump.lower}", required = false, defaultValue = "'+defaultStr+'") {database.table.field.datatype.java.basic} {database.table.field.name.hump.lower},';
 {/javascript}
 {/foreach.field.edit}			HttpServletRequest request) {
 		// 创建一个实体
