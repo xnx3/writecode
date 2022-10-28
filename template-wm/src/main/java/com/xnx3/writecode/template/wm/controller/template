@@ -32,17 +32,21 @@ public class {database.table.name.hump.upper}Controller extends BaseController {
 	/**
 	 * 列表信息
 	 * @param token 当前操作用户的登录标识
-	 * 			<p>可通过 <a href="xxxxx.html">/xxxx/login.json</a> 取得</p>
+	 * 			<p>可通过 <a href="xxxxx.html">/xxxx/login.json</a> 取得</p>{foreach.field.list.search}
+	 * @param {database.table.field.name} 搜索项，{database.table.field.comment.ignore.const} {javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '<ul>':'';{/javascript}{foreach.field.comment.const}<li>{database.table.field.comment.const.value} : {database.table.field.comment.const.explain}</li>{/foreach.field.comment.const}{javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '</ul>':'';{/javascript}{/foreach.field.list.search}
 	 * @param everyNumber 每页显示多少条数据。取值 1～100，
 	 * 			<p>最大显示100条数据，若传入超过100，则只会返回100条<p>
 	 * 			<p>若不传，默认显示15条</p>
+	 * @param currentPage 获取第几页的数据。若不传，默认请求第一页的数据
 	 * @return 若成功，则返回列表数据
 	 * @author <a href="https://github.com/xnx3/writecode">WriteCode自动生成</a>
 	 */
 	@ResponseBody
 	@RequestMapping(value = "list.json", method = {RequestMethod.POST})
-	public {database.table.name.hump.upper}ListVO list(HttpServletRequest request,
-			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber) {
+	public {database.table.name.hump.upper}ListVO list(
+			@RequestParam(value = "everyNumber", required = false, defaultValue = "15") int everyNumber,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "0") int currentPage,
+			HttpServletRequest request) {
 		{database.table.name.hump.upper}ListVO vo = new {database.table.name.hump.upper}ListVO();
 
 		// 创建Sql

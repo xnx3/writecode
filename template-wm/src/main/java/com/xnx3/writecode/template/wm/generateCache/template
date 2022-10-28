@@ -23,7 +23,7 @@ public class {database.table.name.hump.upper} extends BaseGenerate {
 			java = java + '	 * {database.table.field.comment.split}	\n';
 			java = java + '	 */\n';
 			java = java + '	public void {database.table.field.name.hump.lower}() {\n'
-			java = java + '		createCacheObject("{database.table.field.name.hump.lower}");';
+			java = java + '		createCacheObject("{database.table.field.name}");';
 			return java;
 		}
 {/javascript}{foreach.field.comment.const}

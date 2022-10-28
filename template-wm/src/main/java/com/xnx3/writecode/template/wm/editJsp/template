@@ -7,7 +7,7 @@
 </jsp:include>
 {foreach.field}{javascript}
 	if('{database.table.field.comment}'.indexOf('[')>-1 && '{database.table.field.comment}'.indexOf(']') > -1){
-		return '<script src="/<%=Global.CACHE_FILE %>{database.table.name.hump.upper}_{database.table.field.name.hump.lower}.js"></script>';
+		return '<script src="/<%=Global.CACHE_FILE %>{database.table.name.hump.upper}_{database.table.field.name}.js"></script>\n';
 	}
 {/javascript}{/foreach.field}
 <!-- 如果有id输入项，隐藏不显示出来 -->
@@ -22,7 +22,7 @@
 		<div class="layui-input-block">
 			{javascript}
 				if('{database.table.field.comment}'.indexOf('[')>-1 && '{database.table.field.comment}'.indexOf(']') > -1){
-					return '<script type="text/javascript">writeSelectAllOptionFor{database.table.field.name.hump.lower}_(\'\',\'请选择\', 0);</script>';
+					return '<script type="text/javascript">writeSelectAllOptionFor{database.table.field.name}_(\'\',\'请选择\', 0);</script>';
 				}else{
 					return '<input type="text" id="{database.table.field.name.hump.lower}" name="{database.table.field.name.hump.lower}" class="layui-input" value="" />';
 				}

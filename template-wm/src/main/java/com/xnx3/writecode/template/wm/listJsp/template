@@ -7,7 +7,7 @@
 </jsp:include>
 {foreach.field}{javascript}
 	if('{database.table.field.comment}'.indexOf('[')>-1 && '{database.table.field.comment}'.indexOf(']') > -1){
-		return '<script src="/<%=Global.CACHE_FILE %>{database.table.name.hump.upper}_{database.table.field.name.hump.lower}.js"></script>';
+		return '<script src="/<%=Global.CACHE_FILE %>{database.table.name.hump.upper}_{database.table.field.name}.js"></script>\n';
 	}
 {/javascript}{/foreach.field}
 <jsp:include page="/wm/common/list/formSearch_formStart.jsp"></jsp:include>
@@ -38,7 +38,7 @@
 			{foreach.field.list.table}<td>{javascript}
 				if('{database.table.field.comment}'.indexOf('[')>-1 && '{database.table.field.comment}'.indexOf(']') > -1){
 					//定义了常量的，需要select选择那种
-					return '{{{database.table.field.name.hump.lower}[item.{database.table.field.name.hump.lower}]}}';
+					return '{{{database.table.field.name}[item.{database.table.field.name.hump.lower}]}}';
 				}else{
 					//普通的，直接显示
 					return '{{item.{database.table.field.name.hump.lower}}}';
