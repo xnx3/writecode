@@ -156,7 +156,9 @@ public class TemplateUtil {
 //					System.out.println("--{code.javascript}"+m.group(1)+"{/code.javascript}--");
 					templateText = templateText.replace("{javascript}"+m.group(1)+"{/javascript}", result == null? "":(String)result);
 				} catch (NoSuchMethodException | ScriptException e) {
-					e.printStackTrace();
+					System.out.println("js error :");
+					System.out.println(jsTemplate);
+					//e.printStackTrace();
 				}
 			}
 			
