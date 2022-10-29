@@ -21,7 +21,7 @@ public class {database.table.name.hump.upper} implements java.io.Serializable{
 	public static final {database.table.field.datatype.java.object} {javascript}
 		var explainStr = '{database.table.field.comment.const.explain}';
 		//截取前四个字符
-		explainStr = explainStr.slice(0,4);
+		explainStr = explainStr.slice(0,8);
 		//转为拼音
 		var pinyinStr = pinyin.convert(explainStr);
 		return ('{database.table.field.name.hump.lower}_'+pinyinStr).toUpperCase();
