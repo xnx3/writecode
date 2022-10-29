@@ -75,7 +75,7 @@ writecode                           项目
 无论你是Java、PHP、还是Net语言，都可使用此来做自动化写代码模板适配。  
 
 ## 更多文档
-* [变量标签](else/tag.md)
-* [数据表的设计注意事项](else/database_table.md)
-* [在wm及网市场云建站系统中的深度集成使用](else/framework_wm.md)
-* [其他数据库的扩展，如 SqlServer、Oracle 等](else/datasource.md)
+* [变量标签](doc/tag.md)
+* [数据表的设计注意事项](doc/database_table.md)
+* [在wm及网市场云建站系统中的深度集成使用](doc/framework_wm.md)
+* [其他数据库的扩展，如 SqlServer、Oracle 等](doc/datasource.md)
