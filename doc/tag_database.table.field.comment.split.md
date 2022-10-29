@@ -12,7 +12,7 @@ CREATE TABLE `person` (
 ````
 
 那么在生成后的页面是这样的：  
-![image](images/database.table.field.comment.split.warning.png)
+![image](https://res.zvo.cn/writecode/database.table.field.comment.split.warning.png)
   
 姓名这个因为太长被挤破行了，明显不合适，还需要手动去页面修改显示的文字。  
 其实这也不说是一个错误的示范，只是还要手动去修改几个页面的显示，造成了时间的浪费，不可取  
@@ -29,7 +29,7 @@ CREATE TABLE `person` (
 
 生成后的效果：  
 
-![image](images/database.table.field.comment.split.normal.png)
+![image](https://res.zvo.cn/writecode/database.table.field.comment.split.normal.png)
   
 区别只是注释中，在原本的注释前面，加了一个简短的标题，然后用逗号进行了分割。
 

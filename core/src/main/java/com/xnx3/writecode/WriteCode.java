@@ -24,6 +24,7 @@ import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
 import com.xnx3.writecode.interfaces.SelectTableInterface;
 import com.xnx3.writecode.ui.MainJframe;
+import com.xnx3.writecode.util.SelfCheckUtil;
 import com.xnx3.writecode.util.TemplateUtil;
 import com.xnx3.ClassUtil;
 import com.xnx3.swing.DialogUtil;
@@ -155,6 +156,9 @@ public class WriteCode {
 	 * @param tableName 数据表的名字
 	 */
 	public void writeCode(TableBean tableBean) {
+		//进行自检,将不合适的数据表设计的地方输出提示
+		SelfCheckUtil.selfCheck(tableBean);
+		
 		String codeText = getCode(tableBean);
 		
 		//判断文件夹是否存在，不存在，则创建

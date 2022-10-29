@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class TableBean {
 	private String name;			//{database.table.name} 数据表的名字，如 user
-	private String comment;			//{database.table.comment} 数据表的备注，这个表是干什么的，如 用户表
+	private String comment;			//{database.table.comment} 数据表的备注，这个表是干什么的，如 用户表。如果未设置，默认赋予name
 	private List<FieldBean> fieldList;	 //字段列表
 	
 	private List<FieldBean> fieldEditList;	//新增、编辑页面中，给用户可编辑的字段列表。这个一般就是从ui自定义选择的
@@ -22,6 +22,9 @@ public class TableBean {
 		this.name = name;
 	}
 	public String getComment() {
+		if(this.comment == null || this.comment.equals("")) {
+			return name;
+		}
 		return comment;
 	}
 	public void setComment(String comment) {
