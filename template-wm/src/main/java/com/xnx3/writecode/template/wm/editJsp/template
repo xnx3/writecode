@@ -17,6 +17,7 @@
 <form id="form" class="layui-form"
 	style="padding-top: 35px; margin-bottom: 10px; padding-right: 35px;">
 
+    <!-- [tag-11] -->
 	{foreach.field.edit}<div class="layui-form-item" id="item_{database.table.field.name.hump.lower}">
 		<label class="layui-form-label">{database.table.field.comment.split}</label>
 		<div class="layui-input-block">

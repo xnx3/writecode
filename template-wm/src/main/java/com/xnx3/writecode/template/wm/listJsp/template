@@ -11,7 +11,7 @@
 	}
 {/javascript}{/foreach.field}
 <jsp:include page="/wm/common/list/formSearch_formStart.jsp"></jsp:include>
-{foreach.field.list.search}
+<!-- [tag-5] -->{foreach.field.list.search}
 <jsp:include page="/wm/common/list/formSearch_input.jsp">
 	<jsp:param name="iw_label" value="{database.table.field.comment.split}" />
 	<jsp:param name="iw_name" value="{database.table.field.name}" />
@@ -29,12 +29,14 @@
 <table class="layui-table iw_table">
 	<thead>
 		<tr>
+		    <!-- [tag-6] -->
 			{foreach.field.list.table}<th>{database.table.field.comment.split}</th>
 				{/foreach.field.list.table}<th>操作</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr v-for="item in list" id="list">
+		    <!-- [tag-7] -->
 			{foreach.field.list.table}<td>{javascript}
 				if('{database.table.field.comment}'.indexOf('[')>-1 && '{database.table.field.comment}'.indexOf(']') > -1){
 					//定义了常量的，需要select选择那种
