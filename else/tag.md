@@ -44,7 +44,7 @@ project. 开头的，是跟当前项目相关的。有：
 这些标签必须在 {foreach.field...} 这里面才能生效，才能循环输出。  
 
 * **{database.table.field.comment}** 数据表中，字段的注释
-* **{database.table.field.comment.split}** 数据表中，字段的注释的截取，截取,，。前部分的，作为标题，比如 addtime 字段的备注为 "添加时间，10位unix时间戳"  那么这个调取出的文字便是 "添加时间" 
+* **{database.table.field.comment.split}** 数据表中，字段的注释的截取，截取逗号（句号、分号也行）前部分的作为标题，比如 addtime 字段的备注为 "添加时间，10位unix时间戳"  那么这个调取出的文字便是 "添加时间" [查看详细说明](tag_database.table.field.comment.split.md)  
 * **{database.table.field.comment.ignore.const}** 字段注释，去掉常量标注。比如字段的注释为： ````性别，是男性还是女性。[1-男性, 2-女性] ```` 这个便只会输出 ````性别，是男性还是女性。````
 * **{database.table.field.name}** 数据表中，字段名。如 role_id
 * **{database.table.field.name.hump.lower}** 数据表中，字段名的小驼峰式命名。如本来是role_id，会输出为 roleId
