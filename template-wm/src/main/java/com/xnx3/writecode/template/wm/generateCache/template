@@ -27,7 +27,14 @@ public class {database.table.name.hump.upper} extends BaseGenerate {
 			return java;
 		}
 {/javascript}{foreach.field.comment.const}
-		cacheAdd({java.package}.entity.{database.table.name.hump.upper}.{javascript}return '{database.table.field.name.hump.lower}_{database.table.field.comment.const.value}'.toUpperCase();{/javascript}, "{database.table.field.comment.const.explain}");{/foreach.field.comment.const}{javascript}
+		cacheAdd({java.package}.entity.{database.table.name.hump.upper}.{javascript}
+			var explainStr = '{database.table.field.comment.const.explain}';
+			//截取前四个字符
+			explainStr = explainStr.slice(0,4);
+			//转为拼音
+			var pinyinStr = pinyin.convert(explainStr);
+			return ('{database.table.field.name.hump.lower}_'+pinyinStr).toUpperCase();
+		{/javascript}, "{database.table.field.comment.const.explain}");{/foreach.field.comment.const}{javascript}
 		if('{database.table.field.comment}'.indexOf('[')>-1 && '{database.table.field.comment}'.indexOf(']') > -1){
 			var java = '\n';
 			java = java + '		generateCacheFile();\n'
