@@ -77,5 +77,5 @@ writecode                           项目
 ## 更多文档
 * [变量标签](doc/tag.md)
 * [数据表的设计注意事项](doc/database_table.md)
-* [在wm及网市场云建站系统中的深度集成使用](doc/framework_wm.md)
+* [在wm及网市场云建站系统中的深度集成使用](template-wm/README.md)
 * [其他数据库的扩展，如 SqlServer、Oracle 等](doc/datasource.md)
