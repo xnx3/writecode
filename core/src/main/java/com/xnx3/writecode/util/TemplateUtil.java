@@ -292,7 +292,7 @@ public class TemplateUtil {
 		if(fieldComment == null) {
 			return "";
 		}
-		return fieldComment.trim().split(",|，|。|\\]|\\[| ")[0];
+		return fieldComment.trim().split(",|，|。|\\.|；|;|\\]|\\[| ")[0];
 	}
 	
 	/**
