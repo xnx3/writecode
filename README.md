@@ -61,10 +61,12 @@ writecode                           项目
 ├─core                              writecode的核心支持
 ├─datasource-mysql                  子项目-Mysql数据源的扩展实现
 ├─demo                              子项目-demo运行示例
-├─else                              其他的杂七杂八相关文件
+├─doc                               文档相关
 │  ├─images                         文档中的一些图片便是存在于此
+│  ├─video                          文档中的一些视频文件存在于此
+│  ├─datasource.md                  数据源的扩展，比如增加 SqlServer 数据源的对接
+│  ├─database_table.md              数据表设计相关说明及注意事项
 │  └─tag.md                         变量标签的文档
-├─template-springboot               子项目-针对SpringBoot的模板文件，如果你是springboot项目，可用此来一键生成实体类、controller等（待完善）
 ├─template-wm                       子项目-针对wm的模板文件，可自动生成wm框架的实体类、controller类、vo类、前端的列表页面、编辑页面等
 ├─pom.xml                           项目源代码 pom ( Maven )
 └─README.md                         说明
