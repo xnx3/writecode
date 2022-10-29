@@ -18,7 +18,14 @@ public class {database.table.name.hump.upper} implements java.io.Serializable{
 	/**
 	 * {database.table.field.comment.split} - {database.table.field.comment.const.explain}
 	 */
-	public static final {database.table.field.datatype.java.object} {javascript}return '{database.table.field.name.hump.lower}_{database.table.field.comment.const.value}'.toUpperCase();{/javascript} = {javascript}return '{database.table.field.datatype.java.object}'.toLowerCase() == 'string'? '"{database.table.field.comment.const.value}"':'{database.table.field.comment.const.value}'; {/javascript};{/foreach.field.comment.const}{/foreach.field}
+	public static final {database.table.field.datatype.java.object} {javascript}
+		var explainStr = '{database.table.field.comment.const.explain}';
+		//截取前四个字符
+		explainStr = explainStr.slice(0,4);
+		//转为拼音
+		var pinyinStr = pinyin.convert(explainStr);
+		return ('{database.table.field.name.hump.lower}_'+pinyinStr).toUpperCase();
+	{/javascript} = {javascript}return '{database.table.field.datatype.java.object}'.toLowerCase() == 'string'? '"{database.table.field.comment.const.value}"':'{database.table.field.comment.const.value}'; {/javascript};{/foreach.field.comment.const}{/foreach.field}
 {foreach.field}
 	private {database.table.field.datatype.java.object} {database.table.field.name.hump.lower};	//{database.table.field.comment.ignore.const} {javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '<ul>':'';{/javascript}{foreach.field.comment.const}<li>{database.table.field.comment.const.value} : {database.table.field.comment.const.explain}</li>{/foreach.field.comment.const}{javascript}return '{database.table.field.comment}'.indexOf('[')>-1? '</ul>':'';{/javascript}{/foreach.field}
 
