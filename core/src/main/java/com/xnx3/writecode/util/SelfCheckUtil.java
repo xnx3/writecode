@@ -21,6 +21,12 @@ public class SelfCheckUtil {
 	public static int FIELD_COMMENT_SPLIT_LENGTH = 5;	//自检 {database.table.field.comment.split} 的长度，不包含英文字母的情况下的长度，默认是5
 	public static int FIELD_COMMENT_SPLIT_ENGLISH_LENGTH = 12;	//自检 {database.table.field.comment.split} 的长度-包含英文字母情况下的长度，默认是10
 	
+	//key table.name value:随便一个1
+	public static Map<String, String> tableCache;
+	static {
+		tableCache = new HashMap<String, String>();
+	}
+	
 	/**
 	 * 控制台输出 warning 警告信息
 	 * @param text 输出的信息
@@ -40,6 +46,9 @@ public class SelfCheckUtil {
 	 * @param tableBean
 	 */
 	public static void selfCheck(TableBean tableBean) {
+		if(tableCache.get(tableBean.getName()) != null) {
+			return;
+		}
 		
 		//表注释
 		if(tableBean.getName().equals(tableBean.getComment())) {
@@ -81,6 +90,6 @@ public class SelfCheckUtil {
 			warning("请给 ["+tableBean.getName()+"] 表增加一个注释用于说明此表是做什么的");
 		}
 		
-		
+		tableCache.put(tableBean.getName(),"1");
 	}
 }
