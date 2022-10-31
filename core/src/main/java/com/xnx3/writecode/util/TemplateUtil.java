@@ -130,7 +130,7 @@ public class TemplateUtil {
 				
 			ScriptEngineManager manager = new ScriptEngineManager();
 			ScriptEngine engine = manager.getEngineByName("JavaScript");
-			engine = JavaScriptUtil.init(engine); //初始化相关支持
+			engine = JavaScriptUtil.loadExternalJS(engine, this.template.getExternalJS());  //初始化相关支持
 			
 			Pattern p = Pattern.compile("\\{javascript\\}([\\s|\\S]*?)\\{\\/javascript\\}");
 			Matcher m = p.matcher(templateText);

@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
 import com.xnx3.writecode.bean.Template;
+import com.xnx3.writecode.template.wm.BaseTemplate;
 import com.xnx3.writecode.template.wm.entity.EntityTemplate;
 
 /**
@@ -12,8 +13,9 @@ import com.xnx3.writecode.template.wm.entity.EntityTemplate;
  * @author 管雷鸣
  *
  */
-public class EditJspTemplate extends Template{
+public class EditJspTemplate extends BaseTemplate{
 	public EditJspTemplate() {
+		super.baseInit();
 		this.setTemplateFileName("edit.jsp.template");
 		this.setWriteFileName("edit.jsp");
 		this.setWriteFileAbsolutePath("{project.path.absolute}/src/main/webapp/{database.table.name.hump.lower}/list.jsp");

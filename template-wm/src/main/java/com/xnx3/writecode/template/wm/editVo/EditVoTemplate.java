@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
 import com.xnx3.writecode.bean.Template;
+import com.xnx3.writecode.template.wm.BaseTemplate;
 import com.xnx3.writecode.template.wm.entity.EntityTemplate;
 
 /**
@@ -12,8 +13,9 @@ import com.xnx3.writecode.template.wm.entity.EntityTemplate;
  * @author 管雷鸣
  *
  */
-public class EditVoTemplate extends Template{
+public class EditVoTemplate extends BaseTemplate{
 	public EditVoTemplate() {
+		super.baseInit();
 		this.setTemplateFileName("vo.template");
 		this.setWriteFileName("{database.table.name.hump.upper}VO.java");
 		try {

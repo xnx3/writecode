@@ -1,5 +1,6 @@
 package com.xnx3.writecode.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.xnx3.writecode.interfaces.TemplateTagExtendInterface;
@@ -38,6 +39,11 @@ public class Template {
 	//默认的模板内容，也就是打包在jar中的template文件
 	private String defaultTemplateText;
 	
+	/*
+	 * 引入外部三方js。设置时传入的是js的url
+	 */
+	public List<String> externalJS;	
+	
 	public Template() {
 	}
 	
@@ -69,6 +75,10 @@ public class Template {
 		}
 		if(this.getDefaultTemplateText() != null) {
 			template.defaultTemplateText = new String(this.getDefaultTemplateText());
+		}
+		if(this.getExternalJS() != null) {
+			template.externalJS = new ArrayList<String>();
+			template.externalJS.addAll(this.getExternalJS());
 		}
 		
 		return template;
@@ -154,6 +164,21 @@ public class Template {
 		this.defaultTemplateText = defaultTemplateText;
 	}
 
+	/**
+	 * 加载外部的js。引入一些外部js资源
+	 * @return
+	 */
+	public List<String> getExternalJS() {
+		return externalJS;
+	}
+	
+	/**
+	 * 加载外部的js。引入一些外部js资源的url，如： http://res.zvo.cn/pinyin/pinyin.js
+	 * @param externalJS 
+	 */
+	public void setExternalJS(List<String> externalJS) {
+		this.externalJS = externalJS;
+	}
 
 	@Override
 	public String toString() {

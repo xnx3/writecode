@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
 import com.xnx3.writecode.bean.Template;
+import com.xnx3.writecode.template.wm.BaseTemplate;
 import com.xnx3.writecode.template.wm.entity.EntityTemplate;
 
 /**
@@ -12,8 +13,9 @@ import com.xnx3.writecode.template.wm.entity.EntityTemplate;
  * @author 管雷鸣
  *
  */
-public class ControllerTemplate extends Template{
+public class ControllerTemplate extends BaseTemplate{
 	public ControllerTemplate() {
+		super.baseInit();
 		this.setTemplateFileName("controller.template");
 		this.setWriteFileName("{database.table.name.hump.upper}Controller.java");
 		try {

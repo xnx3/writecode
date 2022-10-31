@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
 import com.xnx3.writecode.bean.Template;
+import com.xnx3.writecode.template.wm.BaseTemplate;
 import com.xnx3.writecode.template.wm.entity.EntityTemplate;
 
 /**
@@ -12,8 +13,9 @@ import com.xnx3.writecode.template.wm.entity.EntityTemplate;
  * @author 管雷鸣
  *
  */
-public class ListJspTemplate extends Template{
+public class ListJspTemplate extends BaseTemplate{
 	public ListJspTemplate() {
+		super.baseInit();
 		this.setTemplateFileName("list.jsp.template");
 		this.setWriteFileName("list.jsp");
 		this.setWriteFileAbsolutePath("{project.path.absolute}/src/main/webapp/{database.table.name.hump.lower}/list.jsp");
