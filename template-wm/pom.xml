@@ -6,7 +6,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
 	<groupId>com.xnx3.writecode</groupId>
 	<artifactId>template.wm</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 	<packaging>jar</packaging>
 
 	<name>writecode-template-wm</name>
@@ -150,6 +150,17 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 			<groupId>com.xnx3.writecode</groupId>
 			<artifactId>datasource.mysql</artifactId>
 			<version>1.0</version>
+			<exclusions>
+	          <exclusion>
+				<groupId>com.xnx3.writecode</groupId>
+				<artifactId>core</artifactId>
+	          </exclusion>
+	      	</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.xnx3.writecode</groupId>
+			<artifactId>core</artifactId>
+			<version>1.1</version>
 		</dependency>
 		
 		<!-- 加入wm，关于wm具体可参考 http://wm.zvo.cn -->
