@@ -167,7 +167,7 @@ public class WriteCode {
 			file.mkdirs();
 		}
 		
-		System.out.println("生成: "+this.template.getWriteFileAbsolutePath()+this.template.getWriteFileName());
+		System.out.println("Write File : "+this.template.getWriteFileAbsolutePath()+this.template.getWriteFileName());
 		FileUtil.write(this.template.getWriteFileAbsolutePath()+this.template.getWriteFileName(), codeText);
 	}
 	
