@@ -120,33 +120,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	
 	
 	<dependencies>
+		<!-- 加入 mysql数据源的writecode  -->
 		<dependency>
-			<groupId>com.xnx3.wangmarket.wm</groupId>
-			<artifactId>wm</artifactId>
-			<version>2.10</version>
+			<groupId>com.xnx3.writecode</groupId>
+			<artifactId>core</artifactId>
+			<version>1.1</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>com.xnx3.writecode</groupId>
 			<artifactId>datasource.mysql</artifactId>
 			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.xnx3.writecode</groupId>
-			<artifactId>template.wm</artifactId>
-			<version>1.0</version>
-		</dependency>
-		
-		<dependency>
-		  <groupId>com.xnx3</groupId>
-		  <artifactId>xnx3</artifactId>
-		  <version>2.6</version>
-		  <exclusions>
-	          <exclusion>
-	              <groupId>*</groupId>
-	              <artifactId>*</artifactId>
-	          </exclusion>
-	      </exclusions>
 		</dependency>
 	</dependencies>
 	

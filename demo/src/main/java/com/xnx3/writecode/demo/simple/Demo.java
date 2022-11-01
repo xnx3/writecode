@@ -1,10 +1,9 @@
-package com.xnx3.writecode.demo;
+package com.xnx3.writecode.demo.simple;
 
 import com.xnx3.writecode.WriteCode;
 import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.datasource.Mysql;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
-import com.xnx3.writecode.template.wm.entity.EntityTemplate;
 
 /**
  * 最简单的入门使用
@@ -21,14 +20,13 @@ public class Demo {
 		
 		//指定数据源为 Mysql
 		DataSourceInterface dataSource = new Mysql(host, port, databaseName, username, password);
-		//指定生成模板为wm框架的实体类
-		Template template = new EntityTemplate();
-//		Template template = new VoTemplate();
+		//指定生成模板
+		Template template = new Template();
+		template.setTemplateFileName("demo.template");	//生成文件的模板
+		template.setWriteFileName("demo.txt"); 		//写出文件的名字
 		
-		//进行生成代码
+		//选择相应数据表-写出代码
 		WriteCode code = new WriteCode(dataSource, template);
 		code.writeEntityCodeBySelectTableUI();
-//		System.out.println(code.getCode("system"));
-		//System.exit(0);
 	}
 }

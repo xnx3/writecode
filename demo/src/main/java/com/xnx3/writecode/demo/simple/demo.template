@@ -1,0 +1,18 @@
+===== 输出当前数据表的信息 =====
+数据表的名字：{database.table.name}
+数据表的备注：{database.table.comment}
+
+===== 输出数据表内的所有字段 =====
+{foreach.field}
+字段名：{database.table.field.name.hump.lower} , 字段的小驼峰名字：{database.table.field.name.hump.lower}  ，字段备注：{database.table.field.comment}
+{/foreach.field}
+
+===== javascript 脚本使用示例-输出数据表名字的前两个字符： =====
+{javascript}
+	var str = '{database.table.name}'; //取数据表名字
+	str = str.slice(0,2);	//截取前两个字符
+	return str;	//将截取的前两个字符写出
+{/javascript}
+
+===== 支持的标签详细说明 =====
+https://gitee.com/mail_osc/writecode/blob/master/doc/tag.md
