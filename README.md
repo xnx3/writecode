@@ -3,11 +3,10 @@
 曾思考过，为了少写代码、提高效率，而花时间去学习某款框架，这一来一回，是否真的值得？而且框架更新换代这么快，学了一个又一个... **而我们最初的想法是将写代码的时间减少，效率更高**，无需投入精力学习它，拿来直接使用，才是我们需要的。  
 
 
-## DEMO示例
-1. 直接运行 ````demo/src/main/java/com/xnx3/writecode/demo/simple/Demo.java```` 
-2. 选择数据表，自动写出代码
-  
-![image.png](https://res.zvo.cn/writecode/simple_demo.gif) 
+## 快速跑通Demo
+1. 打开 ````demo/src/main/java/com/xnx3/writecode/demo/simple/Demo.java```` 
+2. 配置好mysql连接信息
+3. 运行。即可看到如下图：![image.png](https://res.zvo.cn/writecode/simple_demo.gif) 
 
 ## 目录结构
 
