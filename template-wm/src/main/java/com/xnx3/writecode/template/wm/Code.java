@@ -10,7 +10,6 @@ import com.xnx3.writecode.datasource.Mysql;
 import com.xnx3.writecode.interfaces.DataSourceInterface;
 import com.xnx3.writecode.interfaces.SelectTableInterface;
 import com.xnx3.writecode.template.wm.controller.ControllerTemplate;
-import com.xnx3.writecode.template.wm.controller.ControllerTemplateTagExtend;
 import com.xnx3.writecode.template.wm.editJsp.EditJspTemplate;
 import com.xnx3.writecode.template.wm.editVo.EditVoTemplate;
 import com.xnx3.writecode.template.wm.entity.EntityTemplate;
@@ -31,7 +30,7 @@ public class Code {
 	static String password = "111111";	//数据库登录密码
 	
 	//指定数据源为 Mysql
-	static DataSourceInterface dataSource;
+	public static DataSourceInterface dataSource;
 	
 	//指定生成到哪个包 ,入 com.xnx3.core
 	private String packageName;

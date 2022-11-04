@@ -1,12 +1,8 @@
 package com.xnx3.writecode.template.wm.entity;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import com.xnx3.FileUtil;
 import com.xnx3.StringUtil;
-import com.xnx3.microsoft.File;
-import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.template.wm.BaseTemplate;
 
 /**

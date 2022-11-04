@@ -6,18 +6,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
 	<groupId>com.xnx3.writecode</groupId>
 	<artifactId>template.wm</artifactId>
-	<version>1.1</version>
+	<version>1.1.1</version>
 	<packaging>jar</packaging>
 
 	<name>writecode-template-wm</name>
 	<description>自动写代码，自动生成实体类、增删查改等代码</description>
 	<url>https://github.com/xnx3/writecode</url>
-
-	<parent>
-		<groupId>com.xnx3.wangmarket.wm</groupId>
-		<artifactId>parent</artifactId>
-		<version>2.11.2</version>
-	</parent>
 
 	<licenses>
 		<license>
@@ -143,24 +137,25 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         </profile>
     </profiles>
 	
-	
 	<dependencies>
 		<!-- 加入 mysql数据源的writecode  -->
 		<dependency>
 			<groupId>com.xnx3.writecode</groupId>
 			<artifactId>datasource.mysql</artifactId>
-			<version>1.0</version>
-			<exclusions>
-	          <exclusion>
-				<groupId>com.xnx3.writecode</groupId>
-				<artifactId>core</artifactId>
-	          </exclusion>
-	      	</exclusions>
+			<version>1.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.xnx3.writecode</groupId>
 			<artifactId>core</artifactId>
-			<version>1.1</version>
+			<version>1.1.1</version>
+		</dependency>
+		
+		<!-- springboot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.6.1</version>
+			<scope>provided</scope>
 		</dependency>
 		
 		<!-- 加入wm，关于wm具体可参考 http://wm.zvo.cn -->
