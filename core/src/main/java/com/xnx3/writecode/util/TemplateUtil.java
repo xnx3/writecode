@@ -127,15 +127,21 @@ public class TemplateUtil {
 		/**** {javascript} ****/
 		if(templateText.indexOf("{javascript}") > -1) {
 			//如果 {javascript} 存在，则需要替换
-				
+			
 			ScriptEngineManager manager = new ScriptEngineManager();
 			ScriptEngine engine = manager.getEngineByName("JavaScript");
+			try {
+				engine.eval("var console = {log:function(){}}");
+			} catch (ScriptException e) {
+				System.out.println(e.getMessage());
+			}
+			
 			engine = JavaScriptUtil.loadExternalJS(engine, this.template.getExternalJS());  //初始化相关支持
 			
 			Pattern p = Pattern.compile("\\{javascript\\}([\\s|\\S]*?)\\{\\/javascript\\}");
 			Matcher m = p.matcher(templateText);
 			while (m.find()) {
-				String jsTemplate = m.group(1);	//全局变量的name
+				String jsTemplate = m.group(1);	//{javascript}{/javascript}中的内容
 				//System.out.println("jsTemplate:"+jsTemplate);
 				
 				//如果第一个字符是换行符，那就删掉
@@ -147,6 +153,19 @@ public class TemplateUtil {
 					jsTemplate = jsTemplate.substring(0, jsTemplate.length()-1);
 				}
 				
+				//寻找其中有没有{include=http://xxxxx.js}存在, 同wangmarket的语法一样，只不过这里是引入的网络js资源，支持https:// 及 http://
+				Pattern includeP = Pattern.compile("\\{include=(.*?)\\}");
+				Matcher includeM = includeP.matcher(jsTemplate);
+				while (includeM.find()) {
+					String url = includeM.group(1);	//取得的url
+
+					List<String> jsList = new ArrayList<String>();
+					jsList.add(url);
+					engine = JavaScriptUtil.loadExternalJS(engine, jsList);  //加载js
+
+					//移除{include}标签，避免js执行失败
+					jsTemplate = jsTemplate.replace("{include="+url+"}", "");
+				}
 				
 				String js = "function writecode(){ "+jsTemplate+" }";
 				Invocable inv = (Invocable) engine;
@@ -155,7 +174,7 @@ public class TemplateUtil {
 					Object result = (Object) inv.invokeFunction("writecode");
 //					System.out.println("jsTemplate "+jsTemplate+" : " + result);
 //					System.out.println("--{code.javascript}"+m.group(1)+"{/code.javascript}--");
-					templateText = templateText.replace("{javascript}"+m.group(1)+"{/javascript}", result == null? "":(String)result);
+					templateText = templateText.replace("{javascript}"+m.group(1)+"{/javascript}", result == null? "":result.toString());
 				} catch (NoSuchMethodException | ScriptException e) {
 					System.out.println("js error :");
 					System.out.println(jsTemplate);

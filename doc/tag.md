@@ -75,18 +75,17 @@ PRIMARY KEY
 
 
 ## javascript 支持
-
 ````
 {javascript}
-if(true){
 	return '输出的内容';
-}
 {/javascript}
 ````
 
-可执行javascript脚本，如进行逻辑判断输出、字符串剪裁、组合等更多扩展。  
+可执行 javascript 脚本，支持原生javascript命令，如进行逻辑判断输出、字符串剪裁、组合等更多扩展。  
 其中 return 的字符串，便是要显示输出的字符串  
-本标签可以直接用，也可以放到 {foreach.field...} 这些循环输出中使用。  
+本标签可以直接用，也可以放到 {foreach.field...} 这些循环输出中使用。 
+ 
+#### 结合 {foreach.field...} 使用示例
 使用方式如：  
 	
 ````
@@ -109,4 +108,19 @@ if('{database.table.field.name}' == 'id'){
 字段名:addtime
 ````
 
+#### 支持引入网络js库
+比如文字转拼音的js库url为 : http://res.zvo.cn/pinyin/pinyin.js 那么可以使用 {include=http://res.zvo.cn/pinyin/pinyin.js} 来直接引入网络中的js库。具体代码示例如下：
 
+````
+{javascript}{include=http://res.zvo.cn/pinyin/pinyin.js}
+	var str = pinyin.convert('你好');	//利用 pinyin.js 中的方法，将文字转为拼音
+	str = str.toUpperCase();	//将其转换为大写
+	return str;	//输出返回
+{/javascript}
+````
+
+输出：
+
+````
+NIHAO
+````

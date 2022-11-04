@@ -24,6 +24,7 @@ public class BaseTemplate extends Template{
 		//加入三方js
 		List<String> jsList = new ArrayList<String>();
 		jsList.add("http://res.zvo.cn/pinyin/pinyin.js");
+		//jsList.add("http://res.zvo.cn/translate/translate.js");
 		this.setExternalJS(jsList);
 		
 	}
