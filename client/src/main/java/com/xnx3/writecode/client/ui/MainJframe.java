@@ -76,7 +76,7 @@ public class MainJframe extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Mysql"}));
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"template-wm"}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"demo", "template-wm"}));
 		
 		JButton btnNewButton = new JButton("配置连接信息");
 		btnNewButton.addActionListener(new ActionListener() {

@@ -13,12 +13,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	<description>自动写代码，自动生成实体类、增删查改等代码</description>
 	<url>https://github.com/xnx3/writecode</url>
 
-	<parent>
-	  	<groupId>com.xnx3.writecode</groupId>
-		<artifactId>parent</artifactId>
-		<version>1.0</version>
-	</parent>
-
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -124,7 +118,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		<dependency>
 			<groupId>com.xnx3.writecode</groupId>
 			<artifactId>datasource.mysql</artifactId>
-			<version>1.0</version>
+			<version>1.1.1</version>
 		</dependency>
 	</dependencies>
 	
