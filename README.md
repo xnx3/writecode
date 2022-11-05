@@ -32,7 +32,7 @@
 1. [wm快速开发框架 wm.zvo.cn ，使用说明：template-wm/README.md](template-wm/README.md)  
   
 如果您是某个开源框架作者，欢迎联系我们，帮你免费定制符合您框架的自动写代码模板！   
-无论你是Java、PHP、还是Net语言，都可使用此来做自动化写代码模板适配。   
+无论你是Java、PHP、还是Net语言，都可使用此来做自动化写代码模板适配。（其他语音可以用，是因为我们含有桌面运行客户端软件）     
 [详细说明请查阅文档： doc/framework_extend_join.md](doc/framework_extend_join.md)  
 
 ## 目录结构
@@ -57,7 +57,7 @@ writecode                           项目
 
 ## 交流联系
 作者：管雷鸣  
-QQ群：734884615
-作者微信：xnx3com
-微信公众号：wangmarket
+QQ群：734884615  
+作者微信：xnx3com  
+微信公众号：wangmarket  
 
