@@ -1,18 +1,18 @@
 适用于 [wm快速开发的](http://wm.zvo.cn) 增加自动写代码的demo示例  
 
 ## 前提条件
-#### wm v2.24 及更高版本
-可直接使用，无须什么准备，因为在你使用的这个父类中就已经加入了
+pom.xml文件进行更改
+#### 1. 升级parent到v2.25及以上版本
 
 ````
 <parent>
     <groupId>com.xnx3.wangmarket.wm</groupId>
     <artifactId>parent</artifactId>
-    <version>2.24</version>
+    <version>2.25</version>
 </parent>
 ````
 
-#### wm v2.24 以前的版本
+#### 2. 升级wm 到 v2.24 及以上版本
 需要先将wm升级到 wm v2.24版本。具体pom.xml 更改如下，增加这两个引入
 
 ````
@@ -21,13 +21,6 @@
 	<groupId>com.xnx3.wangmarket.wm</groupId>
 	<artifactId>wm</artifactId>
 	<version>2.24</version>
-</dependency>
-<!-- writecode 自动写代码 http://gitee.com/mail_osc/writecode -->
-<dependency>
-  <groupId>com.xnx3.writecode</groupId>
-  <artifactId>template.wm</artifactId>
-  <version>1.1</version>
-  <scope>provided</scope>
 </dependency>
 ````
 

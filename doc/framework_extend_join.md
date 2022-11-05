@@ -13,12 +13,12 @@
 <dependency>
 	<groupId>com.xnx3.writecode</groupId>
 	<artifactId>core</artifactId>
-	<version>1.1</version>
+	<version>1.1.1</version>
 </dependency>
 <dependency>
 	<groupId>com.xnx3.writecode</groupId>
 	<artifactId>datasource.mysql</artifactId>
-	<version>1.0</version>
+	<version>1.1.1</version>
 </dependency>
 ````
 

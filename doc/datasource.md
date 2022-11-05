@@ -15,5 +15,6 @@ DataSourceInterface dataSource = new Mysql(host, port, databaseName, username, p
 ````
 
 ## 其他数据源的扩展
-如果您使用的时 Oracle、SqlServer 等数据源，可以进行相关数据源的扩展。当然，扩展也非常简单，您完全可以参考 [datasource-mysql](https://github.com/xnx3/writecode/tree/master/datasource-mysql) 来进行创建即可  
+如果您使用的时 Oracle、SqlServer 等数据源，可以进行相关数据源的扩展。当然，扩展也非常简单，您完全可以参考 [datasource-mysql](/datasource-mysql) 来进行创建即可。  
+其实就是一个实现了 [com.xnx3.writecode.interfaces.DataSourceInterface](/core/src/main/java/com/xnx3/writecode/interfaces/DataSourceInterface.java) 接口的Java类而已。 [可以完全参考mysql的这个实现来](/datasource-mysql/src/main/java/com/xnx3/writecode/datasource/Mysql.java)  
 如果您有扩展其他数据源，欢迎提交pull合并过来，一起丰富本项目。
