@@ -22,7 +22,7 @@
 </dependency>
 ````
 
-[如果maven拉取不下来，可参考 doc/mven_repository.md](mven_repository.md)
+[如果maven拉取不下来，可参考 doc/maven_repository.md](maven_repository.md)
 
 ### 第二步，定制生成的模板
 可直接参考 ````demo/src/main/java/com/xnx3/writecode/demo/simple/Demo.java````   
