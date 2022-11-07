@@ -24,6 +24,9 @@ pom.xml文件进行更改
 </dependency>
 ````
 
+#### 异常情况
+[如果maven拉取不下来，可参考 doc/mven_repository.md](mven_repository.md)
+
 ## 第一步，设计数据表
 数据表设计注意事项，可参见： [database_table.md](../doc/database_table.md)
 

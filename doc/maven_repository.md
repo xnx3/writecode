@@ -1,0 +1,38 @@
+如果你maven拉取时出现失败、404找不到文件 等拉不下来的情况，pom.xml 中可增加以下 repository 设置
+
+````
+<repositories>
+	<repository>
+        <id>maven-ali</id>
+        <url>https://maven.aliyun.com/repository/public</url>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+            <checksumPolicy>fail</checksumPolicy>
+        </snapshots>
+    </repository>
+    <repository>
+	    <snapshots>
+	        <enabled>false</enabled>
+	    </snapshots>
+	    <id>central</id>
+	    <name>bintray</name>
+	    <url>http://jcenter.bintray.com</url>
+	</repository>
+	<repository>
+        <id>maven-guanfang</id>
+        <url>https://repo1.maven.org/maven2/</url>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+            <checksumPolicy>fail</checksumPolicy>
+        </snapshots>
+	</repository>
+</repositories>
+````

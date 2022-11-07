@@ -22,6 +22,8 @@
 </dependency>
 ````
 
+[如果maven拉取不下来，可参考 doc/mven_repository.md](mven_repository.md)
+
 ### 第二步，定制生成的模板
 可直接参考 ````demo/src/main/java/com/xnx3/writecode/demo/simple/Demo.java````   
 一个框架中，需要生成的文件肯定是有多个，比如实体类、控制器、列表页面、编辑页面...等，如此，每个需要生成的页面，也就类似于上面的Demo，需要写多个。这个可以参考[wm框架的生成](https://gitee.com/mail_osc/writecode/blob/master/template-wm/src/main/java/com/xnx3/writecode/template/wm/Code.java)
