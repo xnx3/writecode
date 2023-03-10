@@ -71,6 +71,7 @@ public class WriteCode {
 	 * 获取某个表自动生成的代码
 	 * @param tableName 数据表的名字
 	 * @return 实体类的java代码
+	 * @throws IOException 
 	 */
 	public String getCode(TableBean tableBean) {
 		TemplateUtil templateUtil = new TemplateUtil();
@@ -158,7 +159,6 @@ public class WriteCode {
 	public void writeCode(TableBean tableBean) {
 		//进行自检,将不合适的数据表设计的地方输出提示
 		SelfCheckUtil.selfCheck(tableBean);
-		
 		String codeText = getCode(tableBean);
 		
 		//判断文件夹是否存在，不存在，则创建

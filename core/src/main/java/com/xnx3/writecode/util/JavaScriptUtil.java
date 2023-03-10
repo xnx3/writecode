@@ -1,5 +1,6 @@
 package com.xnx3.writecode.util;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,9 +8,9 @@ import java.util.Map;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
-import com.xnx3.net.HttpResponse;
-import com.xnx3.net.HttpUtil;
-import com.xnx3.net.HttpsUtil;
+
+import cn.zvo.http.Http;
+import cn.zvo.http.Response;
 
 /**
  * js 相关
@@ -25,8 +26,9 @@ public class JavaScriptUtil {
 	
 	/**
 	 * 加载js的资源文件 （url）
+	 * @throws IOException 
 	 */
-	public static ScriptEngine loadExternalJS(ScriptEngine engine, List<String> jsUrlList) {
+	public static ScriptEngine loadExternalJS(ScriptEngine engine, List<String> jsUrlList) throws IOException {
 		if(jsUrlList == null || jsUrlList.size() == 0) {
 			return engine;
 		}
@@ -41,22 +43,12 @@ public class JavaScriptUtil {
 				//没有缓存，那就拉取
 				
 				//http://res.zvo.cn/pinyin/pinyin.js?form=writecode
-				if(url.indexOf("http://") > -1) {
-					//http
-					HttpUtil http = new HttpUtil();
-					HttpResponse hr = http.get(url);
-					if(hr.getCode() == 200) {
-						text = hr.getContent();
-					}
-				}else {
-					//https
-					
-					HttpsUtil https = new HttpsUtil();
-					HttpResponse hr = https.get(url);
-					if(hr.getCode() == 200) {
-						text = hr.getContent();
-					}
+				Http http = new Http();
+				Response res = http.get(url);
+				if(res.getCode() == 200) {
+					text = res.getContent();
 				}
+				
 				if(text.length() == 0) {
 					System.err.println("加载外部js资源文件失败:"+url);
 				}else {

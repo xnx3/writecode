@@ -6,6 +6,7 @@ import com.xnx3.writecode.bean.TableBean;
 import com.xnx3.writecode.bean.Template;
 import com.xnx3.writecode.interfaces.TemplateTagExtendInterface;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -76,6 +77,7 @@ public class TemplateUtil {
 	 * 传入数据表的名字，输出这个数据表的实体类内容
 	 * @param TableBean 数据表的结构信息
 	 * @return 这个数据表的实体类内容
+	 * @throws IOException 
 	 */
 	public String template(TableBean tableBean){
 		//全局方面
@@ -136,7 +138,11 @@ public class TemplateUtil {
 				System.out.println(e.getMessage());
 			}
 			
-			engine = JavaScriptUtil.loadExternalJS(engine, this.template.getExternalJS());  //初始化相关支持
+			try {
+				engine = JavaScriptUtil.loadExternalJS(engine, this.template.getExternalJS());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}  //初始化相关支持
 			
 			Pattern p = Pattern.compile("\\{javascript\\}([\\s|\\S]*?)\\{\\/javascript\\}");
 			Matcher m = p.matcher(templateText);
@@ -161,7 +167,11 @@ public class TemplateUtil {
 
 					List<String> jsList = new ArrayList<String>();
 					jsList.add(url);
-					engine = JavaScriptUtil.loadExternalJS(engine, jsList);  //加载js
+					try {
+						engine = JavaScriptUtil.loadExternalJS(engine, jsList);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}  //加载js
 
 					//移除{include}标签，避免js执行失败
 					jsTemplate = jsTemplate.replace("{include="+url+"}", "");

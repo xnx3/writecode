@@ -6,7 +6,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
 	<groupId>com.xnx3.writecode</groupId>
 	<artifactId>core</artifactId>
-	<version>1.1.1</version>
+	<version>1.2</version>
 	<packaging>jar</packaging>
 
 	<name>writecode-core</name>
@@ -117,12 +117,19 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 		<dependency> 
 			<groupId>com.xnx3.util</groupId>
 			<artifactId>xnx3-util</artifactId>
-			<version>1.10</version>
+			<version>1.14</version>
 		</dependency>
 		<dependency>
 			<groupId>com.xnx3.swing</groupId>
 			<artifactId>xnx3-swing</artifactId>
 			<version>1.1</version>
+		</dependency>
+		
+		<!-- http/https请求工具 https://github.com/xnx3/http.java -->
+		<dependency> 
+			<groupId>cn.zvo.http</groupId>
+			<artifactId>http</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 	
