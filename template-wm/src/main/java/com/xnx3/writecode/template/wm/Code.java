@@ -23,11 +23,11 @@ import com.xnx3.writecode.util.ClassUtil;
  * @author 管雷鸣
  */
 public class Code {
-	static String host = "local.mysql.leimingyun.com";	//主机，可以填写域名或ip
-	static int port = 3306;			//端口号
-	static String databaseName = "wangmarket"; //数据表的名字
-	static String username = "root"; 	//数据库登录用户名
-	static String password = "111111";	//数据库登录密码
+	public static String host = "local.mysql.leimingyun.com";	//主机，可以填写域名或ip
+	public static int port = 3306;			//端口号
+	public static String databaseName = "wangmarket"; //数据表的名字
+	public static String username = "root"; 	//数据库登录用户名
+	public static String password = "111111";	//数据库登录密码
 	
 	//指定数据源为 Mysql
 	public static DataSourceInterface dataSource;
@@ -50,6 +50,13 @@ public class Code {
 		dataSource = new Mysql(ip, port, databaseName, username, password);
 	}
 	
+	/**
+	 * 设置 mysql 链接的端口号，默认不设置是 3306
+	 * 这个要在 new Code() 之前设置，new Code() 的时候会初始化创建mysql链接
+	 */
+	public static void setPort(int port) {
+		Code.port = port;
+	}
 	
 	public void write() {
 		
